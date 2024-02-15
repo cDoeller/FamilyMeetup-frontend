@@ -4,21 +4,21 @@ import { Link } from "react-router-dom";
 function NavBar() {
   return (
     <nav>
-      <div>
+      <div className="nav-logo-wrapper">
         <Link to="/">
           <img
             src="https://static-00.iconduck.com/assets.00/spotify-icon-2048x2048-5gqpkwih.png"
             alt=""
-            width="50px"
+            className="nav-logo-image"
           />
         </Link>
       </div>
-      <div>
+      <div className="nav-user-wrapper">
         <Link to="#">
-          <button>sign up</button>
+          <button className="nav-user-button">register</button>
         </Link>
         <Link to="#">
-          <button>log in</button>
+          <button className="nav-user-button">sign in</button>
         </Link>
       </div>
     </nav>
