@@ -6,6 +6,7 @@ h3,
 ul,
 ol,
 div,
+p,
 a {
   padding: 0;
   margin: 0;
@@ -32,7 +33,7 @@ nav {
 }
 
 .nav-logo-wrapper {
-  width: 80px;
+  width: 100px;
 }
 .nav-logo-image {
   width: 100%;
@@ -78,6 +79,10 @@ nav {
   border: none;
   font-size: 1rem;
   margin-bottom: 40px;
+  background-color: rgb(247, 247, 247);
+  border: solid 2px;
+  border-color: yellow blueviolet green pink;
+
 }
 
 .homepage-random-events-wrapper {
@@ -85,7 +90,6 @@ nav {
 }
 
 .random-filter-events-wrapper {
-  background-color: lightgray;
   padding: 2rem 2rem 3rem 3rem;
   display: flex;
   gap: 0.8rem;
@@ -120,20 +124,41 @@ nav {
 
 .event-card {
   width: 48.5%;
-  background-color: lightgray;
   margin-bottom: 3%;
+  border: solid 1px;
 }
 
 .event-card-info-wrapper {
   padding: 1rem;
+  min-height: 180px;
+  box-sizing: border-box;
 }
 
 .event-card-image-wrapper {
   width: 100%;
-  max-height: 50%;
+  height: 180px;
   overflow: hidden;
+  position: relative;
 }
 
 .event-card-image {
-  width: 100%;
+  width: 150%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.event-card-description{
+  margin-top: 20px;
+}
+
+/* FOOTER */
+
+.footer-wrapper{
+  background-color: black;
+  height: 50px;
+  color: white;
+  text-align: center;
+  padding: 20px;
 }

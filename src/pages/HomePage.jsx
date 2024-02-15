@@ -60,7 +60,7 @@ function HomePage() {
                   <div className="event-card-info-wrapper">
                     <h3 className="event-card-title">{event.title}</h3>
                     <h3 className="event-card-datetime">
-                      {event.time + " " + event.date}
+                      {event.date + " " + event.time}
                     </h3>
                     <p className="event-card-description">
                       {event.description}
