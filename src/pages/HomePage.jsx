@@ -21,14 +21,16 @@ function HomePage() {
   }, []);
 
   return (
-    <div>
+    <div className="page-wrapper">
       <HeaderAbout />
       <Link to="/events">
-        <button className="all-events-button">show all events</button>{" "}
+        <button className="all-events-button">show all events</button>
       </Link>
-      <div className="random-filter-events-wrapper">
-        <label htmlFor="random-input">
-          random events in
+      <div className="homepage-random-events-wrapper">
+        <div className="random-filter-events-wrapper">
+          <label htmlFor="random-input" className="random-filter-events-label">
+            random events in
+          </label>
           <input
             className="random-filter-events-input"
             name="random-input"
@@ -38,28 +40,36 @@ function HomePage() {
               setLocationFilter(e.target.value);
             }}
           />
-        </label>
-      </div>
-      <div className="events-list-container">
-        {randomEvents &&
-          randomEvents.map((event) => {
-            return (
-              <Link key={event.id} className="event-card">
-                <div className="event-card-image-wrapper">
-                  <img
-                    src={event.image_url}
-                    alt=""
-                    className="event-card-image"
-                  />
-                </div>
-                <h3 className="event-card-title">{event.title}</h3>
-                <h3 className="event-card-datetime">
-                  {event.time + " " + event.date}
-                </h3>
-                <p className="event-card-description">{event.description}</p>
-              </Link>
-            );
-          })}
+        </div>
+        <div className="events-list-container">
+          {randomEvents &&
+            randomEvents.map((event) => {
+              return (
+                <Link
+                  to={`/events/${event.id}`}
+                  key={event.id}
+                  className="event-card"
+                >
+                  <div className="event-card-image-wrapper">
+                    <img
+                      src={event.image_url}
+                      alt=""
+                      className="event-card-image"
+                    />
+                  </div>
+                  <div className="event-card-info-wrapper">
+                    <h3 className="event-card-title">{event.title}</h3>
+                    <h3 className="event-card-datetime">
+                      {event.time + " " + event.date}
+                    </h3>
+                    <p className="event-card-description">
+                      {event.description}
+                    </p>
+                  </div>
+                </Link>
+              );
+            })}
+        </div>
       </div>
     </div>
   );

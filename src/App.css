@@ -17,17 +17,22 @@ html {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* ALL PAGES */
+.page-wrapper {
+  padding: 0 8%;
+}
+
 /* NAV */
 
 nav {
-  background-color: blue;
+  background-color: lightgray;
   display: flex;
   justify-content: space-between;
-  padding: 20px;
+  padding: 1.2rem 2rem;
 }
 
 .nav-logo-wrapper {
-  width: 8%;
+  width: 80px;
 }
 .nav-logo-image {
   width: 100%;
@@ -38,7 +43,7 @@ nav {
 }
 .nav-user-button {
   text-transform: uppercase;
-  padding: 10px 15px;
+  padding: 0.8rem 1.2rem;
   background-color: white;
   border: none;
 }
@@ -47,7 +52,9 @@ nav {
 
 .header-about-homepage-wrapper {
   width: 60%;
-  background-color: aqua;
+  background-color: lightgray;
+  padding: 1rem;
+  margin: 50px 0;
 }
 
 .header-about-title {
@@ -59,7 +66,51 @@ nav {
 .header-about-subtitle {
   font-size: 1.2rem;
   font-weight: 500;
+  margin-top: 2rem;
 }
+
+/* HOMEPAGE */
+
+.all-events-button {
+  text-transform: uppercase;
+  width: 100%;
+  padding: 1.5rem 0;
+  border: none;
+  font-size: 1rem;
+  margin-bottom: 40px;
+}
+
+.homepage-random-events-wrapper {
+  border: solid 1px;
+}
+
+.random-filter-events-wrapper {
+  background-color: lightgray;
+  padding: 2rem 2rem 3rem 3rem;
+  display: flex;
+  gap: 0.8rem;
+  align-items: baseline;
+}
+
+.random-filter-events-label {
+  text-transform: uppercase;
+  font-size: 1rem;
+}
+
+.random-filter-events-input {
+  border: none;
+  border-bottom: solid;
+  border-width: 1px;
+  font-size: 1rem;
+  background-color: transparent;
+  width: 30%;
+}
+
+.random-filter-events-input:focus {
+  background-color: red;
+}
+
+/* HOMEPAGE / EVENTS LIST */
 
 .events-list-container {
   display: flex;
@@ -71,6 +122,10 @@ nav {
   width: 48.5%;
   background-color: lightgray;
   margin-bottom: 3%;
+}
+
+.event-card-info-wrapper {
+  padding: 1rem;
 }
 
 .event-card-image-wrapper {
