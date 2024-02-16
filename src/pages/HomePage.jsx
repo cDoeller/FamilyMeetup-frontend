@@ -8,6 +8,7 @@ function HomePage() {
   const [randomEvents, setRandomEvents] = useState(null);
   const [locationFilter, setLocationFilter] = useState("");
 
+  // ** render only 6 random cards to the screen **
   useEffect(() => {
     axios
       .get("http://localhost:5005/events")
@@ -19,6 +20,12 @@ function HomePage() {
         console.log(err);
       });
   }, []);
+
+
+  // ** filtering **
+  useEffect(()=>{
+
+  }, [locationFilter])
 
   return (
     <div className="page-wrapper">
@@ -63,7 +70,7 @@ function HomePage() {
                       {event.date + " " + event.time}
                     </h3>
                     <p className="event-card-description">
-                      {event.description}
+                      {event.short_description}
                     </p>
                   </div>
                 </Link>
