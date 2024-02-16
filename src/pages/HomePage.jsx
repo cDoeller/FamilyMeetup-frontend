@@ -22,17 +22,14 @@ function HomePage() {
       });
   }, []);
 
-
   // ** filtering **
-  useEffect(()=>{
-
-  }, [locationFilter])
+  useEffect(() => {}, [locationFilter]);
 
   return (
     <div className="page-wrapper">
       <HeaderAbout />
       <Link to="/events">
-        <button className="all-events-button">show all events</button>
+          <button className="all-events-button">show all events</button>
       </Link>
       <div className="homepage-random-events-wrapper">
         <div className="random-filter-events-wrapper">
@@ -58,7 +55,7 @@ function HomePage() {
                   key={event.id}
                   className="event-card"
                 >
-                  <EventCard event={event}/>
+                  <EventCard event={event} />
                 </Link>
               );
             })}
