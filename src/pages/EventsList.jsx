@@ -24,9 +24,11 @@ function EventsList() {
     <div className="page-wrapper">
       <div className="events-list-header-wrapper">
         <HeaderAboutEvents />
-        <Link to="/events/create" className="all-events-button-wrapper">
-          <button className="create-event-button">Create Event</button>
-        </Link>
+        <div className="all-events-button-wrapper">
+          <Link to="/events/create">
+            <button className="create-event-button">Create Event</button>
+          </Link>
+        </div>
       </div>
       <FilterAllEvents />
       <div className="events-list-container">
