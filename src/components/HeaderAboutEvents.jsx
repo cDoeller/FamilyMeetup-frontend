@@ -1,11 +1,10 @@
 import React from "react";
 
-function HeaderAbout() {
+function HeaderAboutEvents() {
   return (
     <div className="header-about-homepage-wrapper">
       <h1 className="header-about-title">
-        Ever wondered how to meet other people while being busy with a full-time
-        job, household, ... your family?
+        Create, Browse and Filter Events in your area!
       </h1>
       <h3 className="header-about-subtitle">
         With familyMeetup you can find events in your area that are child and
@@ -16,4 +15,4 @@ function HeaderAbout() {
   );
 }
 
-export default HeaderAbout;
+export default HeaderAboutEvents;

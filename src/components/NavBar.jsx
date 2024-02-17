@@ -7,7 +7,7 @@ function NavBar() {
       <div className="nav-logo-wrapper">
         <Link to="/">
           <img
-            src="https://static-00.iconduck.com/assets.00/spotify-icon-2048x2048-5gqpkwih.png"
+            src="/logo.png"
             alt=""
             className="nav-logo-image"
           />
