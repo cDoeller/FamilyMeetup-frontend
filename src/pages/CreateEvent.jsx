@@ -2,15 +2,15 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import NavBar from "..components/"
-import Footer from "../components"
 import DatePicker from "react-datepicker"
 
 
 function CreateEvent() {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState(new Date());
-  const [date, setDate] = useState("");
+  const [tittle, setTitle] = useState("");
+  const [image, setImage] =useState("")
+  const [short_description, setShort_description]= useState("")
+  const [description, setDescription] = useState("");
+  const [date, setDate] = useState(new Date());
   const [time, setTime] = useState("");
   const [location, setLocation] = useState("");
   const [price, setPrice] = useState(0);
@@ -21,7 +21,9 @@ function CreateEvent() {
     e.preventDefault();
 
     const newEvent= {
-      name:name,
+      tittle:tittle,
+      image:image,
+      short_description: short_description,
       description:description,
       date:date,
       time:time,
@@ -31,7 +33,7 @@ function CreateEvent() {
     };
 
     axios
-      .post(``, newEvent)
+      .post(`http://localhost:5005/events/create`, newEvent)
       .then((response) => {
         console.log(response.data);
         alert(response.data.message);
@@ -42,12 +44,8 @@ function CreateEvent() {
       });
 
   }
-
- 
-
   return (
     <div>
-      <NavBar></NavBar>
       <div className="create-event">
         <form onSubmit={handleSubmit} action="" className="create-form">
         <label htmlFor="">Name</label>
@@ -55,9 +53,28 @@ function CreateEvent() {
           type="text"
           name="name"
           onChange={(e) => {
-            setName(e.target.value);
+            setTitle(e.target.value);
           }}
-          value={name}
+          value={tittle}
+        />
+        <label htmlFor="">Image</label>
+        <input
+          placeholder="URL"
+          type="text"
+          name="image_url"
+          onChange={(e) => {
+            setImage(e.target.value);
+          }}
+          value={image}
+        />
+        <label htmlFor="">Short Description</label>
+        <input
+          type="text"
+          name="short_description"
+          onChange={(e) => {
+            setShort_description(e.target.value);
+          }}
+          value={short_description}
         />
         <label htmlFor="">Description</label>
         <input
@@ -79,6 +96,16 @@ function CreateEvent() {
           }}
           value={time}
         />
+        <label htmlFor="">PRICE</label>
+        <input
+          placeholder="€"
+          type="number"
+          name="price"
+          onChange={(e) => {
+            setPrice(e.target.value);
+          }}
+          value={price}
+        />
         <label htmlFor="">LOCATION</label>
         <input
           type="text"
@@ -87,15 +114,6 @@ function CreateEvent() {
             setLocation(e.target.value);
           }}
           value={location}
-        />
-        <label htmlFor="">PRICE</label>
-        <input
-          type="number"
-          name="price"
-          onChange={(e) => {
-            setPrice(e.target.value);
-          }}
-          value={price}
         />
         <label htmlFor="">CATEGORY</label>
         <input
@@ -109,10 +127,6 @@ function CreateEvent() {
         <button type="submit">Create Event</button>
         </form>
       </div>
-      <Footer></Footer>
-    
-    
-    
     </div>
 
   )
