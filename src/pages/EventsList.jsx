@@ -6,14 +6,16 @@ import HeaderAboutEvents from "../components/HeaderAboutEvents";
 import FilterAllEvents from "../components/FilterAllEvents";
 
 function EventsList() {
-  const [events, setEvents] = useState(null);
+  const [eventsToShow, setEventsToShow] = useState(null);
+  const [allEvents, setAllEvents] = useState(null);
 
   useEffect(() => {
     axios
       .get("http://localhost:5005/events")
       .then((response) => {
-        console.log(response.data);
-        setEvents(response.data);
+        // console.log(response.data);
+        setAllEvents(response.data);
+        setEventsToShow(response.data);
       })
       .catch((err) => {
         console.log(err);
@@ -30,10 +32,10 @@ function EventsList() {
           </Link>
         </div>
       </div>
-      <FilterAllEvents />
+      <FilterAllEvents eventsToShow={eventsToShow} allEvents={allEvents} setEventsToShow={setEventsToShow} />
       <div className="events-list-container">
-        {events &&
-          events.map((event) => {
+        {allEvents &&
+          eventsToShow.map((event) => {
             return (
               <Link
                 to={`/events/${event.id}`}
