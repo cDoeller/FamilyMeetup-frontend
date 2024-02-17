@@ -2,16 +2,16 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import NavBar from "../components/NavBar"
-import Footer from "../components/Footer"
 import DatePicker from "react-datepicker"
+import TimePicker from 'react-time-picker'
 
 
 function CreateEvent() {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState(new Date());
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
+  const [title, setTitle] = useState("");
+  const [image, setImage] =useState("")
+  const [short_description, setShort_description]= useState("")
+  const [description, setDescription] = useState("");
+  const [date, setDate] = useState(new Date());
   const [location, setLocation] = useState("");
   const [price, setPrice] = useState(0);
   const [category, setCategory]= useState("")
@@ -21,17 +21,18 @@ function CreateEvent() {
     e.preventDefault();
 
     const newEvent= {
-      name:name,
+      title:title,
+      image:image,
+      short_description: short_description,
       description:description,
       date:date,
-      time:time,
       location:location,
       price:price,
       category:category
     };
 
     axios
-      .post(``, newEvent)
+      .post(`http://localhost:5005/events/create`, newEvent)
       .then((response) => {
         console.log(response.data);
         alert(response.data.message);
@@ -42,24 +43,39 @@ function CreateEvent() {
       });
 
   }
-
- 
-
   return (
     <div>
-      <NavBar></NavBar>
       <div className="create-event">
         <form onSubmit={handleSubmit} action="" className="create-form">
-        <label htmlFor="">Name</label>
+        <label htmlFor="">TITLE</label>
         <input
           type="text"
           name="name"
           onChange={(e) => {
-            setName(e.target.value);
+            setTitle(e.target.value);
           }}
-          value={name}
+          value={title}
         />
-        <label htmlFor="">Description</label>
+        <label htmlFor="">IMAGE</label>
+        <input
+          placeholder="URL"
+          type="text"
+          name="image_url"
+          onChange={(e) => {
+            setImage(e.target.value);
+          }}
+          value={image}
+        />
+        <label htmlFor="">SHORT DESCRIPTION</label>
+        <input
+          type="text"
+          name="short_description"
+          onChange={(e) => {
+            setShort_description(e.target.value);
+          }}
+          value={short_description}
+        />
+        <label htmlFor="">DESCRIPTION</label>
         <input
           type="text"
           name="name"
@@ -68,16 +84,18 @@ function CreateEvent() {
           }}
           value={description}
         />
-        <label htmlFor="">DATE</label>
+        <label htmlFor="">DATE & TIME</label>
         <DatePicker selected={date} onChange={(date)=> setDate(date)}></DatePicker>
-        <label htmlFor="">TIME</label>
+       <TimePicker/>
+        <label htmlFor="">PRICE</label>
         <input
-          type="text"
-          name="time"
+          placeholder="€"
+          type="number"
+          name="price"
           onChange={(e) => {
-            setTime(e.target.value);
+            setPrice(e.target.value);
           }}
-          value={time}
+          value={price}
         />
         <label htmlFor="">LOCATION</label>
         <input
@@ -87,15 +105,6 @@ function CreateEvent() {
             setLocation(e.target.value);
           }}
           value={location}
-        />
-        <label htmlFor="">PRICE</label>
-        <input
-          type="number"
-          name="price"
-          onChange={(e) => {
-            setPrice(e.target.value);
-          }}
-          value={price}
         />
         <label htmlFor="">CATEGORY</label>
         <input
@@ -109,10 +118,6 @@ function CreateEvent() {
         <button type="submit">Create Event</button>
         </form>
       </div>
-      <Footer></Footer>
-    
-    
-    
     </div>
 
   )
