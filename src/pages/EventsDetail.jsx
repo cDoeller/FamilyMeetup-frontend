@@ -2,22 +2,21 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import NavBar from "../components/NavBar";
-import Footer from "../components/Footer";
 
 function EventsDetail() {
   const [event, setEvent] = useState(null);
   const { eventId } = useParams();
-  const [count, setCount]= useState(0)
+  const [count, setCount] = useState(0);
 
-  function increaseCount(){
-  setCount(prevCount => prevCount + 1)
-  setCount((prevCount)=>{return prevCount + 1})
-
+  function increaseCount() {
+   
+    setCount((prevCount) => {
+      return prevCount + 1;
+    });
   }
   useEffect(() => {
     axios
-      .get()
+      .get(`http://localhost:5005/events/${eventId}`)
       .then((response) => {
         setEvent(response.data);
       })
@@ -29,35 +28,39 @@ function EventsDetail() {
   if (!event)
     return (
       <div>
-        <NavBar />
         <p className="loading">loading..</p>
       </div>
     );
-  if (event)
-   return 
-    <>
-    <NavBar/>
+  if (event) 
+  return (
+  
     <div className="one-event">
       <div className="event-image">
-        <img src={event.image_url} alt=""/>
+        <img src={event.image_url} alt="" />
       </div>
       <div className="event-info">
-        <h1>{event.name}</h1>
+        <h1>{event.title}</h1>
+        <h2>{event.short_description}</h2>
         <p>{event.description}</p>
-        <h3>{event.date} {event.time}</h3>
-        <h3>{event.price}</h3>
+        <h3>
+          {event.date} {event.time}
+        </h3>
+        <h3>{event.price}€</h3>
         <h3>{event.location}</h3>
+        <h3>{event.category}</h3>
       </div>
       <div className="who-goes">
         <p>{count} families are going</p>
         <button onClick={increaseCount}>JOIN EVENT</button>
       </div>
       <div className="back-button">
-        <Link to={`/events`}><button>BACK</button></Link>
+        <Link to={`/events`}>
+          <button>BACK</button>
+        </Link>
       </div>
     </div>
-    <Footer></Footer>
-    </>;
+    );
+  
 }
 
 export default EventsDetail;
