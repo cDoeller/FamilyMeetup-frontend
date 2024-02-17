@@ -3,15 +3,15 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker"
+import TimePicker from 'react-time-picker'
 
 
 function CreateEvent() {
-  const [tittle, setTitle] = useState("");
+  const [title, setTitle] = useState("");
   const [image, setImage] =useState("")
   const [short_description, setShort_description]= useState("")
   const [description, setDescription] = useState("");
   const [date, setDate] = useState(new Date());
-  const [time, setTime] = useState("");
   const [location, setLocation] = useState("");
   const [price, setPrice] = useState(0);
   const [category, setCategory]= useState("")
@@ -21,12 +21,11 @@ function CreateEvent() {
     e.preventDefault();
 
     const newEvent= {
-      tittle:tittle,
+      title:title,
       image:image,
       short_description: short_description,
       description:description,
       date:date,
-      time:time,
       location:location,
       price:price,
       category:category
@@ -48,16 +47,16 @@ function CreateEvent() {
     <div>
       <div className="create-event">
         <form onSubmit={handleSubmit} action="" className="create-form">
-        <label htmlFor="">Name</label>
+        <label htmlFor="">TITLE</label>
         <input
           type="text"
           name="name"
           onChange={(e) => {
             setTitle(e.target.value);
           }}
-          value={tittle}
+          value={title}
         />
-        <label htmlFor="">Image</label>
+        <label htmlFor="">IMAGE</label>
         <input
           placeholder="URL"
           type="text"
@@ -67,7 +66,7 @@ function CreateEvent() {
           }}
           value={image}
         />
-        <label htmlFor="">Short Description</label>
+        <label htmlFor="">SHORT DESCRIPTION</label>
         <input
           type="text"
           name="short_description"
@@ -76,7 +75,7 @@ function CreateEvent() {
           }}
           value={short_description}
         />
-        <label htmlFor="">Description</label>
+        <label htmlFor="">DESCRIPTION</label>
         <input
           type="text"
           name="name"
@@ -85,17 +84,9 @@ function CreateEvent() {
           }}
           value={description}
         />
-        <label htmlFor="">DATE</label>
+        <label htmlFor="">DATE & TIME</label>
         <DatePicker selected={date} onChange={(date)=> setDate(date)}></DatePicker>
-        <label htmlFor="">TIME</label>
-        <input
-          type="text"
-          name="time"
-          onChange={(e) => {
-            setTime(e.target.value);
-          }}
-          value={time}
-        />
+       <TimePicker/>
         <label htmlFor="">PRICE</label>
         <input
           placeholder="€"
