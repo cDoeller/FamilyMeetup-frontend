@@ -5,18 +5,20 @@ import axios from "axios";
 import HeaderAbout from "../components/HeaderAbout";
 import EventCard from "../components/EventCard";
 
+// not sure here -->
+let generatedRandomBaseEvents = false;
+let initialRandomEvents = [];
+
 function HomePage() {
   const [allEvents, setAllEvents] = useState(null);
   const [locationFilter, setLocationFilter] = useState("");
   const [isFiltering, setIsFiltering] = useState(false);
 
-
-  // ** render only 6 random cards to the screen **
   useEffect(() => {
     axios
       .get(`http://localhost:5005/events`)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setAllEvents(response.data);
       })
       .catch((err) => {
@@ -24,34 +26,54 @@ function HomePage() {
       });
   }, []);
 
-  // get *amount* of random events
   function getRandomEvents(amount, array) {
     // only do this if we fetched all events in state
     const maxIndex = array.length;
     // getting *amount* individual random index nums in array
     let randIndexVals = [];
     while (randIndexVals.length < amount) {
-      let randNum = Math.floor(Math.random() * (maxIndex));
+      let randNum = Math.floor(Math.random() * maxIndex);
       if (!randIndexVals.includes(randNum)) randIndexVals.push(randNum);
     }
-    console.log(randIndexVals);
     // pick objects from all events based on these index nums
     let randomEventsTemp = [];
     for (let i = 0; i < randIndexVals.length; i++) {
       randomEventsTemp.push(array[randIndexVals[i]]);
     }
-    console.log(randomEventsTemp);
-    return randomEventsTemp
+    // console.log(randomEventsTemp);
+    return randomEventsTemp;
   }
 
-  let filteredEvents = []
+  function handleIsFiltering(input) {
+    if (input === "") {
+      setIsFiltering(false);
+    } else {
+      setIsFiltering(true);
+    }
+    console.log(isFiltering);
+  }
+
+  let eventsToShow = [];
   if (allEvents) {
     // if a filter location is available, show filtered
+    // or show initial random collection of filter not found
     if (isFiltering) {
-      // filtered = allEvents.filter
+      let foundLocation = false;
+      eventsToShow = allEvents.filter((event) => {
+        if (event.location.startsWith(locationFilter)) {
+          foundLocation = true;
+          return event.location.startsWith(locationFilter);
+        }
+      });
+      if (!foundLocation) eventsToShow = initialRandomEvents;
     } else {
-      // if no filter input available, show random from all
-      filteredEvents = getRandomEvents(6, allEvents);
+      // if no filter input available, show initial random
+      if (generatedRandomBaseEvents === false) {
+        initialRandomEvents = getRandomEvents(6, allEvents);
+        generatedRandomBaseEvents = true;
+      }
+      eventsToShow = initialRandomEvents;
+      console.log(eventsToShow);
     }
   }
 
@@ -73,12 +95,13 @@ function HomePage() {
             value={locationFilter}
             onChange={(e) => {
               setLocationFilter(e.target.value);
+              handleIsFiltering(e.target.value);
             }}
           />
         </div>
         <div className="events-list-container">
           {allEvents &&
-            filteredEvents.map((event) => {
+            eventsToShow.map((event) => {
               return (
                 <Link
                   to={`/events/${event.id}`}
