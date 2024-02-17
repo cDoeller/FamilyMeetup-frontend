@@ -8,7 +8,7 @@ import EventCard from "../components/EventCard";
 function HomePage() {
   const [allEvents, setAllEvents] = useState(null);
   const [locationFilter, setLocationFilter] = useState("");
-  const [location, setLocation] = useState(true);
+  const [isFiltering, setIsFiltering] = useState(false);
 
 
   // ** render only 6 random cards to the screen **
@@ -27,7 +27,7 @@ function HomePage() {
   // get *amount* of random events
   function getRandomEvents(amount, array) {
     // only do this if we fetched all events in state
-    const maxIndex = allEvents.length;
+    const maxIndex = array.length;
     // getting *amount* individual random index nums in array
     let randIndexVals = [];
     while (randIndexVals.length < amount) {
@@ -38,18 +38,20 @@ function HomePage() {
     // pick objects from all events based on these index nums
     let randomEventsTemp = [];
     for (let i = 0; i < randIndexVals.length; i++) {
-      randomEventsTemp.push(allEvents[randIndexVals[i]]);
+      randomEventsTemp.push(array[randIndexVals[i]]);
     }
     console.log(randomEventsTemp);
     return randomEventsTemp
   }
 
-  let filtered = []
+  let filteredEvents = []
   if (allEvents) {
-    if (location) {
+    // if a filter location is available, show filtered
+    if (isFiltering) {
       // filtered = allEvents.filter
     } else {
-      filtered = getRandomEvents(4)
+      // if no filter input available, show random from all
+      filteredEvents = getRandomEvents(6, allEvents);
     }
   }
 
@@ -76,7 +78,7 @@ function HomePage() {
         </div>
         <div className="events-list-container">
           {allEvents &&
-            filtered.map((event) => {
+            filteredEvents.map((event) => {
               return (
                 <Link
                   to={`/events/${event.id}`}
