@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import HeaderAbout from "../components/HeaderAbout";
 import EventCard from "../components/EventCard";
+import "../HomePage.css"
 
 function HomePage() {
   const [randomEvents, setRandomEvents] = useState(null);
@@ -46,7 +47,7 @@ function HomePage() {
             }}
           />
         </div>
-        <div className="events-list-container">
+        <div className="events-list-container-homepage">
           {randomEvents &&
             randomEvents.map((event) => {
               return (

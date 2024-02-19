@@ -1,0 +1,26 @@
+
+/* NAV */
+
+nav {
+    background-color: lightgray;
+    display: flex;
+    justify-content: space-between;
+    padding: 1.2rem 2rem;
+  }
+  
+  .nav-logo-wrapper {
+    width: 100px;
+  }
+  .nav-logo-image {
+    width: 100%;
+  }
+  .nav-user-wrapper {
+    display: flex;
+    gap: 30px;
+  }
+  .nav-user-button {
+    text-transform: uppercase;
+    padding: 0.8rem 1.2rem;
+    background-color: white;
+    border: none;
+  }

@@ -56,3 +56,14 @@
 .all-events-filter-location-li:hover {
   color: blue;
 }
+
+.date-time-picker{
+  position: absolute;
+  top: 130%;
+  left: 0;
+  z-index: 100;
+  background-color: white;
+  border: solid 1px;
+  padding: 1rem;
+  min-width: 150px;
+}

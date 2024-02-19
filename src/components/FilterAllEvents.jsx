@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
+import DateTimePicker from "react-datetime-picker";
 import "../FilterAllEvents.css";
 
 // ** TO DO **
 // reset clicked when clicked on window
 // date time picker drowdown
-// category / location list --> sort by name
-// price / participants smaller
+// category / location list --> sort by name / checkbox filtering?
 // multi aspect filtering
 
 function FilterAllEvents(props) {
@@ -81,30 +81,32 @@ function FilterAllEvents(props) {
     let filterResult = [];
     // look for specific element
     switch (element) {
-      case "location":
-        filterResult = allEvents.filter((event) => {
-          return event.location.includes(location);
-        });
-        setLocation("");
-        break;
-      case "category":
-        filterResult = allEvents.filter((event) => {
-          return event.category.includes(category);
-        });
-        setCategory("");
-        break;
+      // case "location":
+      //   filterResult = allEvents.filter((event) => {
+      //     return event.location.includes(location);
+      //   });
+      //   setLocation("");
+      //   break;
+      // case "category":
+      //   filterResult = allEvents.filter((event) => {
+      //     return event.category.includes(category);
+      //   });
+      //   setCategory("");
+      //   break;
       case "participants":
         console.log("clicked");
         filterResult = allEvents.filter((event) => {
           return event.participants <= participants;
         });
         setParticipants(0);
+        setParticipantsClicked(!participantsClicked);
         break;
       case "price":
         filterResult = allEvents.filter((event) => {
           return event.price <= price;
         });
         setPrice(0);
+        setPriceClicked(!priceClicked);
         break;
     }
     // check if result available
@@ -152,25 +154,13 @@ function FilterAllEvents(props) {
         }}
       >
         date / time
+        {/* WORK IN PROGRESS */}
         {dateTimeClicked && (
-          <div onClick={handlePreventClick} className="all-events-filter-popup">
-            <input
-              type="text"
-              className="all-events-filter-input"
-              onChange={(e) => {
-                setDateTime(e.target.value);
-              }}
-              value={dateTime}
-            />
-            <button
-              onClick={() => {
-                handleApplyClick("dateTime");
-              }}
-              className="filter-apply-button"
-            >
-              Apply
-            </button>
-          </div>
+          <DateTimePicker
+            onClick={handlePreventClick}
+            label="Basic date time picker"
+            className="date-time-picker"
+          />
         )}
       </span>
       <span
@@ -255,7 +245,7 @@ function FilterAllEvents(props) {
           handleClick("price");
         }}
       >
-        max price
+        max price [€]
         {priceClicked && (
           <div onClick={handlePreventClick} className="all-events-filter-popup">
             <input
@@ -313,6 +303,23 @@ Apply
 // <button
 // onClick={() => {
 //   handleApplyClick("category");
+// }}
+// className="filter-apply-button"
+// >
+// Apply
+// </button>
+
+// <input
+// type="text"
+// className="all-events-filter-input"
+// onChange={(e) => {
+//   setDateTime(e.target.value);
+// }}
+// value={dateTime}
+// />
+// <button
+// onClick={() => {
+//   handleApplyClick("dateTime");
 // }}
 // className="filter-apply-button"
 // >

@@ -1,0 +1,20 @@
+/* HEADER */
+
+.header-about-homepage-wrapper {
+    width: 60%;
+    background-color: lightgray;
+    padding: 1rem;
+    margin: 50px 0;
+  }
+  
+  .header-about-title {
+    width: 70%;
+    font-size: 1.8rem;
+    font-weight: 500;
+  }
+  
+  .header-about-subtitle {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-top: 2rem;
+  }

@@ -1,0 +1,25 @@
+/* EVENTS LIST PAGE */
+
+.events-list-container-eventslistpage{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.events-list-header-wrapper {
+    display: flex;
+    align-items: center;
+  }
+  
+  .all-events-button-wrapper {
+    flex-grow: 1;
+    text-align: center;
+  }
+  
+  .create-event-button {
+    font-size: 1.6rem;
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+    border-width: 1px;
+  }
