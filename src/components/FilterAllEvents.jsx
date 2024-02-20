@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import DateTimePicker from "react-datetime-picker";
+import Calendar from "react-calendar";
+import 'react-calendar/dist/Calendar.css';
 import "../FilterAllEvents.css";
 
 // ** TO DO **
@@ -120,7 +121,7 @@ function FilterAllEvents(props) {
   // ** NEW -- click on location filter list dropdown
   // --> sort by name
   const handleFilterClick = (e) => {
-    const filterVal = e.target.innerHTML.slice(2); // get rid of pointing hand
+    const filterVal = e.target.innerHTML;
     let filterResult = "";
     if (allLocations.includes(filterVal)) {
       filterResult = allEvents.filter((event) => {
@@ -153,14 +154,12 @@ function FilterAllEvents(props) {
           handleClick("dateTime");
         }}
       >
-        date / time
+        date
         {/* WORK IN PROGRESS */}
         {dateTimeClicked && (
-          <DateTimePicker
-            onClick={handlePreventClick}
-            label="Basic date time picker"
-            className="date-time-picker"
-          />
+          <div className="date-picker-custom">
+            <Calendar onClick={handlePreventClick} />
+          </div>
         )}
       </span>
       <span
@@ -180,7 +179,7 @@ function FilterAllEvents(props) {
                       onClick={handleFilterClick}
                       className="all-events-filter-location-li"
                     >
-                      ☞ {location}
+                      {location}
                     </li>
                   );
                 })}
@@ -205,7 +204,7 @@ function FilterAllEvents(props) {
                       onClick={handleFilterClick}
                       className="all-events-filter-location-li"
                     >
-                      ☞ {category}
+                      {category}
                     </li>
                   );
                 })}
