@@ -2,125 +2,162 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import DatePicker from "react-datepicker"
-import TimePicker from 'react-time-picker'
-
+import DatePicker from "react-datepicker";
+import TimePicker from "react-time-picker";
+import "../components/CreateEvent.css";
 
 function CreateEvent() {
   const [title, setTitle] = useState("");
-  const [image, setImage] =useState("")
-  const [short_description, setShort_description]= useState("")
+  const [image, setImage] = useState("");
+  const [short_description, setShort_description] = useState("");
   const [description, setDescription] = useState("");
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
   const [location, setLocation] = useState("");
-  const [price, setPrice] = useState(0);
-  const [category, setCategory]= useState("")
+  const [price, setPrice] = useState();
+  const [category, setCategory] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) =>{
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    const newEvent= {
-      title:title,
-      image:image,
+    const newEvent = {
+      title: title,
+      image: image,
       short_description: short_description,
-      description:description,
-      date:date,
-      location:location,
-      price:price,
-      category:category
+      description: description,
+      date: date,
+      time: time,
+      location: location,
+      price: price,
+      category: category,
     };
 
     axios
-      .post(`http://localhost:5005/events/create`, newEvent)
-      .then((response) => {
-        console.log(response.data);
-        alert(response.data.message);
-        navigate(`/events`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-  }
+    .post(`http://localhost:5005/events`, newEvent)
+    .then((response) => {
+      console.log(response.data);
+      alert("The event has been created succesfully!");
+      navigate(`/events`);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
   return (
     <div>
-      <div className="create-event">
-        <form onSubmit={handleSubmit} action="" className="create-form">
-        <label htmlFor="">TITLE</label>
-        <input
-          type="text"
-          name="name"
+      <div className="create">
+        <form onSubmit={handleSubmit} action="" className="form">
+          <label>TITLE</label>
+          <input
+            type="text"
+            name="name"
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
+            value={title}
+          />
+          <label>IMAGE</label>
+          <input
+            placeholder="URL"
+            type="text"
+            name="image_url"
+            onChange={(e) => {
+              setImage(e.target.value);
+            }}
+            value={image}
+          />
+          <label>SHORT DESCRIPTION</label>
+          <input
+            type="text"
+            name="short_description"
+            onChange={(e) => {
+              setShort_description(e.target.value);
+            }}
+            value={short_description}
+          />
+          <label>DESCRIPTION</label>
+          <input
+            type="text"
+            name="description"
+            onChange={(e) => {
+              setDescription(e.target.value);
+            }}
+            value={description}
+          />
+          <label>DATE</label>
+          <input
+            placeholder="dd/mm/yyyy"
+            type="text"
+            name="date"
+            onChange={(e) => {
+              setDate(e.target.value);
+            }}
+            value={date}
+          />
+          {/*<DatePicker
+            inputFormat="dd/MM/yyyy"
+            value={date}
+            onChange={(e) => {
+              setDate(e.target.value);
+            }}
+          ></DatePicker>*/}
+          <label>TIME</label>
+          <input
+            placeholder="hh:mm"
+            type="text"
+            name="time"
+            onChange={(e) => {
+              setTime(e.target.value);
+            }}
+            value={time}
+          />
+          {/*<TimePicker
+          format="HH : mm"
+          className="time-picker"
           onChange={(e) => {
-            setTitle(e.target.value);
+            setTime(e.target.value);
           }}
-          value={title}
-        />
-        <label htmlFor="">IMAGE</label>
-        <input
-          placeholder="URL"
-          type="text"
-          name="image_url"
-          onChange={(e) => {
-            setImage(e.target.value);
-          }}
-          value={image}
-        />
-        <label htmlFor="">SHORT DESCRIPTION</label>
-        <input
-          type="text"
-          name="short_description"
-          onChange={(e) => {
-            setShort_description(e.target.value);
-          }}
-          value={short_description}
-        />
-        <label htmlFor="">DESCRIPTION</label>
-        <input
-          type="text"
-          name="name"
-          onChange={(e) => {
-            setDescription(e.target.value);
-          }}
-          value={description}
-        />
-        <label htmlFor="">DATE & TIME</label>
-        <DatePicker selected={date} onChange={(date)=> setDate(date)}></DatePicker>
-       <TimePicker/>
-        <label htmlFor="">PRICE</label>
-        <input
-          placeholder="€"
-          type="number"
-          name="price"
-          onChange={(e) => {
-            setPrice(e.target.value);
-          }}
-          value={price}
-        />
-        <label htmlFor="">LOCATION</label>
-        <input
-          type="text"
-          name="location"
-          onChange={(e) => {
-            setLocation(e.target.value);
-          }}
-          value={location}
-        />
-        <label htmlFor="">CATEGORY</label>
-        <input
-          type="text"
-          name="category"
-          onChange={(e) => {
-            setCategory(e.target.value);
-          }}
-          value={category}
-        />
-        <button type="submit">Create Event</button>
+          value={time}
+          clockIcon={null}
+          clearIcon="X"
+        />*/}
+
+          <label>PRICE</label>
+          <input
+            placeholder="€"
+            type="number"
+            name="price"
+            onChange={(e) => {
+              setPrice(e.target.value);
+            }}
+            value={price}
+          />
+          <label>LOCATION</label>
+          <input
+            type="text"
+            name="location"
+            onChange={(e) => {
+              setLocation(e.target.value);
+            }}
+            value={location}
+          />
+          <label>CATEGORY</label>
+          <input
+            type="text"
+            name="category"
+            onChange={(e) => {
+              setCategory(e.target.value);
+            }}
+            value={category}
+          />
+          <button className="submit" type="submit">
+            Create Event
+          </button>
         </form>
       </div>
     </div>
-
-  )
+  );
 }
 
 export default CreateEvent;

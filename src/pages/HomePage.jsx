@@ -10,6 +10,10 @@ import "../HomePage.css"
 let generatedRandomBaseEvents = false;
 let initialRandomEvents = [];
 
+// not sure here -->
+let generatedRandomBaseEvents = false;
+let initialRandomEvents = [];
+
 function HomePage() {
   const [allEvents, setAllEvents] = useState(null);
   const [locationFilter, setLocationFilter] = useState("");
