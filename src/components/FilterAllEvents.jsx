@@ -5,15 +5,37 @@ import "../styles/FilterAllEvents.css";
 
 // ** TO DO **
 // reset clicked when clicked on window
-// date time picker drowdown
+// date picker drowdown filtering
 // category / location list --> sort by name / checkbox filtering?
 // multi aspect filtering
+// ** idea for filtering on top of filtering
+// ** locationFilterActive, setLocationFilterActive
 
 function FilterAllEvents(props) {
   const { eventsToShow, setEventsToShow, allEvents } = props;
-  console.log(allEvents);
+  // console.log(allEvents);
 
-  // array for all locations and categories (lists)
+  const [date, setDate] = useState("");
+  const [location, setLocation] = useState("");
+  const [category, setCategory] = useState("");
+  const [participants, setParticipants] = useState(0);
+  const [price, setPrice] = useState(0);
+
+  const [locationClicked, setLocationClicked] = useState(false);
+  const [categoryClicked, setCategoryClicked] = useState(false);
+  const [participantsClicked, setParticipantsClicked] = useState(false);
+  const [priceClicked, setPriceClicked] = useState(false);
+  const [dateTimeClicked, setDateTimeClicked] = useState(false);
+
+  useEffect(() => {
+    if (date !== "") {
+      let pickedDate = date.toUTCString();
+      // pickedDate = pickedDate.slice(10);
+      console.log(pickedDate);
+    }
+  }, [date]);
+
+  // make array for all locations and categories (lists)
   let allLocations = null;
   let allCategories = null;
   if (allEvents) {
@@ -31,24 +53,7 @@ function FilterAllEvents(props) {
         })
       )
     );
-    console.log(allCategories);
-    console.log(allLocations);
   }
-
-  const [dateTime, setDateTime] = useState("");
-  const [location, setLocation] = useState("");
-  const [category, setCategory] = useState("");
-  const [participants, setParticipants] = useState(0);
-  const [price, setPrice] = useState(0);
-
-  // ** idea for filtering on top of filtering
-  // ** locationFilterActive, setLocationFilterActive
-
-  const [locationClicked, setLocationClicked] = useState(false);
-  const [categoryClicked, setCategoryClicked] = useState(false);
-  const [participantsClicked, setParticipantsClicked] = useState(false);
-  const [priceClicked, setPriceClicked] = useState(false);
-  const [dateTimeClicked, setDateTimeClicked] = useState(false);
 
   // handle click show behavior
   const handleClick = (element) => {
@@ -67,7 +72,7 @@ function FilterAllEvents(props) {
     if (element === "price" || (element !== "price" && priceClicked)) {
       setPriceClicked(!priceClicked);
     }
-    if (element === "dateTime" || (element !== "dateTime" && dateTimeClicked)) {
+    if (element === "date" || (element !== "date" && dateTimeClicked)) {
       setDateTimeClicked(!dateTimeClicked);
     }
   };
@@ -77,7 +82,7 @@ function FilterAllEvents(props) {
     e.stopPropagation();
   };
 
-  // ** filter the events on click of apply button
+  // ** apply button filtering
   const handleApplyClick = (element) => {
     let filterResult = [];
     // look for specific element
@@ -95,7 +100,6 @@ function FilterAllEvents(props) {
       //   setCategory("");
       //   break;
       case "participants":
-        console.log("clicked");
         filterResult = allEvents.filter((event) => {
           return event.participants <= participants;
         });
@@ -118,7 +122,7 @@ function FilterAllEvents(props) {
     }
   };
 
-  // ** NEW -- click on location filter list dropdown
+  // ** list filtering
   // --> sort by name
   const handleFilterClick = (e) => {
     const filterVal = e.target.innerHTML;
@@ -151,14 +155,19 @@ function FilterAllEvents(props) {
       </span>
       <span
         onClick={() => {
-          handleClick("dateTime");
+          handleClick("date");
         }}
       >
         date
-        {/* WORK IN PROGRESS */}
+        {/* WORK IN PROGRESS ---> 23:00 */}
         {dateTimeClicked && (
           <div className="date-picker-custom">
-            <Calendar onClick={handlePreventClick} />
+            <Calendar
+              onClick={handlePreventClick}
+              onChange={(e) => {
+                setDate(e);
+              }}
+            />
           </div>
         )}
       </span>
