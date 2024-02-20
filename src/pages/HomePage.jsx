@@ -4,11 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import HeaderAbout from "../components/HeaderAbout";
 import EventCard from "../components/EventCard";
-import "../HomePage.css"
-
-// not sure here -->
-let generatedRandomBaseEvents = false;
-let initialRandomEvents = [];
+import "../styles/HomePage.css";
 
 // not sure here -->
 let generatedRandomBaseEvents = false;

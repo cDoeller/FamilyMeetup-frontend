@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import TimePicker from "react-time-picker";
-import "../components/CreateEvent.css";
+import "../styles/CreateEvent.css";
 
 function CreateEvent() {
   const [title, setTitle] = useState("");
@@ -34,16 +34,16 @@ function CreateEvent() {
     };
 
     axios
-    .post(`http://localhost:5005/events`, newEvent)
-    .then((response) => {
-      console.log(response.data);
-      alert("The event has been created succesfully!");
-      navigate(`/events`);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+      .post(`http://localhost:5005/events`, newEvent)
+      .then((response) => {
+        console.log(response.data);
+        alert("The event has been created succesfully!");
+        navigate(`/events`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <div>
       <div className="create">

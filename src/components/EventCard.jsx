@@ -1,8 +1,8 @@
 import React from "react";
-import "../EventCard.css"
+import "../styles/EventCard.css";
 
 function EventCard(props) {
-    const {event} = props;
+  const { event } = props;
   return (
     <>
       <div className="event-card-image-wrapper">
