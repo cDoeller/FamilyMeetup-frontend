@@ -34,16 +34,16 @@ function CreateEvent() {
     };
 
     axios
-      .post(`http://localhost:5005/events/create`, newEvent)
-      .then((response) => {
-        console.log(response.data);
-        alert(response.data.message);
-        navigate(`/events`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+    .post(`http://localhost:5005/events`, newEvent)
+    .then((response) => {
+      console.log(response.data);
+      alert("The event has been created succesfully!");
+      navigate(`/events`);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
   return (
     <div>
       <div className="create">
@@ -87,14 +87,14 @@ function CreateEvent() {
           />
           <label>DATE</label>
           <input
-          placeholder="dd/mm/yyyy"
-          type="text"
-          name="date"
-          onChange={(e) => {
-            setDate(e.target.value);
-          }}
-          value={date}
-        />
+            placeholder="dd/mm/yyyy"
+            type="text"
+            name="date"
+            onChange={(e) => {
+              setDate(e.target.value);
+            }}
+            value={date}
+          />
           {/*<DatePicker
             inputFormat="dd/MM/yyyy"
             value={date}
@@ -104,14 +104,14 @@ function CreateEvent() {
           ></DatePicker>*/}
           <label>TIME</label>
           <input
-          placeholder="hh:mm"
-          type="text"
-          name="time"
-          onChange={(e) => {
-            setTime(e.target.value);
-          }}
-          value={time}
-        />
+            placeholder="hh:mm"
+            type="text"
+            name="time"
+            onChange={(e) => {
+              setTime(e.target.value);
+            }}
+            value={time}
+          />
           {/*<TimePicker
           format="HH : mm"
           className="time-picker"
@@ -122,7 +122,7 @@ function CreateEvent() {
           clockIcon={null}
           clearIcon="X"
         />*/}
-         
+
           <label>PRICE</label>
           <input
             placeholder="€"
