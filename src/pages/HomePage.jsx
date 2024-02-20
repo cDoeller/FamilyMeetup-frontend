@@ -4,6 +4,11 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import HeaderAbout from "../components/HeaderAbout";
 import EventCard from "../components/EventCard";
+import "../HomePage.css"
+
+// not sure here -->
+let generatedRandomBaseEvents = false;
+let initialRandomEvents = [];
 
 // not sure here -->
 let generatedRandomBaseEvents = false;
@@ -99,7 +104,7 @@ function HomePage() {
             }}
           />
         </div>
-        <div className="events-list-container">
+        <div className="events-list-container-homepage">
           {allEvents &&
             eventsToShow.map((event) => {
               return (

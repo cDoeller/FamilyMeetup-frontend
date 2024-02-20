@@ -1,3 +1,4 @@
+import "../EventsList.css"
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import EventCard from "../components/EventCard";
@@ -33,7 +34,7 @@ function EventsList() {
         </div>
       </div>
       <FilterAllEvents eventsToShow={eventsToShow} allEvents={allEvents} setEventsToShow={setEventsToShow} />
-      <div className="events-list-container">
+      <div className="events-list-container-eventslistpage">
         {allEvents &&
           eventsToShow.map((event) => {
             return (

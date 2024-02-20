@@ -1,9 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Calendar from "react-calendar";
+import 'react-calendar/dist/Calendar.css';
+import "../FilterAllEvents.css";
+
+// ** TO DO **
+// reset clicked when clicked on window
+// date time picker drowdown
+// category / location list --> sort by name / checkbox filtering?
+// multi aspect filtering
 
 function FilterAllEvents(props) {
   const { eventsToShow, setEventsToShow, allEvents } = props;
-
   console.log(allEvents);
+
+  // array for all locations and categories (lists)
+  let allLocations = null;
+  let allCategories = null;
+  if (allEvents) {
+    allCategories = Array.from(
+      new Set(
+        allEvents.map((event) => {
+          return event.category;
+        })
+      )
+    );
+    allLocations = Array.from(
+      new Set(
+        allEvents.map((event) => {
+          return event.location;
+        })
+      )
+    );
+    console.log(allCategories);
+    console.log(allLocations);
+  }
 
   const [dateTime, setDateTime] = useState("");
   const [location, setLocation] = useState("");
@@ -20,45 +50,7 @@ function FilterAllEvents(props) {
   const [priceClicked, setPriceClicked] = useState(false);
   const [dateTimeClicked, setDateTimeClicked] = useState(false);
 
-  // ** filter the events on click of apply button
-  const handleApplyClick = (element) => {
-    let filterResult = [];
-    // look for specific element
-    switch (element) {
-      case "location":
-        filterResult = allEvents.filter((event) => {
-          return event.location.includes(location);
-        });
-        setLocation("");
-        break;
-      case "category":
-        filterResult = allEvents.filter((event) => {
-          return event.category.includes(category);
-        });
-        setCategory("");
-        break;
-      case "participants":
-        console.log("clicked");
-        filterResult = allEvents.filter((event) => {
-          return event.participants <= participants;
-        });
-        setParticipants(0);
-        break;
-      case "price":
-        filterResult = allEvents.filter((event) => {
-          return event.price <= price;
-        });
-        setPrice(0)
-        break;
-    }
-    // check if result available
-    if (filterResult.length > 0) {
-      setEventsToShow(filterResult);
-    } else {
-      setEventsToShow([]);
-    }
-  };
-
+  // handle click show behavior
   const handleClick = (element) => {
     if (element === "location" || (element !== "location" && locationClicked)) {
       setLocationClicked(!locationClicked);
@@ -67,7 +59,9 @@ function FilterAllEvents(props) {
       setCategoryClicked(!categoryClicked);
     }
     if (
-      element === "participants" || (element !== "participants" && participantsClicked)) {
+      element === "participants" ||
+      (element !== "participants" && participantsClicked)
+    ) {
       setParticipantsClicked(!participantsClicked);
     }
     if (element === "price" || (element !== "price" && priceClicked)) {
@@ -81,6 +75,69 @@ function FilterAllEvents(props) {
   // prevent onclick from propagating
   const handlePreventClick = (e) => {
     e.stopPropagation();
+  };
+
+  // ** filter the events on click of apply button
+  const handleApplyClick = (element) => {
+    let filterResult = [];
+    // look for specific element
+    switch (element) {
+      // case "location":
+      //   filterResult = allEvents.filter((event) => {
+      //     return event.location.includes(location);
+      //   });
+      //   setLocation("");
+      //   break;
+      // case "category":
+      //   filterResult = allEvents.filter((event) => {
+      //     return event.category.includes(category);
+      //   });
+      //   setCategory("");
+      //   break;
+      case "participants":
+        console.log("clicked");
+        filterResult = allEvents.filter((event) => {
+          return event.participants <= participants;
+        });
+        setParticipants(0);
+        setParticipantsClicked(!participantsClicked);
+        break;
+      case "price":
+        filterResult = allEvents.filter((event) => {
+          return event.price <= price;
+        });
+        setPrice(0);
+        setPriceClicked(!priceClicked);
+        break;
+    }
+    // check if result available
+    if (filterResult.length > 0) {
+      setEventsToShow(filterResult);
+    } else {
+      setEventsToShow([]);
+    }
+  };
+
+  // ** NEW -- click on location filter list dropdown
+  // --> sort by name
+  const handleFilterClick = (e) => {
+    const filterVal = e.target.innerHTML;
+    let filterResult = "";
+    if (allLocations.includes(filterVal)) {
+      filterResult = allEvents.filter((event) => {
+        return event.location.includes(filterVal);
+      });
+      setLocation("");
+      setLocationClicked(false);
+    }
+    if (allCategories.includes(filterVal)) {
+      filterResult = allEvents.filter((event) => {
+        return event.category.includes(filterVal);
+      });
+      setCategory("");
+      setCategoryClicked(false);
+    }
+    if (filterResult !== "") setEventsToShow(filterResult);
   };
 
   return (
@@ -97,25 +154,11 @@ function FilterAllEvents(props) {
           handleClick("dateTime");
         }}
       >
-        date / time
+        date
+        {/* WORK IN PROGRESS */}
         {dateTimeClicked && (
-          <div onClick={handlePreventClick} className="all-events-filter-popup">
-            <input
-              type="text"
-              className="all-events-filter-input"
-              onChange={(e) => {
-                setDateTime(e.target.value);
-              }}
-              value={dateTime}
-            />
-            <button
-              onClick={() => {
-                handleApplyClick("dateTime");
-              }}
-              className="filter-apply-button"
-            >
-              Apply
-            </button>
+          <div className="date-picker-custom">
+            <Calendar onClick={handlePreventClick} />
           </div>
         )}
       </span>
@@ -127,22 +170,20 @@ function FilterAllEvents(props) {
         location
         {locationClicked && (
           <div onClick={handlePreventClick} className="all-events-filter-popup">
-            <input
-              type="text"
-              className="all-events-filter-input"
-              onChange={(e) => {
-                setLocation(e.target.value);
-              }}
-              value={location}
-            />
-            <button
-              onClick={() => {
-                handleApplyClick("location");
-              }}
-              className="filter-apply-button"
-            >
-              Apply
-            </button>
+            <ul className="all-events-filter-location-ul">
+              {allLocations &&
+                allLocations.map((location) => {
+                  return (
+                    <li
+                      key={location}
+                      onClick={handleFilterClick}
+                      className="all-events-filter-location-li"
+                    >
+                      {location}
+                    </li>
+                  );
+                })}
+            </ul>
           </div>
         )}
       </span>
@@ -154,22 +195,20 @@ function FilterAllEvents(props) {
         category
         {categoryClicked && (
           <div onClick={handlePreventClick} className="all-events-filter-popup">
-            <input
-              type="text"
-              className="all-events-filter-input"
-              onChange={(e) => {
-                setCategory(e.target.value);
-              }}
-              value={category}
-            />
-            <button
-              onClick={() => {
-                handleApplyClick("category");
-              }}
-              className="filter-apply-button"
-            >
-              Apply
-            </button>
+            <ul className="all-events-filter-location-ul">
+              {allCategories &&
+                allCategories.map((category) => {
+                  return (
+                    <li
+                      key={category}
+                      onClick={handleFilterClick}
+                      className="all-events-filter-location-li"
+                    >
+                      {category}
+                    </li>
+                  );
+                })}
+            </ul>
           </div>
         )}
       </span>
@@ -205,7 +244,7 @@ function FilterAllEvents(props) {
           handleClick("price");
         }}
       >
-        max price
+        max price [€]
         {priceClicked && (
           <div onClick={handlePreventClick} className="all-events-filter-popup">
             <input
@@ -232,3 +271,56 @@ function FilterAllEvents(props) {
 }
 
 export default FilterAllEvents;
+
+{
+  /* <input
+type="text"
+className="all-events-filter-input"
+onChange={(e) => {
+  setLocation(e.target.value);
+}}
+value={location}
+/>
+<button
+onClick={() => {
+  handleApplyClick("location");
+}}
+className="filter-apply-button"
+>
+Apply
+</button> */
+}
+
+// <input
+// type="text"
+// className="all-events-filter-input"
+// onChange={(e) => {
+//   setCategory(e.target.value);
+// }}
+// value={category}
+// />
+// <button
+// onClick={() => {
+//   handleApplyClick("category");
+// }}
+// className="filter-apply-button"
+// >
+// Apply
+// </button>
+
+// <input
+// type="text"
+// className="all-events-filter-input"
+// onChange={(e) => {
+//   setDateTime(e.target.value);
+// }}
+// value={dateTime}
+// />
+// <button
+// onClick={() => {
+//   handleApplyClick("dateTime");
+// }}
+// className="filter-apply-button"
+// >
+// Apply
+// </button>
