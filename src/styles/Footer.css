@@ -26,15 +26,18 @@
 }
 .footer-project-by {
   text-align: left;
+  font-weight: 300;
 }
 .footer-follow-container {
-  margin-top: 2rem;
+  margin-top: 2.5rem;
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
 }
 .footer-follow-us {
   text-align: center;
+  text-transform: uppercase;
+  font-weight: lighter;
 }
 .footer-social-media-logos {
   display: flex;
@@ -49,7 +52,7 @@
   width: 100%;
 }
 .footer-bottom {
-  margin-top: 3rem;
+  margin-top: 3.5rem;
   display: flex;
   justify-content: center;
 }
@@ -63,4 +66,5 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  text-decoration: underline;
 }
