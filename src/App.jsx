@@ -6,6 +6,9 @@ import EventsDetail from "./pages/EventsDetail";
 import CreateEvent from "./pages/CreateEvent";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
+import EventsListAdmin from "./pages/EventsListAdmin";
+import EventsDetailAdmin from "./pages/EventsDetailAdmin";
+import EditEventsAdmin from "./pages/EditEventsAdmin";
 
 function App() {
   return (
@@ -16,6 +19,12 @@ function App() {
         <Route path="/events" element={<EventsList />}></Route>
         <Route path="/events/:eventId" element={<EventsDetail />}></Route>
         <Route path="/events/create" element={<CreateEvent />}></Route>
+        <Route path="/admin" element={<EventsListAdmin />}></Route>
+        <Route path="/admin/:eventId" element={<EventsDetailAdmin />}></Route>
+        <Route
+          path="/admin/:eventId/edit"
+          element={<EditEventsAdmin />}
+        ></Route>
       </Routes>
       <Footer />
     </>
