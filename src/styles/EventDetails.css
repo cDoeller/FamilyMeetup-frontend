@@ -13,16 +13,16 @@
   transform: translate(-50%, -50%);
 }
 
-.event-title-category-wrapper{
-    width: 75%;
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
+.event-title-category-wrapper {
+  width: 75%;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
 }
 
-.event-title-short-description-wrapper{
-    display: flex;
-    flex-direction: column;
+.event-title-short-description-wrapper {
+  display: flex;
+  flex-direction: column;
 }
 
 .event-title {
@@ -30,8 +30,8 @@
 }
 
 .event-category {
-    text-transform: uppercase;
-    color:blue;
+  text-transform: uppercase;
+  color: blue;
 }
 
 .event-short-description {
@@ -42,17 +42,17 @@
   margin-top: 2rem;
 }
 
-.event-date-time-price-wrapper{
-    width: 75%;
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
+.event-date-time-price-wrapper {
+  width: 75%;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
 }
 
 .event-date-time {
-    display: flex;
-    gap: 2rem;
-    margin-top: 2rem;
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
 }
 .event-date {
 }
@@ -62,39 +62,60 @@
 }
 
 .event-location {
-    margin-top: 2rem;
-    text-transform: uppercase;
+  margin-top: 2rem;
+  text-transform: uppercase;
 }
 
 .event-participants-wrapper {
-    /* width: 70%; */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  /* width: 70%; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.event-families-going-join-wrapper{
-    display: flex;
-    margin-top: 4rem;
+.event-families-going-join-wrapper {
+  display: flex;
+  margin-top: 4rem;
 }
 
-.event-families-going{
-    padding: 1rem 1.2rem;
-    background-color: lightgray;
+.event-families-going {
+  padding: 1rem 1.2rem;
+  background-color: lightgray;
 }
 .event-join-button {
-    padding: 1rem 1.2rem;
-    border: none;
-    background-color: blue;
-    color: white;
-    text-transform: uppercase;
+  padding: 1rem 1.2rem;
+  border: none;
+  background-color: blue;
+  color: white;
+  text-transform: uppercase;
 }
 .event-back-button-wrapper {
-    margin: 3rem 0;
+  margin: 3rem 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
 }
 .event-back-button {
-    padding: 1rem 1.2rem;
-    border: none;
-    text-transform: uppercase;
+  padding: 1rem 1.2rem;
+  border: none;
+  text-transform: uppercase;
+}
+.event-edit-button-wrapper {
+  margin: 3rem 0;
+}
+.event-edit-button {
+  padding: 1rem 1.2rem;
+  border: none;
+  text-transform: uppercase;
+}
+
+.event-delete-button-wrapper {
+  margin: 3rem 0;
+}
+.event-delete-button {
+  padding: 1rem 1.2rem;
+  border: none;
+  text-transform: uppercase;
 }
