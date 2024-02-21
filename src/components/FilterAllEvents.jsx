@@ -9,6 +9,7 @@ import "../styles/FilterAllEvents.css";
 // multi aspect filtering
 // ** idea for filtering on top of filtering
 // ** locationFilterActive, setLocationFilterActive
+// ---> problem: if double event, problem
 
 function FilterAllEvents(props) {
   const { eventsToShow, setEventsToShow, allEvents } = props;
@@ -25,6 +26,8 @@ function FilterAllEvents(props) {
   const [participantsClicked, setParticipantsClicked] = useState(false);
   const [priceClicked, setPriceClicked] = useState(false);
   const [dateTimeClicked, setDateTimeClicked] = useState(false);
+
+  const [filterActive, setFilterActive] = useState (false);
 
   // handle click show behavior
   const handleClick = (element) => {
@@ -82,10 +85,7 @@ function FilterAllEvents(props) {
   };
 
   // *** list filtering
-  // --> sort by name
-
-  // list filtering 1)
-  // make array for all locations and categories (lists)
+  // 1) make lists
   let allLocations = null;
   let allCategories = null;
   if (allEvents) {
@@ -104,26 +104,35 @@ function FilterAllEvents(props) {
       )
     );
   }
-
-  // list filtering 2)
+  // 2) list filtering 
   const handleFilterClick = (e) => {
+    // assign filter base
+    let filterBase = [];
+    if (filterActive){
+      filterBase = [...eventsToShow];
+    }else{
+      filterBase = [...allEvents];
+    }
+    // filter
     const filterVal = e.target.innerHTML;
     let filterResult = "";
     if (allLocations.includes(filterVal)) {
-      filterResult = allEvents.filter((event) => {
+      filterResult = filterBase.filter((event) => {
         return event.location.includes(filterVal);
       });
       setLocation("");
       setLocationClicked(false);
     }
     if (allCategories.includes(filterVal)) {
-      filterResult = allEvents.filter((event) => {
+      filterResult = filterBase.filter((event) => {
         return event.category.includes(filterVal);
       });
       setCategory("");
       setCategoryClicked(false);
     }
     if (filterResult !== "") setEventsToShow(filterResult);
+    // set filter active for future base
+    if (!filterActive) setFilterActive(true);
   };
 
   // *** Date filtering
@@ -155,6 +164,7 @@ function FilterAllEvents(props) {
       <span
         onClick={() => {
           setEventsToShow(allEvents);
+          setFilterActive(false);
         }}
       >
         show all
