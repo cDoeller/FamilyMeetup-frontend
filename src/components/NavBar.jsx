@@ -12,10 +12,10 @@ function NavBar() {
         </Link>
       </div>
       <div className="nav-user-wrapper">
-        <Link to="#">
+        <Link to="/admin">
           <button className="nav-user-button">register</button>
         </Link>
-        <Link to="#">
+        <Link to="/admin">
           <button className="nav-user-button">sign in</button>
         </Link>
       </div>
