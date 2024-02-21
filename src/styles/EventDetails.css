@@ -1,0 +1,100 @@
+.event-image {
+  height: 450px;
+  overflow: hidden;
+  position: relative;
+  margin-top: 4rem;
+}
+
+.event-image > img {
+  width: 120%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.event-title-category-wrapper{
+    width: 75%;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.event-title-short-description-wrapper{
+    display: flex;
+    flex-direction: column;
+}
+
+.event-title {
+  margin-top: 2rem;
+}
+
+.event-category {
+    text-transform: uppercase;
+    color:blue;
+}
+
+.event-short-description {
+}
+
+.event-description {
+  width: 50%;
+  margin-top: 2rem;
+}
+
+.event-date-time-price-wrapper{
+    width: 75%;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.event-date-time {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+.event-date {
+}
+.event-time {
+}
+.event-price {
+}
+
+.event-location {
+    margin-top: 2rem;
+    text-transform: uppercase;
+}
+
+.event-participants-wrapper {
+    /* width: 70%; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.event-families-going-join-wrapper{
+    display: flex;
+    margin-top: 4rem;
+}
+
+.event-families-going{
+    padding: 1rem 1.2rem;
+    background-color: lightgray;
+}
+.event-join-button {
+    padding: 1rem 1.2rem;
+    border: none;
+    background-color: blue;
+    color: white;
+    text-transform: uppercase;
+}
+.event-back-button-wrapper {
+    margin: 3rem 0;
+}
+.event-back-button {
+    padding: 1rem 1.2rem;
+    border: none;
+    text-transform: uppercase;
+}
