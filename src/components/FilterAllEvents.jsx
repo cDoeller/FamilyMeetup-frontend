@@ -5,7 +5,6 @@ import "../styles/FilterAllEvents.css";
 
 // ** TO DO **
 // reset clicked when clicked on window
-// date picker drowdown filtering
 // category / location list --> sort by name / checkbox filtering?
 // multi aspect filtering
 // ** idea for filtering on top of filtering
@@ -15,7 +14,7 @@ function FilterAllEvents(props) {
   const { eventsToShow, setEventsToShow, allEvents } = props;
   // console.log(allEvents);
 
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(null);
   const [location, setLocation] = useState("");
   const [category, setCategory] = useState("");
   const [participants, setParticipants] = useState(0);
@@ -26,34 +25,6 @@ function FilterAllEvents(props) {
   const [participantsClicked, setParticipantsClicked] = useState(false);
   const [priceClicked, setPriceClicked] = useState(false);
   const [dateTimeClicked, setDateTimeClicked] = useState(false);
-
-  useEffect(() => {
-    if (date !== "") {
-      let pickedDate = date.toUTCString();
-      // pickedDate = pickedDate.slice(10);
-      console.log(pickedDate);
-    }
-  }, [date]);
-
-  // make array for all locations and categories (lists)
-  let allLocations = null;
-  let allCategories = null;
-  if (allEvents) {
-    allCategories = Array.from(
-      new Set(
-        allEvents.map((event) => {
-          return event.category;
-        })
-      )
-    );
-    allLocations = Array.from(
-      new Set(
-        allEvents.map((event) => {
-          return event.location;
-        })
-      )
-    );
-  }
 
   // handle click show behavior
   const handleClick = (element) => {
@@ -82,23 +53,11 @@ function FilterAllEvents(props) {
     e.stopPropagation();
   };
 
-  // ** apply button filtering
+  // *** apply button filtering
   const handleApplyClick = (element) => {
     let filterResult = [];
     // look for specific element
     switch (element) {
-      // case "location":
-      //   filterResult = allEvents.filter((event) => {
-      //     return event.location.includes(location);
-      //   });
-      //   setLocation("");
-      //   break;
-      // case "category":
-      //   filterResult = allEvents.filter((event) => {
-      //     return event.category.includes(category);
-      //   });
-      //   setCategory("");
-      //   break;
       case "participants":
         filterResult = allEvents.filter((event) => {
           return event.participants <= participants;
@@ -122,8 +81,31 @@ function FilterAllEvents(props) {
     }
   };
 
-  // ** list filtering
+  // *** list filtering
   // --> sort by name
+
+  // list filtering 1)
+  // make array for all locations and categories (lists)
+  let allLocations = null;
+  let allCategories = null;
+  if (allEvents) {
+    allCategories = Array.from(
+      new Set(
+        allEvents.map((event) => {
+          return event.category;
+        })
+      )
+    );
+    allLocations = Array.from(
+      new Set(
+        allEvents.map((event) => {
+          return event.location;
+        })
+      )
+    );
+  }
+
+  // list filtering 2)
   const handleFilterClick = (e) => {
     const filterVal = e.target.innerHTML;
     let filterResult = "";
@@ -144,6 +126,30 @@ function FilterAllEvents(props) {
     if (filterResult !== "") setEventsToShow(filterResult);
   };
 
+  // *** Date filtering
+  useEffect(() => {
+    if (date) {
+      // fold in dropdown when range chosen
+      setDateTimeClicked(!dateTimeClicked);
+      // filter events based on dates in milliseconds
+      const startDate = date[0];
+      const endDate = date[1];
+      const filteredEventsDates = allEvents.filter ((event)=>{
+        const dateToCheck = new Date (event.date);
+        return (isBetween(dateToCheck,startDate,endDate))
+      })
+      // update events to show
+      setEventsToShow(filteredEventsDates);
+      // reset date
+      setDate(null);
+    }
+  }, [date]);
+
+  // *** Date filtering - helper function
+  const isBetween = (dateToCheck, startDate, endDate) => {
+    return dateToCheck.getTime() >= startDate.getTime() && dateToCheck.getTime() <= endDate.getTime()
+  };
+
   return (
     <div className="filter-all-events-wrapper">
       <span
@@ -159,14 +165,15 @@ function FilterAllEvents(props) {
         }}
       >
         date
-        {/* WORK IN PROGRESS ---> 23:00 */}
         {dateTimeClicked && (
-          <div className="date-picker-custom">
+          <div className="date-picker-custom" onClick={handlePreventClick}>
             <Calendar
-              onClick={handlePreventClick}
               onChange={(e) => {
                 setDate(e);
               }}
+              value={date}
+              selectRange={true}
+              minDate={new Date()}
             />
           </div>
         )}
