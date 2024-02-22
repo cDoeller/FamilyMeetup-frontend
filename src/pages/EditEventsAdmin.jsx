@@ -8,7 +8,7 @@ import "../styles/CreateEvent.css";
 
 function EditEventsAdmin() {
   const [title, setTitle] = useState("");
-  const [image, setImage] = useState("");
+  const [image_url, setImage] = useState("");
   const [short_description, setShort_description] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
@@ -44,7 +44,7 @@ function EditEventsAdmin() {
 
     const editedEvent = {
       title,
-      image,
+      image_url,
       short_description,
       description,
       date,
@@ -87,7 +87,7 @@ function EditEventsAdmin() {
             onChange={(e) => {
               setImage(e.target.value);
             }}
-            value={image}
+            value={image_url}
           />
           <label>SHORT DESCRIPTION</label>
           <input
