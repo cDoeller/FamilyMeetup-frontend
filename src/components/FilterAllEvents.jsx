@@ -7,7 +7,9 @@ import "../styles/FilterAllEvents.css";
 // ** TO DO **
 // reset clicked when clicked on window
 // price always filters with 0, no reset
-// checkboxes do not stay checked when reopnened
+// easy date input test
+// date filter
+// controlled / uncontrolled warning
 
 function FilterAllEvents(props) {
   const { eventsToShow, setEventsToShow } = props;
@@ -100,7 +102,7 @@ function FilterAllEvents(props) {
     }
   }, [showAll, location, category, participants, price]);
 
-  // * CHECKBOX FILTERING
+  // * CHECKBOX HANDELING
   const handleChechboxChange = (e) => {
     setIsFiltering(true);
     if (e.target.checked) {
@@ -125,24 +127,6 @@ function FilterAllEvents(props) {
         );
     }
   };
-
-  // // * price filter
-  // useEffect(() => {
-  //   if (isFiltering) {
-  //     console.log(price);
-  //     axios
-  //       .get(`http://localhost:5005/events?price_lte=${price}`)
-  //       .then((response) => {
-  //         setEventsToShow(response.data);
-  //       })
-  //       .then(() => {
-  //         setIsFiltering(false);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   }
-  // }, [price]);
 
   // * date filter
   useEffect(() => {
