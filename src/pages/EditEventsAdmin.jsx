@@ -16,6 +16,7 @@ function EditEventsAdmin() {
   const [location, setLocation] = useState("");
   const [price, setPrice] = useState();
   const [category, setCategory] = useState("");
+  const [participants, setParticipants] = useState("");
   const navigate = useNavigate();
   const { eventId } = useParams();
 
@@ -34,6 +35,7 @@ function EditEventsAdmin() {
         setLocation(eventData.location);
         setPrice(eventData.price);
         setCategory(eventData.category);
+        setParticipants(eventData.participants);
       })
       .catch((err) => {
         console.log(err);
@@ -52,6 +54,7 @@ function EditEventsAdmin() {
       location,
       price,
       category,
+      participants,
     };
 
     axios
@@ -144,7 +147,6 @@ function EditEventsAdmin() {
       clockIcon={null}
       clearIcon="X"
     />*/}
-
           <label>PRICE</label>
           <input
             placeholder="€"
