@@ -26,7 +26,7 @@ function EditEventsAdmin() {
         console.log(response.data);
         const eventData = response.data;
         setTitle(eventData.title);
-        setImage(eventData.image);
+        setImage(eventData.image_url);
         setShort_description(eventData.short_description);
         setDescription(eventData.description);
         setDate(eventData.date);
