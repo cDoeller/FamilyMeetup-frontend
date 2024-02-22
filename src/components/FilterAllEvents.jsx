@@ -6,32 +6,17 @@ import "../styles/FilterAllEvents.css";
 
 // ** TO DO **
 // reset clicked when clicked on window
-// multi aspect filtering
-// lists with checkbox and apply
-// url params
-
-// const params = new URLSearchParams()
-//   // console.log(params)
-//   if(state)params.append('name',"Eduardo")
-//   params.append("id_lte",'')
-//   console.log(params.toString())
-//   axios.get(`https://omar-class-api.adaptable.app/students?${params.toString()}`)
-//   .then((res)=>{
-//     console.log(res.data)
-//   })
-//   console.log(params)
+// price always filters with 0, no reset
+// checkboxes do not stay checked when reopnened
 
 function FilterAllEvents(props) {
   const { eventsToShow, setEventsToShow } = props;
-  // console.log(eventsToShow);
-
-  const [isFiltering, setIsFiltering] = useState(false);
 
   const [date, setDate] = useState(null);
-  const [location, setLocation] = useState("");
-  const [category, setCategory] = useState("");
+  const [location, setLocation] = useState([]);
+  const [category, setCategory] = useState([]);
   const [participants, setParticipants] = useState(0);
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState(null);
   const [showAll, setShowAll] = useState(false);
 
   const [locationClicked, setLocationClicked] = useState(false);
@@ -40,11 +25,13 @@ function FilterAllEvents(props) {
   const [priceClicked, setPriceClicked] = useState(false);
   const [dateClicked, setDateClicked] = useState(false);
 
+  const [isFiltering, setIsFiltering] = useState(false);
+
   const allLocations = useRef(null);
   const allCategories = useRef(null);
 
-  // * initial get request for all events
-  // + list all categories and locations
+  // * INITIAL get request for all events
+  // * listing all categories and locations
   useEffect(() => {
     axios
       .get("http://localhost:5005/events")
@@ -54,7 +41,7 @@ function FilterAllEvents(props) {
         return response.data;
       })
       .then((response) => {
-        // make arrays for all locations and categories -once- (useRef)
+        // make array all locations, all categories -once- (useRef)
         allCategories.current = Array.from(
           new Set(
             response.map((event) => {
@@ -76,11 +63,28 @@ function FilterAllEvents(props) {
       });
   }, []);
 
-  // * filtering
+  // * FILTERING
   useEffect(() => {
     if (isFiltering) {
-      const params = new URLSearchParams();
-      if (location) params.append("location", location);
+      let params = new URLSearchParams();
+      // filter for location
+      if (location.length > 0)
+        location.forEach((oneLocation) => {
+          params.append("location", oneLocation);
+        });
+      // filter for category
+      if (category.length > 0)
+        category.forEach((oneCategory) => {
+          params.append("category", oneCategory);
+        });
+      // filter for participants
+      if (participants) params.append("participants_lte", participants);
+      // filter for price
+      if (price !== null) {
+        params.append("price_lte", price);
+      }
+      // filter for all
+      if (showAll) params = "";
       axios
         .get(`http://localhost:5005/events?${params.toString()}`)
         .then((response) => {
@@ -88,81 +92,39 @@ function FilterAllEvents(props) {
         })
         .then(() => {
           setIsFiltering(false);
+          if (showAll) setShowAll(false);
         })
         .catch((err) => {
           console.log(err);
         });
     }
-  }, [location, category, participants, price]);
+  }, [showAll, location, category, participants, price]);
 
-  // * location filter
-  useEffect(() => {
-    if (isFiltering) {
-      axios
-        .get("http://localhost:5005/events")
-        .then((response) => {
-          setEventsToShow(response.data);
-        })
-        .then(() => {
-          setIsFiltering(false);
-          setShowAll(false);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+  // * CHECKBOX FILTERING
+  const handleChechboxChange = (e) => {
+    setIsFiltering(true);
+    if (e.target.checked) {
+      if (e.target.name === "category") {
+        setCategory([...category, e.target.value]);
+      }
+      if (e.target.name === "location") {
+        setLocation([...location, e.target.value]);
+      }
+    } else {
+      if (e.target.name === "category")
+        setCategory(
+          category.filter((element) => {
+            return element !== e.target.value;
+          })
+        );
+      if (e.target.name === "location")
+        setLocation(
+          location.filter((element) => {
+            return element !== e.target.value;
+          })
+        );
     }
-  }, [showAll]);
-
-  // // * location filter
-  // useEffect(() => {
-  //   if (isFiltering) {
-  //     axios
-  //       .get(`http://localhost:5005/events?location=${location}`)
-  //       .then((response) => {
-  //         setEventsToShow(response.data);
-  //       })
-  //       .then(() => {
-  //         setIsFiltering(false);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   }
-  // }, [location]);
-
-  // // * category filter
-  // useEffect(() => {
-  //   if (isFiltering) {
-  //     axios
-  //       .get(`http://localhost:5005/events?category=${category}`)
-  //       .then((response) => {
-  //         setEventsToShow(response.data);
-  //       })
-  //       .then(() => {
-  //         setIsFiltering(false);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   }
-  // }, [category]);
-
-  // // * participants filter
-  // useEffect(() => {
-  //   if (isFiltering) {
-  //     axios
-  //       .get(`http://localhost:5005/events?participants_lte=${participants}`)
-  //       .then((response) => {
-  //         setEventsToShow(response.data);
-  //       })
-  //       .then(() => {
-  //         setIsFiltering(false);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   }
-  // }, [participants]);
+  };
 
   // // * price filter
   // useEffect(() => {
@@ -274,25 +236,41 @@ function FilterAllEvents(props) {
       >
         location
         {locationClicked && (
-          <div onClick={handlePreventClick} className="all-events-filter-popup">
-            <ul className="all-events-filter-location-ul">
-              {allLocations &&
-                allLocations.current.map((location) => {
-                  return (
-                    <li
-                      key={location}
-                      onClick={(e) => {
-                        setIsFiltering(true);
-                        setLocation(e.target.innerHTML.toLowerCase());
-                        setLocationClicked(!locationClicked);
-                      }}
-                      className="all-events-filter-location-li"
+          <div
+            onClick={handlePreventClick}
+            className="all-events-filter-popup checkbox-filtering"
+          >
+            {allLocations &&
+              allLocations.current.map((oneLocation) => {
+                return (
+                  <span key={oneLocation} className="checkbox-label-span">
+                    {location.includes(oneLocation) ? (
+                      <input
+                        checked
+                        onClick={handlePreventClick}
+                        name="location"
+                        value={oneLocation}
+                        onChange={handleChechboxChange}
+                        type="checkbox"
+                      />
+                    ) : (
+                      <input
+                        onClick={handlePreventClick}
+                        name="location"
+                        value={oneLocation}
+                        onChange={handleChechboxChange}
+                        type="checkbox"
+                      />
+                    )}
+                    <label
+                      className="all-events-filter-checkbox-label"
+                      htmlFor={oneLocation}
                     >
-                      {location}
-                    </li>
-                  );
-                })}
-            </ul>
+                      {oneLocation}
+                    </label>
+                  </span>
+                );
+              })}
           </div>
         )}
       </span>
@@ -304,25 +282,41 @@ function FilterAllEvents(props) {
       >
         category
         {categoryClicked && (
-          <div onClick={handlePreventClick} className="all-events-filter-popup">
-            <ul className="all-events-filter-location-ul">
-              {allCategories &&
-                allCategories.current.map((category) => {
-                  return (
-                    <li
-                      key={category}
-                      onClick={(e) => {
-                        setIsFiltering(true);
-                        setCategory(e.target.innerHTML.toLowerCase());
-                        setCategoryClicked(!categoryClicked);
-                      }}
-                      className="all-events-filter-location-li"
+          <div
+            onClick={handlePreventClick}
+            className="all-events-filter-popup checkbox-filtering"
+          >
+            {allCategories &&
+              allCategories.current.map((oneCategory) => {
+                return (
+                  <span key={oneCategory} className="checkbox-label-span">
+                    {category.includes(oneCategory) ? (
+                      <input
+                        checked
+                        onClick={handlePreventClick}
+                        name="category"
+                        onChange={handleChechboxChange}
+                        type="checkbox"
+                        value={oneCategory}
+                      />
+                    ) : (
+                      <input
+                        onClick={handlePreventClick}
+                        name="category"
+                        onChange={handleChechboxChange}
+                        type="checkbox"
+                        value={oneCategory}
+                      />
+                    )}
+                    <label
+                      className="all-events-filter-checkbox-label"
+                      htmlFor={oneCategory}
                     >
-                      {category}
-                    </li>
-                  );
-                })}
-            </ul>
+                      {oneCategory}
+                    </label>
+                  </span>
+                );
+              })}
           </div>
         )}
       </span>
@@ -363,7 +357,7 @@ function FilterAllEvents(props) {
                 setIsFiltering(true);
                 setPrice(Math.abs(e.target.value));
               }}
-              value={price}
+              value={price ? price : 0}
             />
           </div>
         )}

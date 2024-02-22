@@ -47,14 +47,18 @@
   border: none;
 }
 
-.all-events-filter-location-ul {
-  list-style:inside circle;
-  line-height: 1.6em;
-  width: 100%;
+.checkbox-filtering{
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
 }
 
-.all-events-filter-location-li:hover {
-  color: blue;
+.checkbox-label-span{
+  display: flex;
+  gap: 0.5rem;
+}
+
+.all-events-filter-checkbox-label:hover {
 }
 
 .date-picker-custom {
