@@ -8,7 +8,7 @@ import "../components/CreateEvent.css";
 
 function CreateEvent() {
   const [title, setTitle] = useState("");
-  const [image, setImage] = useState("");
+  const [image_url, setImage] = useState("");
   const [short_description, setShort_description] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
@@ -16,6 +16,7 @@ function CreateEvent() {
   const [location, setLocation] = useState("");
   const [price, setPrice] = useState();
   const [category, setCategory] = useState("");
+  const [participants, setParticipants]= useState(0)
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -23,7 +24,7 @@ function CreateEvent() {
 
     const newEvent = {
       title: title,
-      image: image,
+      image: image_url,
       short_description: short_description,
       description: description,
       date: date,
@@ -31,6 +32,7 @@ function CreateEvent() {
       location: location,
       price: price,
       category: category,
+      participants: participants,
     };
 
     axios
@@ -65,7 +67,7 @@ function CreateEvent() {
             onChange={(e) => {
               setImage(e.target.value);
             }}
-            value={image}
+            value={image_url}
           />
           <label>SHORT DESCRIPTION</label>
           <input
