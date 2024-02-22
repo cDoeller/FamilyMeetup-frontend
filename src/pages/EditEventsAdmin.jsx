@@ -8,7 +8,7 @@ import "../styles/CreateEvent.css";
 
 function EditEventsAdmin() {
   const [title, setTitle] = useState("");
-  const [image, setImage] = useState("");
+  const [image_url, setImage] = useState("");
   const [short_description, setShort_description] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
@@ -16,6 +16,7 @@ function EditEventsAdmin() {
   const [location, setLocation] = useState("");
   const [price, setPrice] = useState();
   const [category, setCategory] = useState("");
+  const [participants, setParticipants] = useState("");
   const navigate = useNavigate();
   const { eventId } = useParams();
 
@@ -26,7 +27,7 @@ function EditEventsAdmin() {
         console.log(response.data);
         const eventData = response.data;
         setTitle(eventData.title);
-        setImage(eventData.image);
+        setImage(eventData.image_url);
         setShort_description(eventData.short_description);
         setDescription(eventData.description);
         setDate(eventData.date);
@@ -34,6 +35,7 @@ function EditEventsAdmin() {
         setLocation(eventData.location);
         setPrice(eventData.price);
         setCategory(eventData.category);
+        setParticipants(eventData.participants);
       })
       .catch((err) => {
         console.log(err);
@@ -44,7 +46,7 @@ function EditEventsAdmin() {
 
     const editedEvent = {
       title,
-      image,
+      image_url,
       short_description,
       description,
       date,
@@ -52,6 +54,7 @@ function EditEventsAdmin() {
       location,
       price,
       category,
+      participants,
     };
 
     axios
@@ -87,7 +90,7 @@ function EditEventsAdmin() {
             onChange={(e) => {
               setImage(e.target.value);
             }}
-            value={image}
+            value={image_url}
           />
           <label>SHORT DESCRIPTION</label>
           <input
@@ -144,7 +147,6 @@ function EditEventsAdmin() {
       clockIcon={null}
       clearIcon="X"
     />*/}
-
           <label>PRICE</label>
           <input
             placeholder="€"
