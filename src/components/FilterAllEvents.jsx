@@ -25,17 +25,20 @@ function FilterAllEvents(props) {
   const { eventsToShow, setEventsToShow } = props;
   // console.log(eventsToShow);
 
+  const [isFiltering, setIsFiltering] = useState(false);
+
   const [date, setDate] = useState(null);
   const [location, setLocation] = useState("");
   const [category, setCategory] = useState("");
   const [participants, setParticipants] = useState(0);
   const [price, setPrice] = useState(0);
+  const [showAll, setShowAll] = useState(false);
 
   const [locationClicked, setLocationClicked] = useState(false);
   const [categoryClicked, setCategoryClicked] = useState(false);
   const [participantsClicked, setParticipantsClicked] = useState(false);
   const [priceClicked, setPriceClicked] = useState(false);
-  const [dateTimeClicked, setDateTimeClicked] = useState(false);
+  const [dateClicked, setDateClicked] = useState(false);
 
   const allLocations = useRef(null);
   const allCategories = useRef(null);
@@ -58,87 +61,132 @@ function FilterAllEvents(props) {
               return event.category;
             })
           )
-        );
+        ).sort();
         allLocations.current = Array.from(
           new Set(
             response.map((event) => {
               return event.location;
             })
           )
-        );
-        // console.log (allLocations.current,allCategories.current);
+        ).sort();
+        console.log("mounted");
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
-  // * show all events filter
-  const handleShowAll = () => {
-    axios
-      .get("http://localhost:5005/events")
-      .then((response) => {
-        setEventsToShow(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  // * filtering
+  useEffect(() => {
+    if (isFiltering) {
+      const params = new URLSearchParams();
+      if (location) params.append("location", location);
+      axios
+        .get(`http://localhost:5005/events?${params.toString()}`)
+        .then((response) => {
+          setEventsToShow(response.data);
+        })
+        .then(() => {
+          setIsFiltering(false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [location, category, participants, price]);
 
   // * location filter
   useEffect(() => {
-    axios
-      .get(`http://localhost:5005/events?location=${location}`)
-      .then((response) => {
-        setEventsToShow(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [location]);
+    if (isFiltering) {
+      axios
+        .get("http://localhost:5005/events")
+        .then((response) => {
+          setEventsToShow(response.data);
+        })
+        .then(() => {
+          setIsFiltering(false);
+          setShowAll(false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [showAll]);
 
-  // * category filter
-  useEffect(() => {
-    console.log("category")
-    axios
-      .get(`http://localhost:5005/events?category=${category}`)
-      .then((response) => {
-        setEventsToShow(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [category]);
+  // // * location filter
+  // useEffect(() => {
+  //   if (isFiltering) {
+  //     axios
+  //       .get(`http://localhost:5005/events?location=${location}`)
+  //       .then((response) => {
+  //         setEventsToShow(response.data);
+  //       })
+  //       .then(() => {
+  //         setIsFiltering(false);
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   }
+  // }, [location]);
 
-  // * participants filter
-  useEffect(() => {
-    axios
-      .get(`http://localhost:5005/events?participants_lte=${participants}`)
-      .then((response) => {
-        setEventsToShow(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [participants]);
+  // // * category filter
+  // useEffect(() => {
+  //   if (isFiltering) {
+  //     axios
+  //       .get(`http://localhost:5005/events?category=${category}`)
+  //       .then((response) => {
+  //         setEventsToShow(response.data);
+  //       })
+  //       .then(() => {
+  //         setIsFiltering(false);
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   }
+  // }, [category]);
 
-  // * price filter
-  useEffect(() => {
-    axios
-      .get(`http://localhost:5005/events?participants_lte=${price}`)
-      .then((response) => {
-        setEventsToShow(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [price]);
+  // // * participants filter
+  // useEffect(() => {
+  //   if (isFiltering) {
+  //     axios
+  //       .get(`http://localhost:5005/events?participants_lte=${participants}`)
+  //       .then((response) => {
+  //         setEventsToShow(response.data);
+  //       })
+  //       .then(() => {
+  //         setIsFiltering(false);
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   }
+  // }, [participants]);
 
-  // *** Date filtering
+  // // * price filter
+  // useEffect(() => {
+  //   if (isFiltering) {
+  //     console.log(price);
+  //     axios
+  //       .get(`http://localhost:5005/events?price_lte=${price}`)
+  //       .then((response) => {
+  //         setEventsToShow(response.data);
+  //       })
+  //       .then(() => {
+  //         setIsFiltering(false);
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   }
+  // }, [price]);
+
+  // * date filter
   useEffect(() => {
     if (date) {
       // fold in dropdown when range chosen
-      setDateTimeClicked(!dateTimeClicked);
+      setDateClicked(!dateClicked);
       // filter events based on dates in milliseconds
       const startDate = date[0];
       const endDate = date[1];
@@ -178,8 +226,8 @@ function FilterAllEvents(props) {
     if (element === "price" || (element !== "price" && priceClicked)) {
       setPriceClicked(!priceClicked);
     }
-    if (element === "date" || (element !== "date" && dateTimeClicked)) {
-      setDateTimeClicked(!dateTimeClicked);
+    if (element === "date" || (element !== "date" && dateClicked)) {
+      setDateClicked(!dateClicked);
     }
   };
   // prevent onclick from propagating
@@ -187,9 +235,17 @@ function FilterAllEvents(props) {
     e.stopPropagation();
   };
 
+  // ************************* RETURN ************************** //
   return (
     <div className="filter-all-events-wrapper">
-      <span onClick={handleShowAll}>show all</span>
+      <span
+        onClick={() => {
+          setIsFiltering(true);
+          setShowAll(true);
+        }}
+      >
+        show all
+      </span>
       {/* DATE FILTER */}
       <span
         onClick={() => {
@@ -197,7 +253,7 @@ function FilterAllEvents(props) {
         }}
       >
         date
-        {dateTimeClicked && (
+        {dateClicked && (
           <div className="date-picker-custom" onClick={handlePreventClick}>
             <Calendar
               onChange={(e) => {
@@ -226,7 +282,9 @@ function FilterAllEvents(props) {
                     <li
                       key={location}
                       onClick={(e) => {
+                        setIsFiltering(true);
                         setLocation(e.target.innerHTML.toLowerCase());
+                        setLocationClicked(!locationClicked);
                       }}
                       className="all-events-filter-location-li"
                     >
@@ -254,7 +312,9 @@ function FilterAllEvents(props) {
                     <li
                       key={category}
                       onClick={(e) => {
+                        setIsFiltering(true);
                         setCategory(e.target.innerHTML.toLowerCase());
+                        setCategoryClicked(!categoryClicked);
                       }}
                       className="all-events-filter-location-li"
                     >
@@ -279,7 +339,8 @@ function FilterAllEvents(props) {
               type="number"
               className="all-events-filter-input"
               onChange={(e) => {
-                setParticipants(e.target.value);
+                setIsFiltering(true);
+                setParticipants(Math.abs(e.target.value));
               }}
               value={participants}
             />
@@ -299,7 +360,8 @@ function FilterAllEvents(props) {
               type="number"
               className="all-events-filter-input"
               onChange={(e) => {
-                setPrice(e.target.value);
+                setIsFiltering(true);
+                setPrice(Math.abs(e.target.value));
               }}
               value={price}
             />
