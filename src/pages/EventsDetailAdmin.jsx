@@ -70,7 +70,7 @@ function EventsDetailAdmin() {
                 <Link to={`/events`}>
                   <button className="event-back-button">Back</button>
                 </Link>
-                <Link to={`/admin/:eventId/edit`}>
+                <Link to={`/admin/${eventId}/edit`}>
                   <button className="event-edit-button">Edit</button>
                 </Link>
                 <Link to={`/admin`}>
