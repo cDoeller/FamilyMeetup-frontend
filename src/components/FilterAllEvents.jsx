@@ -181,7 +181,8 @@ function FilterAllEvents(props) {
     e.stopPropagation();
   };
 
-  // ************************* RETURN ************************** //
+  // ************************* RETURN *************************** //
+  // remove participants and add slider for price
   return (
     <div className="filter-all-events-wrapper">
       <span
