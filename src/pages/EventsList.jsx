@@ -35,7 +35,6 @@ function EventsList() {
       </div>
       <FilterAllEvents
         eventsToShow={eventsToShow}
-        allEvents={allEvents}
         setEventsToShow={setEventsToShow}
       />
       <div className="events-list-container-eventslistpage">
