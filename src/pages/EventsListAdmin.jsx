@@ -48,6 +48,7 @@ function EventsListAdmin() {
     if (!eventsToShow) eventsToShow = allEvents;
   }
 
+  // * fake user login
   const handleSubmit = (e) => {
     // console.log(userName, pwd);
     e.preventDefault();
@@ -74,8 +75,15 @@ function EventsListAdmin() {
     setPwd("");
   };
 
+  useEffect(() => {
+    window.sessionStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
+  }, [isLoggedIn]);
+
+  const showFullPage = window.sessionStorage.getItem("isLoggedIn");
+
+
   // *********************** RETURN *************************
-  if (!isLoggedIn)
+  if (!showFullPage)
     return (
       <div className="page-wrapper">
         <form
@@ -93,6 +101,7 @@ function EventsListAdmin() {
             onChange={(e) => {
               setUserName(e.target.value);
             }}
+            value={userName}
             required
           />
           <label htmlFor="pwd" className="admin-eventlist-label">
@@ -105,6 +114,7 @@ function EventsListAdmin() {
             onChange={(e) => {
               setPwd(e.target.value);
             }}
+            value={pwd}
             required
           />
           <button type="submit" className="admin-eventlist-login-button">
@@ -115,7 +125,7 @@ function EventsListAdmin() {
     );
 
   // conditional render
-  if (isLoggedIn)
+  if (showFullPage)
     return (
       <div className="page-wrapper">
         <div
