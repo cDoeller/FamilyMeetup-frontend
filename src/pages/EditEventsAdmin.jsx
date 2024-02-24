@@ -14,7 +14,7 @@ function EditEventsAdmin() {
   const [location, setLocation] = useState("");
   const [price, setPrice] = useState();
   const [category, setCategory] = useState("");
-  const [participants, setParticipants] = useState("");
+  const [participants, setParticipants] = useState();
   const [date_to_seconds, setDate_to_seconds] = useState();
   const navigate = useNavigate();
   const { eventId } = useParams();

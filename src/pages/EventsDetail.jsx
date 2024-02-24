@@ -9,13 +9,40 @@ function EventsDetail() {
   const [hasJoined, setHasJoined] = useState(false)
   const { eventId } = useParams();
   const [count, setCount] = useState(0);
+  const [participants, setParticipants] = useState();
+  useEffect(()=>{
+if(event){
+      const updatedEvent = {
+        title: event.title,
+        image_url: event.image_url,
+        short_description: event.short_description,
+        description: event.description,
+        date: event.date,
+        time: event.time,
+        location: event.location,
+        price: event.price,
+        category: event.category,
+        participants: event.participants+count,
+        date_to_seconds: event.date_to_seconds
+      }
+      axios.
+      put(`http://localhost:5005/events/${eventId}`, updatedEvent)
+      .then((response)=>{
+       console.log(response.data)
+      })
+      .catch((err) => {
+       console.log(err);
+     });}
 
+  },[count])
+  
+ 
   function increaseCount() {
     setHasJoined(true)
     setCount((prevCount) => {
       return prevCount + 1;
-
     });
+    
   }
   useEffect(() => {
     axios
@@ -28,6 +55,7 @@ function EventsDetail() {
       });
   }, [eventId]);
 
+  
   if (!event)
     return (
       <div>
@@ -82,3 +110,4 @@ function EventsDetail() {
 }
 
 export default EventsDetail;
+
