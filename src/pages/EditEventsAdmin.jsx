@@ -2,8 +2,6 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import DatePicker from "react-datepicker";
-import TimePicker from "react-time-picker";
 import "../styles/CreateEvent.css";
 
 function EditEventsAdmin() {

@@ -2,9 +2,7 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import DatePicker from "react-datepicker";
-import TimePicker from "react-time-picker";
-import "../components/CreateEvent.css";
+import "../styles/CreateEvent.css";
 
 function CreateEvent() {
   const [title, setTitle] = useState("");
