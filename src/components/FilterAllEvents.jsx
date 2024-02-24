@@ -182,7 +182,6 @@ function FilterAllEvents(props) {
   };
 
   // ************************* RETURN *************************** //
-  // remove participants and add slider for price
   return (
     <div className="filter-all-events-wrapper">
       <span
@@ -229,24 +228,14 @@ function FilterAllEvents(props) {
               allLocations.current.map((oneLocation) => {
                 return (
                   <span key={oneLocation} className="checkbox-label-span">
-                    {location.includes(oneLocation) ? (
-                      <input
-                        checked
-                        onClick={handlePreventClick}
-                        name="location"
-                        value={oneLocation}
-                        onChange={handleChechboxChange}
-                        type="checkbox"
-                      />
-                    ) : (
-                      <input
-                        onClick={handlePreventClick}
-                        name="location"
-                        value={oneLocation}
-                        onChange={handleChechboxChange}
-                        type="checkbox"
-                      />
-                    )}
+                    <input
+                      checked={location.includes(oneLocation)}
+                      onClick={handlePreventClick}
+                      name="location"
+                      value={oneLocation}
+                      onChange={handleChechboxChange}
+                      type="checkbox"
+                    />
                     <label
                       className="all-events-filter-checkbox-label"
                       htmlFor={oneLocation}
@@ -275,24 +264,14 @@ function FilterAllEvents(props) {
               allCategories.current.map((oneCategory) => {
                 return (
                   <span key={oneCategory} className="checkbox-label-span">
-                    {category.includes(oneCategory) ? (
-                      <input
-                        checked
-                        onClick={handlePreventClick}
-                        name="category"
-                        onChange={handleChechboxChange}
-                        type="checkbox"
-                        value={oneCategory}
-                      />
-                    ) : (
-                      <input
-                        onClick={handlePreventClick}
-                        name="category"
-                        onChange={handleChechboxChange}
-                        type="checkbox"
-                        value={oneCategory}
-                      />
-                    )}
+                    <input
+                      checked={category.includes(oneCategory)}
+                      onClick={handlePreventClick}
+                      name="category"
+                      onChange={handleChechboxChange}
+                      type="checkbox"
+                      value={oneCategory}
+                    />
                     <label
                       className="all-events-filter-checkbox-label"
                       htmlFor={oneCategory}
@@ -326,7 +305,9 @@ function FilterAllEvents(props) {
               }}
               value={price}
             />
-            <label htmlFor="price-slider">{price === 0 ? "free" : price +" €"}</label>
+            <label htmlFor="price-slider">
+              {price === 0 ? "free" : price + " €"}
+            </label>
           </div>
         )}
       </span>
