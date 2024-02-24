@@ -6,12 +6,15 @@ import axios from "axios";
 
 function EventsDetail() {
   const [event, setEvent] = useState(null);
+  const [hasJoined, setHasJoined] = useState(false)
   const { eventId } = useParams();
   const [count, setCount] = useState(0);
 
   function increaseCount() {
+    setHasJoined(true)
     setCount((prevCount) => {
       return prevCount + 1;
+
     });
   }
   useEffect(() => {
@@ -63,7 +66,7 @@ function EventsDetail() {
               <p className="event-families-going">
                 {event.participants + count} families are going
               </p>
-              <button onClick={increaseCount} className="event-join-button">
+              <button onClick={increaseCount} disabled={hasJoined} className="event-join-button">
                 join event
               </button>
             </div>
