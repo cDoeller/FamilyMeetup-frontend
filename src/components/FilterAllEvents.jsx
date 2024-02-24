@@ -61,9 +61,11 @@ function FilterAllEvents(props) {
             })
           )
         );
+        console.log("mounted");
+      })
+      .then(() => {
         // set price initially to max price
         setPrice(Math.max(...allPrices.current));
-        console.log("mounted");
       })
       .catch((err) => {
         console.log(err);
@@ -81,8 +83,8 @@ function FilterAllEvents(props) {
         // filter events based on dates in milliseconds since 1970
         const startDateSeconds = date[0].getTime();
         const endDateSeconds = date[1].getTime();
-        params.append("date_to_seconds_gte",startDateSeconds);
-        params.append("date_to_seconds_lte",endDateSeconds);
+        params.append("date_to_seconds_gte", startDateSeconds);
+        params.append("date_to_seconds_lte", endDateSeconds);
       }
       // filter for location
       if (location.length > 0)
@@ -99,7 +101,9 @@ function FilterAllEvents(props) {
         params.append("price_lte", price);
       }
       // filter for all
-      if (showAll) params = "";
+      if (showAll) {
+        params = "";
+      }
       axios
         .get(`http://localhost:5005/events?${params.toString()}`)
         .then((response) => {
@@ -107,13 +111,26 @@ function FilterAllEvents(props) {
         })
         .then(() => {
           setIsFiltering(false);
-          if (showAll) setShowAll(false);
+          if (showAll) resetAll();
         })
         .catch((err) => {
           console.log(err);
         });
     }
   }, [showAll, location, category, price, date]);
+
+  // * RESET ALL
+  const resetAll = () => {
+    setDate(null);
+    setLocation([]);
+    setCategory([]);
+    setPrice(Math.max(...allPrices.current));
+    setDateClicked(false);
+    setLocationClicked(false);
+    setCategoryClicked(false);
+    setPriceClicked(false);
+    setShowAll(false);
+  };
 
   // * CHECKBOX HANDELING
   const handleChechboxChange = (e) => {
@@ -169,6 +186,7 @@ function FilterAllEvents(props) {
           setIsFiltering(true);
           setShowAll(true);
         }}
+        className="filter-span-show-all"
       >
         show all
       </span>

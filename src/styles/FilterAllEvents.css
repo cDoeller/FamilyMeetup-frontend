@@ -4,7 +4,8 @@
   border: 1px solid;
   display: flex;
   justify-content: space-around;
-  padding: 1.8rem 1.4rem;
+  align-items: center;
+  padding: 0 1.4rem;
   margin-bottom: 30px;
 }
 
@@ -40,11 +41,12 @@
   box-sizing: border-box;
 }
 
-.filter-apply-button {
-  padding: 0.6rem 0.8rem;
-  background-color: black;
-  color: white;
+.filter-span-show-all{
   border: none;
+  border-radius: 15px;
+  padding: 1rem;
+  background-color: black;
+  color:white;
 }
 
 .checkbox-filtering{
