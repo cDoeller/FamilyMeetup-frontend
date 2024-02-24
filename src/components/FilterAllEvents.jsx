@@ -134,32 +134,32 @@ function FilterAllEvents(props) {
     }
   };
 
-  // * date filter
-  useEffect(() => {
-    if (date) {
-      // fold in dropdown when range chosen
-      setDateClicked(!dateClicked);
-      // filter events based on dates in milliseconds
-      const startDate = date[0];
-      const endDate = date[1];
-      const filteredEventsDates = eventsToShow.filter((event) => {
-        const dateToCheck = new Date(event.date);
-        return isBetween(dateToCheck, startDate, endDate);
-      });
-      // update events to show
-      setEventsToShow(filteredEventsDates);
-      // reset date
-      setDate(null);
-    }
-  }, [date]);
+  // // * date filter
+  // useEffect(() => {
+  //   if (date) {
+  //     // fold in dropdown when range chosen
+  //     setDateClicked(!dateClicked);
+  //     // filter events based on dates in milliseconds
+  //     const startDate = date[0];
+  //     const endDate = date[1];
+  //     const filteredEventsDates = eventsToShow.filter((event) => {
+  //       const dateToCheck = new Date(event.date);
+  //       return isBetween(dateToCheck, startDate, endDate);
+  //     });
+  //     // update events to show
+  //     setEventsToShow(filteredEventsDates);
+  //     // reset date
+  //     setDate(null);
+  //   }
+  // }, [date]);
 
-  // *** Date filtering - helper function
-  const isBetween = (dateToCheck, startDate, endDate) => {
-    return (
-      dateToCheck.getTime() >= startDate.getTime() &&
-      dateToCheck.getTime() <= endDate.getTime()
-    );
-  };
+  // // *** Date filtering - helper function
+  // const isBetween = (dateToCheck, startDate, endDate) => {
+  //   return (
+  //     dateToCheck.getTime() >= startDate.getTime() &&
+  //     dateToCheck.getTime() <= endDate.getTime()
+  //   );
+  // };
 
   // handle click show behavior
   const handleClick = (element) => {
