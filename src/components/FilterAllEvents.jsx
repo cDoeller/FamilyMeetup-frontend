@@ -6,10 +6,7 @@ import "../styles/FilterAllEvents.css";
 
 // ** TO DO **
 // reset clicked when clicked on window
-// price always filters with 0, no reset
-// easy date input test
-// date filter
-// controlled / uncontrolled warning
+// show all === reset all
 
 function FilterAllEvents(props) {
   const { eventsToShow, setEventsToShow } = props;
@@ -64,9 +61,11 @@ function FilterAllEvents(props) {
             })
           )
         );
+        console.log("mounted");
+      })
+      .then(() => {
         // set price initially to max price
         setPrice(Math.max(...allPrices.current));
-        console.log("mounted");
       })
       .catch((err) => {
         console.log(err);
@@ -77,6 +76,16 @@ function FilterAllEvents(props) {
   useEffect(() => {
     if (isFiltering) {
       let params = new URLSearchParams();
+      // filter for date
+      if (date) {
+        // fold in dropdown when range chosen
+        setDateClicked(false);
+        // filter events based on dates in milliseconds since 1970
+        const startDateSeconds = date[0].getTime();
+        const endDateSeconds = date[1].getTime();
+        params.append("date_to_seconds_gte", startDateSeconds);
+        params.append("date_to_seconds_lte", endDateSeconds);
+      }
       // filter for location
       if (location.length > 0)
         location.forEach((oneLocation) => {
@@ -92,7 +101,9 @@ function FilterAllEvents(props) {
         params.append("price_lte", price);
       }
       // filter for all
-      if (showAll) params = "";
+      if (showAll) {
+        params = "";
+      }
       axios
         .get(`http://localhost:5005/events?${params.toString()}`)
         .then((response) => {
@@ -100,13 +111,26 @@ function FilterAllEvents(props) {
         })
         .then(() => {
           setIsFiltering(false);
-          if (showAll) setShowAll(false);
+          if (showAll) resetAll();
         })
         .catch((err) => {
           console.log(err);
         });
     }
-  }, [showAll, location, category, price]);
+  }, [showAll, location, category, price, date]);
+
+  // * RESET ALL
+  const resetAll = () => {
+    setDate(null);
+    setLocation([]);
+    setCategory([]);
+    setPrice(Math.max(...allPrices.current));
+    setDateClicked(false);
+    setLocationClicked(false);
+    setCategoryClicked(false);
+    setPriceClicked(false);
+    setShowAll(false);
+  };
 
   // * CHECKBOX HANDELING
   const handleChechboxChange = (e) => {
@@ -133,33 +157,6 @@ function FilterAllEvents(props) {
         );
     }
   };
-
-  // // * date filter
-  // useEffect(() => {
-  //   if (date) {
-  //     // fold in dropdown when range chosen
-  //     setDateClicked(!dateClicked);
-  //     // filter events based on dates in milliseconds
-  //     const startDate = date[0];
-  //     const endDate = date[1];
-  //     const filteredEventsDates = eventsToShow.filter((event) => {
-  //       const dateToCheck = new Date(event.date);
-  //       return isBetween(dateToCheck, startDate, endDate);
-  //     });
-  //     // update events to show
-  //     setEventsToShow(filteredEventsDates);
-  //     // reset date
-  //     setDate(null);
-  //   }
-  // }, [date]);
-
-  // // *** Date filtering - helper function
-  // const isBetween = (dateToCheck, startDate, endDate) => {
-  //   return (
-  //     dateToCheck.getTime() >= startDate.getTime() &&
-  //     dateToCheck.getTime() <= endDate.getTime()
-  //   );
-  // };
 
   // handle click show behavior
   const handleClick = (element) => {
@@ -189,12 +186,14 @@ function FilterAllEvents(props) {
           setIsFiltering(true);
           setShowAll(true);
         }}
+        className="filter-span-show-all"
       >
         show all
       </span>
       {/* DATE FILTER */}
       <span
         onClick={() => {
+          setIsFiltering(true);
           handleClick("date");
         }}
       >
@@ -314,5 +313,4 @@ function FilterAllEvents(props) {
     </div>
   );
 }
-
 export default FilterAllEvents;
