@@ -17,13 +17,11 @@ function FilterAllEvents(props) {
   const [date, setDate] = useState(null);
   const [location, setLocation] = useState([]);
   const [category, setCategory] = useState([]);
-  const [participants, setParticipants] = useState(0);
   const [price, setPrice] = useState(null);
   const [showAll, setShowAll] = useState(false);
 
   const [locationClicked, setLocationClicked] = useState(false);
   const [categoryClicked, setCategoryClicked] = useState(false);
-  const [participantsClicked, setParticipantsClicked] = useState(false);
   const [priceClicked, setPriceClicked] = useState(false);
   const [dateClicked, setDateClicked] = useState(false);
 
@@ -79,8 +77,6 @@ function FilterAllEvents(props) {
         category.forEach((oneCategory) => {
           params.append("category", oneCategory);
         });
-      // filter for participants
-      if (participants) params.append("participants_lte", participants);
       // filter for price
       if (price !== null) {
         params.append("price_lte", price);
@@ -100,7 +96,7 @@ function FilterAllEvents(props) {
           console.log(err);
         });
     }
-  }, [showAll, location, category, participants, price]);
+  }, [showAll, location, category, price]);
 
   // * CHECKBOX HANDELING
   const handleChechboxChange = (e) => {
@@ -162,12 +158,6 @@ function FilterAllEvents(props) {
     }
     if (element === "category" || (element !== "category" && categoryClicked)) {
       setCategoryClicked(!categoryClicked);
-    }
-    if (
-      element === "participants" ||
-      (element !== "participants" && participantsClicked)
-    ) {
-      setParticipantsClicked(!participantsClicked);
     }
     if (element === "price" || (element !== "price" && priceClicked)) {
       setPriceClicked(!priceClicked);
@@ -305,34 +295,13 @@ function FilterAllEvents(props) {
           </div>
         )}
       </span>
-      {/* PARTICIPANTS FILTER */}
-      <span
-        onClick={() => {
-          handleClick("participants");
-        }}
-      >
-        max participants
-        {participantsClicked && (
-          <div onClick={handlePreventClick} className="all-events-filter-popup">
-            <input
-              type="number"
-              className="all-events-filter-input"
-              onChange={(e) => {
-                setIsFiltering(true);
-                setParticipants(Math.abs(e.target.value));
-              }}
-              value={participants}
-            />
-          </div>
-        )}
-      </span>
       {/* PRICE FILTER */}
       <span
         onClick={() => {
           handleClick("price");
         }}
       >
-        max price [€]
+        price
         {priceClicked && (
           <div onClick={handlePreventClick} className="all-events-filter-popup">
             <input
