@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import TimePicker from "react-time-picker";
-import "../styles/CreateEvent.css";
+import "../components/CreateEvent.css";
 
 function CreateEvent() {
   const [title, setTitle] = useState("");
@@ -17,11 +17,12 @@ function CreateEvent() {
   const [price, setPrice] = useState();
   const [category, setCategory] = useState("");
   const [participants, setParticipants]= useState(0)
+  const [date_to_seconds, setDate_to_seconds]= useState()
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    const dateInSeconds = new Date(date).getTime()/1000
     const newEvent = {
       title: title,
       image: image_url,
@@ -33,19 +34,20 @@ function CreateEvent() {
       price: price,
       category: category,
       participants: participants,
+      date_to_seconds: dateInSeconds
     };
 
     axios
-      .post(`http://localhost:5005/events`, newEvent)
-      .then((response) => {
-        console.log(response.data);
-        alert("The event has been created succesfully!");
-        navigate(`/events`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+    .post(`http://localhost:5005/events`, newEvent)
+    .then((response) => {
+      console.log(response.data);
+      alert("The event has been created succesfully!");
+      navigate(`/events`);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
   return (
     <div>
       <div className="create">
@@ -55,7 +57,7 @@ function CreateEvent() {
             type="text"
             name="name"
             onChange={(e) => {
-              setTitle(e.target.value);
+              setTitle((e.target.value).toLowerCase());
             }}
             value={title}
           />
@@ -65,7 +67,7 @@ function CreateEvent() {
             type="text"
             name="image_url"
             onChange={(e) => {
-              setImage(e.target.value);
+              setImage((e.target.value).toLowerCase());
             }}
             value={image_url}
           />
@@ -74,7 +76,7 @@ function CreateEvent() {
             type="text"
             name="short_description"
             onChange={(e) => {
-              setShort_description(e.target.value);
+              setShort_description((e.target.value).toLowerCase());
             }}
             value={short_description}
           />
@@ -83,55 +85,38 @@ function CreateEvent() {
             type="text"
             name="description"
             onChange={(e) => {
-              setDescription(e.target.value);
+              setDescription((e.target.value).toLowerCase());
             }}
             value={description}
           />
           <label>DATE</label>
           <input
             placeholder="dd/mm/yyyy"
-            type="text"
+            type="date"
             name="date"
             onChange={(e) => {
               setDate(e.target.value);
             }}
             value={date}
           />
-          {/*<DatePicker
-            inputFormat="dd/MM/yyyy"
-            value={date}
-            onChange={(e) => {
-              setDate(e.target.value);
-            }}
-          ></DatePicker>*/}
+
           <label>TIME</label>
           <input
             placeholder="hh:mm"
-            type="text"
+            type="time"
             name="time"
             onChange={(e) => {
               setTime(e.target.value);
             }}
             value={time}
           />
-          {/*<TimePicker
-          format="HH : mm"
-          className="time-picker"
-          onChange={(e) => {
-            setTime(e.target.value);
-          }}
-          value={time}
-          clockIcon={null}
-          clearIcon="X"
-        />*/}
-
           <label>PRICE</label>
           <input
             placeholder="€"
             type="number"
             name="price"
             onChange={(e) => {
-              setPrice(e.target.value);
+              setPrice(Math.abs(e.target.value));
             }}
             value={price}
           />
@@ -140,7 +125,7 @@ function CreateEvent() {
             type="text"
             name="location"
             onChange={(e) => {
-              setLocation(e.target.value);
+              setLocation((e.target.value).toLowerCase());
             }}
             value={location}
           />
@@ -149,7 +134,7 @@ function CreateEvent() {
             type="text"
             name="category"
             onChange={(e) => {
-              setCategory(e.target.value);
+              setCategory((e.target.value).toLowerCase());
             }}
             value={category}
           />
