@@ -75,19 +75,20 @@ function EventsListAdmin() {
     setPwd("");
   };
 
+  // store in session storage
   useEffect(() => {
-    window.sessionStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
+    if(isLoggedIn) window.sessionStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
   }, [isLoggedIn]);
 
-  const showFullPage = window.sessionStorage.getItem("isLoggedIn");
+  // get from sessionstorage and convert to boolean
+  const showFullPage = (window.sessionStorage.getItem("isLoggedIn") === "true");
 
 
   // *********************** RETURN *************************
-  if (!showFullPage)
+  if (!showFullPage&&!isLoggedIn)
     return (
       <div className="page-wrapper">
         <form
-          action=""
           onSubmit={handleSubmit}
           className="admin-eventlist-login-form"
         >
@@ -125,7 +126,7 @@ function EventsListAdmin() {
     );
 
   // conditional render
-  if (showFullPage)
+  if (showFullPage || isLoggedIn)
     return (
       <div className="page-wrapper">
         <div
