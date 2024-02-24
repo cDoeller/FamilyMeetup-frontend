@@ -17,7 +17,7 @@ function FilterAllEvents(props) {
   const [date, setDate] = useState(null);
   const [location, setLocation] = useState([]);
   const [category, setCategory] = useState([]);
-  const [price, setPrice] = useState(null);
+  const [price, setPrice] = useState(0);
   const [showAll, setShowAll] = useState(false);
 
   const [locationClicked, setLocationClicked] = useState(false);
@@ -29,6 +29,7 @@ function FilterAllEvents(props) {
 
   const allLocations = useRef(null);
   const allCategories = useRef(null);
+  const allPrices = useRef(null);
 
   // * INITIAL get request for all events
   // * listing all categories and locations
@@ -41,7 +42,7 @@ function FilterAllEvents(props) {
         return response.data;
       })
       .then((response) => {
-        // make array all locations, all categories -once- (useRef)
+        // make array all locations, all categories, prices -once- (useRef)
         allCategories.current = Array.from(
           new Set(
             response.map((event) => {
@@ -56,6 +57,15 @@ function FilterAllEvents(props) {
             })
           )
         ).sort();
+        allPrices.current = Array.from(
+          new Set(
+            response.map((event) => {
+              return event.price;
+            })
+          )
+        );
+        // set price initially to max price
+        setPrice(Math.max(...allPrices.current));
         console.log("mounted");
       })
       .catch((err) => {
@@ -301,18 +311,22 @@ function FilterAllEvents(props) {
           handleClick("price");
         }}
       >
-        price
+        max price
         {priceClicked && (
           <div onClick={handlePreventClick} className="all-events-filter-popup">
             <input
-              type="number"
+              type="range"
+              name="price-slider"
               className="all-events-filter-input"
+              min="0"
+              max={Math.max(...allPrices.current)}
               onChange={(e) => {
                 setIsFiltering(true);
                 setPrice(Math.abs(e.target.value));
               }}
-              value={price ? price : 0}
+              value={price}
             />
+            <label htmlFor="price-slider">{price === 0 ? "free" : price +" €"}</label>
           </div>
         )}
       </span>
