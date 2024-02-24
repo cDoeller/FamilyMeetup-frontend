@@ -1,0 +1,22 @@
+.admin-eventlist-login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: 25%;
+  margin: auto;
+  margin-top: 40px;
+}
+
+.admin-eventlist-login-button {
+  text-transform: uppercase;
+  padding: 1rem 2rem;
+}
+
+.admin-eventlist-label {
+}
+.admin-eventlist-input {
+  padding: 0.6rem;
+  text-align: center;
+}
