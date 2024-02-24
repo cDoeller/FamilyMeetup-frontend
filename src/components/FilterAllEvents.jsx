@@ -6,10 +6,7 @@ import "../styles/FilterAllEvents.css";
 
 // ** TO DO **
 // reset clicked when clicked on window
-// price always filters with 0, no reset
-// easy date input test
-// date filter
-// controlled / uncontrolled warning
+// show all === reset all
 
 function FilterAllEvents(props) {
   const { eventsToShow, setEventsToShow } = props;
@@ -77,6 +74,16 @@ function FilterAllEvents(props) {
   useEffect(() => {
     if (isFiltering) {
       let params = new URLSearchParams();
+      // filter for date
+      if (date) {
+        // fold in dropdown when range chosen
+        setDateClicked(false);
+        // filter events based on dates in milliseconds since 1970
+        const startDateSeconds = date[0].getTime();
+        const endDateSeconds = date[1].getTime();
+        params.append("date_to_seconds_gte",startDateSeconds);
+        params.append("date_to_seconds_lte",endDateSeconds);
+      }
       // filter for location
       if (location.length > 0)
         location.forEach((oneLocation) => {
@@ -106,7 +113,7 @@ function FilterAllEvents(props) {
           console.log(err);
         });
     }
-  }, [showAll, location, category, price]);
+  }, [showAll, location, category, price, date]);
 
   // * CHECKBOX HANDELING
   const handleChechboxChange = (e) => {
@@ -133,33 +140,6 @@ function FilterAllEvents(props) {
         );
     }
   };
-
-  // // * date filter
-  // useEffect(() => {
-  //   if (date) {
-  //     // fold in dropdown when range chosen
-  //     setDateClicked(!dateClicked);
-  //     // filter events based on dates in milliseconds
-  //     const startDate = date[0];
-  //     const endDate = date[1];
-  //     const filteredEventsDates = eventsToShow.filter((event) => {
-  //       const dateToCheck = new Date(event.date);
-  //       return isBetween(dateToCheck, startDate, endDate);
-  //     });
-  //     // update events to show
-  //     setEventsToShow(filteredEventsDates);
-  //     // reset date
-  //     setDate(null);
-  //   }
-  // }, [date]);
-
-  // // *** Date filtering - helper function
-  // const isBetween = (dateToCheck, startDate, endDate) => {
-  //   return (
-  //     dateToCheck.getTime() >= startDate.getTime() &&
-  //     dateToCheck.getTime() <= endDate.getTime()
-  //   );
-  // };
 
   // handle click show behavior
   const handleClick = (element) => {
@@ -195,6 +175,7 @@ function FilterAllEvents(props) {
       {/* DATE FILTER */}
       <span
         onClick={() => {
+          setIsFiltering(true);
           handleClick("date");
         }}
       >
@@ -314,5 +295,4 @@ function FilterAllEvents(props) {
     </div>
   );
 }
-
 export default FilterAllEvents;
