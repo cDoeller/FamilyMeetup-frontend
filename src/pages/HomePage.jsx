@@ -95,7 +95,7 @@ function HomePage() {
             type="text"
             value={locationFilter}
             onChange={(e) => {
-              setLocationFilter(e.target.value);
+              setLocationFilter(e.target.value.toLowerCase());
               handleIsFiltering(e.target.value);
             }}
           />
