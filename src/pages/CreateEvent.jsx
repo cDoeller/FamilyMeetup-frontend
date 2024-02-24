@@ -23,7 +23,7 @@ function CreateEvent() {
     const dateInSeconds = new Date(date).getTime()/1000
     const newEvent = {
       title: title,
-      image: image_url,
+      image_url: image_url,
       short_description: short_description,
       description: description,
       date: date,
@@ -65,7 +65,7 @@ function CreateEvent() {
             type="text"
             name="image_url"
             onChange={(e) => {
-              setImage((e.target.value).toLowerCase());
+              setImage((e.target.value));
             }}
             value={image_url}
           />

@@ -1,26 +1,27 @@
 import React from "react";
 import "../styles/EventDetails.css";
-import { Link, useParams, useNavigate} from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { DeleteButton } from "react-admin";
 
 function EventsDetailAdmin() {
   const [event, setEvent] = useState(null);
   const { eventId } = useParams();
   const [count, setCount] = useState(0);
-  const navigate= useNavigate()
+  const navigate = useNavigate();
 
-  function DeleteEvent() { 
+  function DeleteEvent() {
     axios
-        .delete(`http://localhost:5005/events/${eventId}`)
-        .then(()=>{
-          alert("The event has been removed");
-          navigate(`/events`)
-        })
-        .catch((error)=>{
-          console.log(error)
-        })
-}
+      .delete(`http://localhost:5005/events/${eventId}`)
+      .then(() => {
+        alert("The event has been removed");
+        navigate(`/events`);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
   function increaseCount() {
     setCount((prevCount) => {
       return prevCount + 1;
@@ -86,13 +87,13 @@ function EventsDetailAdmin() {
               <Link to={`/admin/${eventId}/edit`}>
                 <button className="event-edit-button">Edit</button>
               </Link>
-                <button
-                  className="event-delete-button"
-                  onClick={DeleteEvent}
-                >
-                  Delete
-                </button>
-             
+              <button
+                
+                className="event-delete-button"
+                onClick={DeleteEvent}
+              >
+                Delete
+              </button>
             </div>
           </div>
         </div>
