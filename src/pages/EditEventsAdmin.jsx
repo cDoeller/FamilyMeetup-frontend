@@ -17,6 +17,7 @@ function EditEventsAdmin() {
   const [price, setPrice] = useState();
   const [category, setCategory] = useState("");
   const [participants, setParticipants] = useState("");
+  const [date_to_seconds, setDate_to_seconds] = useState();
   const navigate = useNavigate();
   const { eventId } = useParams();
 
@@ -36,13 +37,16 @@ function EditEventsAdmin() {
         setPrice(eventData.price);
         setCategory(eventData.category);
         setParticipants(eventData.participants);
+        setDate_to_seconds(eventData.date_to_seconds);
       })
       .catch((err) => {
         console.log(err);
       });
   }, [eventId]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    const dateInSeconds = new Date(date).getTime() / 1000;
 
     const editedEvent = {
       title,
@@ -55,6 +59,7 @@ function EditEventsAdmin() {
       price,
       category,
       participants,
+      date_to_seconds: dateInSeconds,
     };
 
     axios
@@ -78,7 +83,7 @@ function EditEventsAdmin() {
             type="text"
             name="name"
             onChange={(e) => {
-              setTitle(e.target.value);
+              setTitle((e.target.value).toLowerCase());
             }}
             value={title}
           />
@@ -88,7 +93,7 @@ function EditEventsAdmin() {
             type="text"
             name="image_url"
             onChange={(e) => {
-              setImage(e.target.value);
+              setImage((e.target.value).toLowerCase());
             }}
             value={image_url}
           />
@@ -97,7 +102,7 @@ function EditEventsAdmin() {
             type="text"
             name="short_description"
             onChange={(e) => {
-              setShort_description(e.target.value);
+              setShort_description((e.target.value).toLowerCase());
             }}
             value={short_description}
           />
@@ -106,54 +111,37 @@ function EditEventsAdmin() {
             type="text"
             name="description"
             onChange={(e) => {
-              setDescription(e.target.value);
+              setDescription((e.target.value.toLowerCase));
             }}
             value={description}
           />
           <label>DATE</label>
           <input
             placeholder="dd/mm/yyyy"
-            type="text"
+            type="date"
             name="date"
             onChange={(e) => {
               setDate(e.target.value);
             }}
             value={date}
           />
-          {/*<DatePicker
-        inputFormat="dd/MM/yyyy"
-        value={date}
-        onChange={(e) => {
-          setDate(e.target.value);
-        }}
-      ></DatePicker>*/}
           <label>TIME</label>
           <input
             placeholder="hh:mm"
-            type="text"
+            type="time"
             name="time"
             onChange={(e) => {
               setTime(e.target.value);
             }}
             value={time}
           />
-          {/*<TimePicker
-      format="HH : mm"
-      className="time-picker"
-      onChange={(e) => {
-        setTime(e.target.value);
-      }}
-      value={time}
-      clockIcon={null}
-      clearIcon="X"
-    />*/}
           <label>PRICE</label>
           <input
             placeholder="€"
             type="number"
             name="price"
             onChange={(e) => {
-              setPrice(e.target.value);
+              setPrice(Math.abs(e.target.value));
             }}
             value={price}
           />
@@ -162,7 +150,7 @@ function EditEventsAdmin() {
             type="text"
             name="location"
             onChange={(e) => {
-              setLocation(e.target.value);
+              setLocation((e.target.value.toLowerCase()));
             }}
             value={location}
           />
@@ -171,7 +159,7 @@ function EditEventsAdmin() {
             type="text"
             name="category"
             onChange={(e) => {
-              setCategory(e.target.value);
+              setCategory((e.target.value).toLowerCase());
             }}
             value={category}
           />
