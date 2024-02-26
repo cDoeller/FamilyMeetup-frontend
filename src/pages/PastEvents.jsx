@@ -33,9 +33,9 @@ function PastEvents() {
                     <img src={event.image_url} />
                   </div>
                   <div className="past-event-info-wrapper">
-                    <h3>{event.title}</h3>
-                    <h3>{event.date}</h3>
-                    <h3>{event.stories.length} Stories</h3>
+                    <h3 className="past-event-info-title">{event.title}</h3>
+                    <h3 className="past-event-info-date">{event.date}</h3>
+                    <h3 className="past-event-info-storiecount">{event.stories.length} Stories</h3>
                   </div>
                   <div className="past-event-create-button-wrapper">
                     <button className="past-event-create-button">
