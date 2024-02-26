@@ -1,14 +1,59 @@
-.past-event-wrapper {
+.past-event-all-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.past-event-single-wrapper {
+  display: flex;
+  flex-direction: column;
 }
 .past-event-card-wrapper {
+  display: flex;
+  border: 1px solid;
+  gap: 1rem;
 }
 .past-event-image-wrapper {
+  width: 30%;
+  max-height: 150px;
+  overflow: hidden;
+}
+.past-event-image-wrapper > img {
+  width: 100%;
 }
 .past-event-info-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding-top: 0.5rem;
+}
+.past-event-create-button-wrapper {
+  flex-grow: 1;
+  display: flex;
+  justify-content: right;
+  align-items: center;
 }
 .past-event-create-button {
+  padding: 2rem;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-right: 2rem;
+  text-transform: uppercase;
+  background-color: yellow;
 }
 .past-event-story-wrapper {
+  display: flex;
+}
+.past-event-story-placeholder {
+  width: 30%;
+}
+.past-event-story-content {
+  flex-grow: 1;
+  padding: 1rem 0;
+  max-width: 70%;
+  box-sizing: border-box;
+  padding-left: 1rem;
+  border: 1px solid;
 }
 .past-event-story-username {
 }
