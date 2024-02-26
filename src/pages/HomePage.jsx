@@ -80,7 +80,17 @@ function HomePage() {
 
   return (
     <div className="page-wrapper">
-      <HeaderAbout />
+      <div className="homepage-header-wrapper">
+        <HeaderAbout />
+        <div className="homepage-stories-button-wrapper">
+          <Link to="/past">
+            <div className="homepage-stories-button">
+              {" "}
+              <h1 className="homepage-stories-button-headline">Stories</h1>
+            </div>
+          </Link>
+        </div>
+      </div>
       <Link to="/events">
         <button className="all-events-button">show all events</button>
       </Link>
