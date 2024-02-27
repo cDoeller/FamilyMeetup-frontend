@@ -4,6 +4,8 @@ import "../styles/PastEvents.css";
 
 function PastEvents() {
   const [pastEvents, setPastEvents] = useState([]);
+  // array for id that should display stories
+  const [idIsDisplayed, setIdIsDisplayed] = useState([]);
 
   const [makeNewStory, setMakeNewStory] = useState(false);
   const [newStoryId, setNewStoryId] = useState(0);
@@ -52,13 +54,31 @@ function PastEvents() {
           });
       })
       .then(() => {
+        // close window create
         setMakeNewStory(false);
+        // open up fold of event added story
+        if (!idIsDisplayed.includes(newStoryId)) setIdIsDisplayed([...idIsDisplayed, newStoryId]);
+        // reset input states
         setNewStoryUser("");
         setNewStoryText("");
       })
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  // show stories or not
+  const handleShowStories = (id) => {
+    // close if included
+    if (idIsDisplayed.includes(id)) {
+      const updateDisplayed = idIsDisplayed.filter((oneId) => {
+        return oneId !== id;
+      });
+      setIdIsDisplayed(updateDisplayed);
+    } else {
+      // add otherwise
+      setIdIsDisplayed([...idIsDisplayed, id]);
+    }
   };
 
   return (
@@ -81,7 +101,10 @@ function PastEvents() {
                   x
                 </p>
                 <h3 className="past-event-new-story-form-h3">
-                  Create your Story for <span className="past-event-new-story-form-h3-span">{newStoryEvent}</span>
+                  Create your Story for{" "}
+                  <span className="past-event-new-story-form-h3-span">
+                    {newStoryEvent}
+                  </span>
                 </h3>
                 <label htmlFor="" className="past-event-new-story-form-label">
                   Your Name
@@ -126,7 +149,12 @@ function PastEvents() {
                   <div className="past-event-info-wrapper">
                     <h3 className="past-event-info-title">{event.title}</h3>
                     <h3 className="past-event-info-date">{event.date}</h3>
-                    <h3 className="past-event-info-storiecount">
+                    <h3
+                      className="past-event-info-storiecount"
+                      onClick={() => {
+                        handleShowStories(event.id);
+                      }}
+                    >
                       {event.stories.length} Stories
                     </h3>
                   </div>
@@ -144,6 +172,7 @@ function PastEvents() {
                   </div>
                 </div>
                 {event.stories.length > 0 &&
+                  idIsDisplayed.includes(event.id) &&
                   event.stories.map((story) => {
                     return (
                       <div
