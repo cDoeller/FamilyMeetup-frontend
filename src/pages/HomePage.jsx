@@ -84,7 +84,6 @@ function HomePage() {
   return (
     <div className="page-wrapper">
       <div className="homepage-header-wrapper">
-        <HeaderAbout />
         <div className="homepage-stories-button-wrapper">
           <Link to="/past">
             <div className="homepage-stories-button">
