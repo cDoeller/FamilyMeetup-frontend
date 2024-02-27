@@ -9,6 +9,7 @@ import Footer from "./components/Footer";
 import EventsListAdmin from "./pages/EventsListAdmin";
 import EventsDetailAdmin from "./pages/EventsDetailAdmin";
 import EditEventsAdmin from "./pages/EditEventsAdmin";
+import PastEvents from "./pages/PastEvents";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/events/create" element={<CreateEvent />}></Route>
         <Route path="/admin" element={<EventsListAdmin />}></Route>
         <Route path="/admin/:eventId" element={<EventsDetailAdmin />}></Route>
+        <Route path="/past" element={<PastEvents />}></Route>
         <Route
           path="/admin/:eventId/edit"
           element={<EditEventsAdmin />}
