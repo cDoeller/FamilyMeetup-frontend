@@ -5,6 +5,7 @@ import axios from "axios";
 import HeaderAbout from "../components/HeaderAbout";
 import EventCard from "../components/EventCard";
 import "../styles/HomePage.css";
+import UpcomingEvents from "../components/UpcomingEvents";
 import PopularEvents from "../components/PopularEvents";
 
 // not sure here -->
@@ -129,6 +130,7 @@ function HomePage() {
             })}
         </div>
       </div>
+      <UpcomingEvents></UpcomingEvents>
       <PopularEvents></PopularEvents>
     </div>
   );
