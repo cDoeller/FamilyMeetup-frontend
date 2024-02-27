@@ -49,6 +49,10 @@
   color:white;
 }
 
+.filter-span-show-all-active{
+  background-color: blue;
+}
+
 .checkbox-filtering{
   display: flex;
   flex-direction: column;

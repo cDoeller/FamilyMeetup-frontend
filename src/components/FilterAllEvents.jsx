@@ -16,6 +16,7 @@ function FilterAllEvents(props) {
   const [category, setCategory] = useState([]);
   const [price, setPrice] = useState(0);
   const [showAll, setShowAll] = useState(false);
+  const [isShowingAll, setIsShowingAll] = useState(true);
 
   const [locationClicked, setLocationClicked] = useState(false);
   const [categoryClicked, setCategoryClicked] = useState(false);
@@ -103,6 +104,13 @@ function FilterAllEvents(props) {
       // filter for all
       if (showAll) {
         params = "";
+        setIsShowingAll(true);
+      } else {
+        if (params.toString() === "price_lte=45") {
+          setIsShowingAll(true);
+        } else {
+          setIsShowingAll(false);
+        }
       }
       axios
         .get(`http://localhost:5005/events?${params.toString()}`)
@@ -186,7 +194,10 @@ function FilterAllEvents(props) {
           setIsFiltering(true);
           setShowAll(true);
         }}
-        className="filter-span-show-all"
+        className={
+          "filter-span-show-all" +
+          (isShowingAll ? " filter-span-show-all-active" : "")
+        }
       >
         show all
       </span>
