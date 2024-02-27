@@ -16,7 +16,7 @@ function EventsDetailAdmin() {
       .delete(`http://localhost:5005/events/${eventId}`)
       .then(() => {
         alert("The event has been removed");
-        navigate(`/events`);
+        navigate(`/admin`);
       })
       .catch((error) => {
         console.log(error);
