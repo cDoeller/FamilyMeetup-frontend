@@ -84,6 +84,7 @@ function HomePage() {
   return (
     <div className="page-wrapper">
       <div className="homepage-header-wrapper">
+      <HeaderAbout headlineAbout={headlineAbout} subHeadlineAbout={subHeadlineAbout} />
         <div className="homepage-stories-button-wrapper">
           <Link to="/past">
             <div className="homepage-stories-button">
@@ -93,7 +94,6 @@ function HomePage() {
           </Link>
         </div>
       </div>
-      <HeaderAbout headlineAbout={headlineAbout} subHeadlineAbout={subHeadlineAbout} />
       <Link to="/events">
         <button className="all-events-button">show all events</button>
       </Link>
