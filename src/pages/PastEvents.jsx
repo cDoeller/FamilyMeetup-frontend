@@ -5,6 +5,12 @@ import "../styles/PastEvents.css";
 function PastEvents() {
   const [pastEvents, setPastEvents] = useState([]);
 
+  const [makeNewStory, setMakeNewStory] = useState(false);
+  const [newStoryId, setNewStoryId] = useState(0);
+  const [newStoryEvent, setNewStoryEvent] = useState("");
+  const [newStoryUser, setNewStoryUser] = useState("");
+  const [newStoryText, setNewStoryText] = useState("");
+
   // load embedded data
   useEffect(() => {
     const currentDate = new Date();
@@ -22,9 +28,80 @@ function PastEvents() {
       });
   }, []);
 
+  // submit new story
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newStory = {
+      eventId: newStoryId,
+      user_name: newStoryUser,
+      story_text: newStoryText,
+    };
+    axios
+      .post(`http://localhost:5005/stories`, newStory)
+      .then(() => {
+        setMakeNewStory(false);
+        setNewStoryUser("");
+        setNewStoryText("");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div className="page-wrapper">
       <div className="past-event-all-wrapper">
+        {makeNewStory && (
+          <div className="past-event-new-story-wrapper">
+            <div className="past-event-new-story-inner">
+              <form
+                action=""
+                onSubmit={handleSubmit}
+                className="past-event-new-story-form"
+              >
+                <p
+                  className="past-event-new-story-form-x"
+                  onClick={() => {
+                    setMakeNewStory(false);
+                  }}
+                >
+                  x
+                </p>
+                <h3 className="past-event-new-story-form-h3">
+                  Create your Story for {newStoryEvent}
+                </h3>
+                <label htmlFor="" className="past-event-new-story-form-label">
+                  Your Name
+                </label>
+                <input
+                  type="text"
+                  className="past-event-new-story-form-input"
+                  onChange={(e) => {
+                    setNewStoryUser(e.target.value);
+                  }}
+                  required
+                />
+                <label htmlFor="" className="past-event-new-story-form-label">
+                  Your Story
+                </label>
+                <input
+                  type="textarea"
+                  className="past-event-new-story-form-input"
+                  onChange={(e) => {
+                    setNewStoryText(e.target.value);
+                  }}
+                  required
+                />
+                <button
+                  type="submit"
+                  className="past-event-new-story-form-button"
+                >
+                  Submit
+                </button>
+              </form>
+            </div>
+          </div>
+        )}
         {pastEvents &&
           pastEvents.map((event) => {
             return (
@@ -36,10 +113,19 @@ function PastEvents() {
                   <div className="past-event-info-wrapper">
                     <h3 className="past-event-info-title">{event.title}</h3>
                     <h3 className="past-event-info-date">{event.date}</h3>
-                    <h3 className="past-event-info-storiecount">{event.stories.length} Stories</h3>
+                    <h3 className="past-event-info-storiecount">
+                      {event.stories.length} Stories
+                    </h3>
                   </div>
                   <div className="past-event-create-button-wrapper">
-                    <button className="past-event-create-button">
+                    <button
+                      className="past-event-create-button"
+                      onClick={() => {
+                        setMakeNewStory(true);
+                        setNewStoryId(event.id);
+                        setNewStoryEvent(event.title);
+                      }}
+                    >
                       create story
                     </button>
                   </div>
