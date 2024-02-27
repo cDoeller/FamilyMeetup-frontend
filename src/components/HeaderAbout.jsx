@@ -1,17 +1,16 @@
 import React from "react";
 import "../styles/Header.css";
 
-function HeaderAbout() {
+function HeaderAbout(props) {
+  const {headlineAbout, subHeadlineAbout} = props;
+
   return (
     <div className="header-about-homepage-wrapper">
       <h1 className="header-about-title">
-        Ever wondered how to meet other people while being busy with a full-time
-        job, household, ... your family?
+        {headlineAbout}
       </h1>
       <h3 className="header-about-subtitle">
-        With familyMeetup you can find events in your area that are child and
-        family friendly. The best thing is that you can be sure to be there with
-        like minded people - connect and have fun!
+        {subHeadlineAbout}
       </h3>
     </div>
   );

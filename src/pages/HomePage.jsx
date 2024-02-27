@@ -15,6 +15,9 @@ function HomePage() {
   const [locationFilter, setLocationFilter] = useState("");
   const [isFiltering, setIsFiltering] = useState(false);
 
+  const headlineAbout = "Ever wondered how to meet other people while being busy with a full-time job, household, ... your family?"
+  const subHeadlineAbout = "With familyMeetup you can find events in your area that are child and family friendly. The best thing is that you can be sure to be there with like minded people - connect and have fun!";
+
   useEffect(() => {
     axios
       .get(`http://localhost:5005/events`)
@@ -80,7 +83,7 @@ function HomePage() {
 
   return (
     <div className="page-wrapper">
-      <HeaderAbout />
+      <HeaderAbout headlineAbout={headlineAbout} subHeadlineAbout={subHeadlineAbout} />
       <Link to="/events">
         <button className="all-events-button">show all events</button>
       </Link>
