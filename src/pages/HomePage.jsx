@@ -5,6 +5,7 @@ import axios from "axios";
 import HeaderAbout from "../components/HeaderAbout";
 import EventCard from "../components/EventCard";
 import "../styles/HomePage.css";
+import UpcomingEvents from "../components/UpcomingEvents";
 
 // not sure here -->
 let generatedRandomBaseEvents = false;
@@ -115,6 +116,7 @@ function HomePage() {
             })}
         </div>
       </div>
+      <UpcomingEvents></UpcomingEvents>
     </div>
   );
 }
