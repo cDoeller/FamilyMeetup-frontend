@@ -6,6 +6,7 @@ import HeaderAbout from "../components/HeaderAbout";
 import EventCard from "../components/EventCard";
 import "../styles/HomePage.css";
 import UpcomingEvents from "../components/UpcomingEvents";
+import PopularEvents from "../components/PopularEvents";
 
 // not sure here -->
 let generatedRandomBaseEvents = false;
@@ -15,6 +16,9 @@ function HomePage() {
   const [allEvents, setAllEvents] = useState(null);
   const [locationFilter, setLocationFilter] = useState("");
   const [isFiltering, setIsFiltering] = useState(false);
+
+  const headlineAbout = "Ever wondered how to meet other people while being busy with a full-time job, household, ... your family?"
+  const subHeadlineAbout = "With familyMeetup you can find events in your area that are child and family friendly. The best thing is that you can be sure to be there with like minded people - connect and have fun!";
 
   useEffect(() => {
     axios
@@ -81,7 +85,17 @@ function HomePage() {
 
   return (
     <div className="page-wrapper">
-      <HeaderAbout />
+      <div className="homepage-header-wrapper">
+      <HeaderAbout headlineAbout={headlineAbout} subHeadlineAbout={subHeadlineAbout} />
+        <div className="homepage-stories-button-wrapper">
+          <Link to="/past">
+            <div className="homepage-stories-button">
+              {" "}
+              <h1 className="homepage-stories-button-headline">Stories</h1>
+            </div>
+          </Link>
+        </div>
+      </div>
       <Link to="/events">
         <button className="all-events-button">show all events</button>
       </Link>
@@ -117,6 +131,7 @@ function HomePage() {
         </div>
       </div>
       <UpcomingEvents></UpcomingEvents>
+      <PopularEvents></PopularEvents>
     </div>
   );
 }
