@@ -11,10 +11,11 @@ function PastEvents() {
   const [newStoryUser, setNewStoryUser] = useState("");
   const [newStoryText, setNewStoryText] = useState("");
 
+  const currentDate = new Date();
+  const currentDateSeconds = currentDate.getTime();
+
   // load embedded data
   useEffect(() => {
-    const currentDate = new Date();
-    const currentDateSeconds = currentDate.getTime();
     axios
       .get(
         `http://localhost:5005/events?date_to_seconds_lte=${currentDateSeconds}&_embed=stories`
@@ -38,6 +39,18 @@ function PastEvents() {
     };
     axios
       .post(`http://localhost:5005/stories`, newStory)
+      .then(() => {
+        axios
+          .get(
+            `http://localhost:5005/events?date_to_seconds_lte=${currentDateSeconds}&_embed=stories`
+          )
+          .then((response) => {
+            setPastEvents(response.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
       .then(() => {
         setMakeNewStory(false);
         setNewStoryUser("");
@@ -68,7 +81,7 @@ function PastEvents() {
                   x
                 </p>
                 <h3 className="past-event-new-story-form-h3">
-                  Create your Story for {newStoryEvent}
+                  Create your Story for <span className="past-event-new-story-form-h3-span">{newStoryEvent}</span>
                 </h3>
                 <label htmlFor="" className="past-event-new-story-form-label">
                   Your Name

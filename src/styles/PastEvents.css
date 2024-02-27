@@ -87,6 +87,8 @@
 .past-event-new-story-wrapper {
   width: 100%;
   position: absolute;
+  top: 0;
+  left: 0;
   box-sizing: border-box;
   background-color: transparent;
   /* border: 1px solid; */
@@ -105,7 +107,7 @@
   padding: 10%;
 }
 
-.past-event-new-story-form-x{
+.past-event-new-story-form-x {
   text-align: right;
   cursor: pointer;
 }
@@ -113,6 +115,11 @@
 .past-event-new-story-form-h3 {
   text-align: center;
 }
+
+.past-event-new-story-form-h3-span {
+  text-decoration: underline;
+}
+
 .past-event-new-story-form-label {
 }
 .past-event-new-story-form-input {
