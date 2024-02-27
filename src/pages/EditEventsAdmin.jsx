@@ -65,7 +65,7 @@ function EditEventsAdmin() {
       .then((response) => {
         console.log(response.data);
         alert("The event has been updated successfully!");
-        navigate(`/events`);
+        navigate(`/admin`);
       })
       .catch((err) => {
         console.log(err);
