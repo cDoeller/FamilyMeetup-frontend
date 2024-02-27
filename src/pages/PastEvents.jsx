@@ -104,7 +104,7 @@ function PastEvents() {
                 <h3 className="past-event-new-story-form-h3">
                   Create your Story for{" "}
                   <span className="past-event-new-story-form-h3-span">
-                    {newStoryEvent}
+                     {newStoryEvent}
                   </span>
                 </h3>
                 <label htmlFor="" className="past-event-new-story-form-label">
@@ -121,9 +121,9 @@ function PastEvents() {
                 <label htmlFor="" className="past-event-new-story-form-label">
                   Your Story
                 </label>
-                <input
-                  type="textarea"
-                  className="past-event-new-story-form-input"
+                <textarea
+                  type="text"
+                  className="past-event-new-story-form-input past-event-new-story-form-textarea"
                   onChange={(e) => {
                     setNewStoryText(e.target.value);
                   }}
