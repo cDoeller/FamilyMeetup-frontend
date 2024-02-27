@@ -47,12 +47,12 @@ function PastEvents() {
           <NewStoryForm
             setPastEvents={setPastEvents}
             setMakeNewStory={setMakeNewStory}
-            setIdIsDisplayed={setIdIsDisplayed}
             idIsDisplayed={idIsDisplayed}
-            setNewStoryId={setNewStoryId}
-            setNewStoryEvent={setNewStoryEvent}
+            setIdIsDisplayed={setIdIsDisplayed}
             newStoryId={newStoryId}
+            setNewStoryId={setNewStoryId}
             newStoryEvent={newStoryEvent}
+            setNewStoryEvent={setNewStoryEvent}
             currentDateSeconds={currentDateSeconds}
           />
         )}
@@ -62,8 +62,8 @@ function PastEvents() {
               <StoriesEventCard
                 key={event.id}
                 event={event}
-                setIdIsDisplayed={setIdIsDisplayed}
                 idIsDisplayed={idIsDisplayed}
+                setIdIsDisplayed={setIdIsDisplayed}
                 setMakeNewStory={setMakeNewStory}
                 setNewStoryId={setNewStoryId}
                 setNewStoryEvent={setNewStoryEvent}
