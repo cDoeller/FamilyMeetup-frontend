@@ -27,15 +27,13 @@
   flex-direction: column;
   gap: 0.2rem;
   padding-top: 1rem;
+  justify-content: space-between;
 }
-.past-event-info-wrapper :nth-child(3) {
-  flex-grow: 1;
+.past-event-info-wrapper-top{
   display: flex;
   flex-direction: column;
-  justify-content: end;
-  padding: 0 0 1rem 0;
+  gap: 0.2rem;
 }
-
 .past-event-info-title {
 }
 .past-event-info-date {
@@ -44,7 +42,17 @@
 .past-event-info-storiecount {
   text-decoration: underline;
   font-weight: lighter;
+  cursor: pointer;
+  padding: 0 0 1rem 0; 
 }
+.past-event-info-storiecount-arrow{
+  /* background-color: green; */
+  display: inline-block;
+}
+.rotate-90 {
+rotate: 90deg;
+}
+
 .past-event-create-button-wrapper {
   flex-grow: 1;
   display: flex;

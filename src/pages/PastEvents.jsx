@@ -57,7 +57,8 @@ function PastEvents() {
         // close window create
         setMakeNewStory(false);
         // open up fold of event added story
-        if (!idIsDisplayed.includes(newStoryId)) setIdIsDisplayed([...idIsDisplayed, newStoryId]);
+        if (!idIsDisplayed.includes(newStoryId))
+          setIdIsDisplayed([...idIsDisplayed, newStoryId]);
         // reset input states
         setNewStoryUser("");
         setNewStoryText("");
@@ -147,15 +148,27 @@ function PastEvents() {
                     <img src={event.image_url} />
                   </div>
                   <div className="past-event-info-wrapper">
-                    <h3 className="past-event-info-title">{event.title}</h3>
-                    <h3 className="past-event-info-date">{event.date}</h3>
+                    <div className="past-event-info-wrapper-top">
+                      <h3 className="past-event-info-title">{event.title}</h3>
+                      <h3 className="past-event-info-date">{event.date}</h3>
+                    </div>
                     <h3
                       className="past-event-info-storiecount"
                       onClick={() => {
                         handleShowStories(event.id);
                       }}
                     >
-                      {event.stories.length} Stories
+                      {idIsDisplayed.includes(event.id) ? (
+                        <span className="past-event-info-storiecount-arrow rotate-90">
+                          ▸
+                        </span>
+                      ) : (
+                        <span className="past-event-info-storiecount-arrow">
+                          ▸
+                        </span>
+                      )}
+                      {" " + event.stories.length + " "}
+                      Stories
                     </h3>
                   </div>
                   <div className="past-event-create-button-wrapper">
