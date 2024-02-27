@@ -5,6 +5,7 @@ import "../styles/PastEvents.css";
 function PastEvents() {
   const [pastEvents, setPastEvents] = useState([]);
 
+  // load embedded data
   useEffect(() => {
     const currentDate = new Date();
     const currentDateSeconds = currentDate.getTime();
