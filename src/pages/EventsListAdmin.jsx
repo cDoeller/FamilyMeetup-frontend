@@ -6,13 +6,13 @@ import React, { useState, useEffect } from "react";
 import EventCard from "../components/EventCard";
 import { Link } from "react-router-dom";
 
-function EventsListAdmin() {
+function EventsListAdmin(props) {
+  const { isLoggedIn, setIsLoggedIn, userName, setUserName } = props;
+
   const [allEvents, setAllEvents] = useState(null);
   const [titleFilter, setTitleFilter] = useState("");
   const [isFiltering, setIsFiltering] = useState(false);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userName, setUserName] = useState("");
   const [pwd, setPwd] = useState("");
 
   useEffect(() => {
@@ -70,28 +70,25 @@ function EventsListAdmin() {
       .catch((error) => {
         console.log(error);
       });
-    // reset
-    setUserName("");
-    setPwd("");
   };
 
   // store in session storage
   useEffect(() => {
-    if(isLoggedIn) window.sessionStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
-  }, [isLoggedIn]);
+    if (isLoggedIn) {
+      window.sessionStorage.setItem("isLoggedIn", JSON.stringify(isLoggedIn));
+      console.log(userName);
+      window.sessionStorage.setItem("userName", JSON.stringify(userName));
+    } 
+  }, [isLoggedIn, userName]);
 
   // get from sessionstorage and convert to boolean
-  const showFullPage = (window.sessionStorage.getItem("isLoggedIn") === "true");
-
+  const showFullPage = window.sessionStorage.getItem("isLoggedIn") === "true";
 
   // *********************** RETURN *************************
-  if (!showFullPage&&!isLoggedIn)
+  if (!showFullPage && !isLoggedIn)
     return (
       <div className="page-wrapper">
-        <form
-          onSubmit={handleSubmit}
-          className="admin-eventlist-login-form"
-        >
+        <form onSubmit={handleSubmit} className="admin-eventlist-login-form">
           <label htmlFor="user" className="admin-eventlist-label">
             User Name
           </label>
