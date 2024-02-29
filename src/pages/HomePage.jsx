@@ -13,19 +13,26 @@ let generatedRandomBaseEvents = false;
 let initialRandomEvents = [];
 
 function HomePage() {
-  const [allEvents, setAllEvents] = useState(null);
+  const [allUpcomingEvents, setAllUpcomingEvents] = useState(null);
   const [locationFilter, setLocationFilter] = useState("");
   const [isFiltering, setIsFiltering] = useState(false);
 
-  const headlineAbout = "Ever wondered how to meet other people while being busy with a full-time job, household, ... your family?"
-  const subHeadlineAbout = "With familyMeetup you can find events in your area that are child and family friendly. The best thing is that you can be sure to be there with like minded people - connect and have fun!";
+  const headlineAbout =
+    "Ever wondered how to meet other people while being busy with a full-time job, household, ... your family?";
+  const subHeadlineAbout =
+    "With familyMeetup you can find events in your area that are child and family friendly. The best thing is that you can be sure to be there with like minded people - connect and have fun!";
+
+  const todayDate = new Date();
+  const todayDateMillis = todayDate.getTime();
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5005/events`)
+      .get(
+        `http://localhost:5005/events?date_to_seconds_gte=${todayDateMillis}`
+      )
       .then((response) => {
         // console.log(response.data);
-        setAllEvents(response.data);
+        setAllUpcomingEvents(response.data);
       })
       .catch((err) => {
         console.log(err);
@@ -60,12 +67,12 @@ function HomePage() {
   }
 
   let eventsToShow = [];
-  if (allEvents) {
+  if (allUpcomingEvents) {
     // if a filter location is available, show filtered
     // or show initial random collection of filter not found
     if (isFiltering) {
       let foundLocation = false;
-      eventsToShow = allEvents.filter((event) => {
+      eventsToShow = allUpcomingEvents.filter((event) => {
         if (event.location.startsWith(locationFilter)) {
           foundLocation = true;
           return event.location.startsWith(locationFilter);
@@ -75,7 +82,7 @@ function HomePage() {
     } else {
       // if no filter input available, show initial random
       if (generatedRandomBaseEvents === false) {
-        initialRandomEvents = getRandomEvents(6, allEvents);
+        initialRandomEvents = getRandomEvents(6, allUpcomingEvents);
         generatedRandomBaseEvents = true;
       }
       eventsToShow = initialRandomEvents;
@@ -86,7 +93,10 @@ function HomePage() {
   return (
     <div className="page-wrapper">
       <div className="homepage-header-wrapper">
-      <HeaderAbout headlineAbout={headlineAbout} subHeadlineAbout={subHeadlineAbout} />
+        <HeaderAbout
+          headlineAbout={headlineAbout}
+          subHeadlineAbout={subHeadlineAbout}
+        />
         <div className="homepage-stories-button-wrapper">
           <Link to="/past">
             <div className="homepage-stories-button">
@@ -116,7 +126,7 @@ function HomePage() {
           />
         </div>
         <div className="events-list-container-homepage">
-          {allEvents &&
+          {allUpcomingEvents &&
             eventsToShow.map((event) => {
               return (
                 <Link

@@ -9,7 +9,7 @@ import "../styles/FilterAllEvents.css";
 // show all === reset all
 
 function FilterAllEvents(props) {
-  const { eventsToShow, setEventsToShow } = props;
+  const { eventsToShow, setEventsToShow, todayDateMillis } = props;
 
   const [date, setDate] = useState(null);
   const [location, setLocation] = useState([]);
@@ -34,9 +34,10 @@ function FilterAllEvents(props) {
   // * listing all categories and locations
   useEffect(() => {
     axios
-      .get("http://localhost:5005/events")
+      .get(`http://localhost:5005/events?date_to_seconds_gte=${todayDateMillis}`)
       .then((response) => {
         setEventsToShow(response.data);
+
         return response.data;
       })
       .then((response) => {
@@ -102,7 +103,9 @@ function FilterAllEvents(props) {
       }
       // filter for all
       if (showAll) {
-        params = "";
+        // reset all filtering and only show upcoming
+        params = new URLSearchParams();
+        params.append("date_to_seconds_gte", todayDateMillis);
         setIsShowingAll(true);
       } else {
         if (params.toString() === "price_lte=45") {
