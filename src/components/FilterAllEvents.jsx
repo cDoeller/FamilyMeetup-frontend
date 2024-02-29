@@ -188,9 +188,9 @@ function FilterAllEvents(props) {
   // filter the location list
   const filterLocationList = () => {
     let foundLocations = allLocations.current.filter((location) => {
-      return location.startsWith(locationQuery);
+      return location.includes(locationQuery);
     });
-    if (foundLocations.length === 0) foundLocations = allLocations;
+    if (foundLocations.length === 0) foundLocations = allLocations.current;
     return foundLocations;
   };
 
