@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import EventCard from "./EventCard";
+import "../styles/Upcoming&PopularEvents.css"
 function PopularEvents() {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:5005/events?_sort=participants&_order=desc&_limit=8")
+      .get("http://localhost:5005/events?_sort=participants&_order=desc&_limit=6")
       .then((response) => {
         setEvents(response.data);
       })
@@ -18,9 +19,9 @@ function PopularEvents() {
   }, []);
 
   return (
-    <div className="popular-events">
+    <div className="sorted-events">
       <h1>Popular events</h1>
-      <div className="events-list-container-homepage">
+      <div className="events-list-container-sorted">
         {events.map((event) => {
           return (
             <Link

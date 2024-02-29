@@ -1,0 +1,15 @@
+.sorted-events{
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+    margin-bottom: 0px;
+    gap: 20px;
+}
+
+.events-list-container-sorted{
+    display: inline-flex;
+    float: left;
+    flex-wrap: nowrap;
+    gap: 20px;
+}
+

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import EventCard from "./EventCard";
+import "../styles/Upcoming&PopularEvents.css"
 function UpcomingEvents() {
   const [events, setEvents] = useState([]);
   let newDate = new Date()
@@ -10,7 +11,7 @@ function UpcomingEvents() {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:5005/events?&date_to_seconds_gte=${todayDate}&_order=asc&_limit=8`
+        `http://localhost:5005/events?&date_to_seconds_gte=${todayDate}&_sort=date_to_seconds&_order=asc&_limit=6`
       )
       .then((response) => {
         console.log(response.data)
@@ -24,7 +25,7 @@ function UpcomingEvents() {
   return (
     <div className="sorted-events">
       <h1>Upcoming events</h1>
-      <div className="events-list-container-homepage">
+      <div className="events-list-container-sorted">
         {events.map((event) => {
           return (
             <Link
