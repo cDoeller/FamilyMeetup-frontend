@@ -10,12 +10,15 @@ function EventsList() {
   const [eventsToShow, setEventsToShow] = useState(null);
   const [allEvents, setAllEvents] = useState(null);
 
+  const todayDate = new Date ();
+  const todayDateMillis = todayDate.getTime();
+
   const headlineAbout = "Create, Browse and Filter Events in your area!"
   const subHeadlineAbout = "With familyMeetup you can find events in your area that are child and family friendly. The best thing is that you can be sure to be there with like minded people - connect and have fun!";
 
   useEffect(() => {
     axios
-      .get("http://localhost:5005/events")
+      .get(`http://localhost:5005/events?date_to_seconds_gte=${todayDateMillis}`)
       .then((response) => {
         // console.log(response.data);
         setAllEvents(response.data);
@@ -39,6 +42,7 @@ function EventsList() {
       <FilterAllEvents
         eventsToShow={eventsToShow}
         setEventsToShow={setEventsToShow}
+        todayDateMillis={todayDateMillis}
       />
       <div className="events-list-container-eventslistpage">
         {allEvents &&
