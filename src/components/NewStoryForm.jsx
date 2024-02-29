@@ -31,7 +31,7 @@ function NewStoryForm(props) {
       .then(() => {
         axios
           .get(
-            `http://localhost:5005/events?date_to_seconds_lte=${currentDateSeconds}&_embed=stories`
+            `http://localhost:5005/events?date_to_seconds_lte=${currentDateSeconds}&_sort=date_to_seconds&_order=desc&_embed=stories`
           )
           .then((response) => {
             setPastEvents(response.data);
