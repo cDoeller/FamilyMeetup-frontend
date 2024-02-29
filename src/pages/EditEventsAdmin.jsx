@@ -44,7 +44,7 @@ function EditEventsAdmin() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const dateInSeconds = new Date(date).getTime() / 1000;
+    const dateInSeconds = new Date(date).getTime();
 
     const editedEvent = {
       title,
