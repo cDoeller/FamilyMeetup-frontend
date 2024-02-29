@@ -6,14 +6,13 @@ import EventCard from "./EventCard";
 function UpcomingEvents() {
   const [events, setEvents] = useState([]);
   let newDate = new Date()
-  const todayDate = ((newDate.getTime()) / 1000);
+  const todayDate = newDate.getTime();
   useEffect(() => {
     axios
       .get(
-        `http://localhost:5005/events?_sort=date_to_seconds&_order=asc&_start=${todayDate}&_limit=8`
+        `http://localhost:5005/events?&date_to_seconds_gte=${todayDate}&_order=asc&_limit=8`
       )
       .then((response) => {
-        console.log(todayDate)
         console.log(response.data)
         setEvents(response.data);
       })
