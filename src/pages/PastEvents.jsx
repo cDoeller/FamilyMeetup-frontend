@@ -20,12 +20,10 @@ function PastEvents() {
   const subHeadlineAbout =
     "Browse through events that have already happened, read about the experiences of others and add your very personal story!";
 
-// http://localhost:5005/events?&date_to_seconds_gte=${todayDate}&_sort=date_to_seconds&_order=asc&_limit=8
-
   useEffect(() => {
     axios
       .get(
-        `http://localhost:5005/events?date_to_seconds_lte=${currentDateSeconds}&_embed=stories`
+        `http://localhost:5005/events?date_to_seconds_lte=${currentDateSeconds}&_sort=date_to_seconds&_order=desc&_embed=stories`
       )
       .then((response) => {
         setPastEvents(response.data);
