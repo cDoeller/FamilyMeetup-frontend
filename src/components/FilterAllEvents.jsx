@@ -25,6 +25,7 @@ function FilterAllEvents(props) {
 
   const [isFiltering, setIsFiltering] = useState(false);
 
+  const [locationQuery, setLocationQuery] = useState("");
   const allLocations = useRef(null);
   const allCategories = useRef(null);
   const allPrices = useRef(null);
@@ -36,7 +37,6 @@ function FilterAllEvents(props) {
       .get("http://localhost:5005/events")
       .then((response) => {
         setEventsToShow(response.data);
-        console.log(response.data);
         return response.data;
       })
       .then((response) => {
@@ -62,7 +62,6 @@ function FilterAllEvents(props) {
             })
           )
         );
-        console.log("mounted");
       })
       .then(() => {
         // set price initially to max price
@@ -186,6 +185,15 @@ function FilterAllEvents(props) {
     e.stopPropagation();
   };
 
+  // filter the location list
+  const filterLocationList = () => {
+    let foundLocations = allLocations.current.filter((location) => {
+      return location.startsWith(locationQuery);
+    });
+    if (foundLocations.length === 0) foundLocations = allLocations;
+    return foundLocations;
+  };
+
   // ************************* RETURN *************************** //
   return (
     <div className="filter-all-events-wrapper">
@@ -234,8 +242,15 @@ function FilterAllEvents(props) {
             onClick={handlePreventClick}
             className="all-events-filter-popup checkbox-filtering"
           >
+            <input
+              type="text"
+              onChange={(e) => {
+                setLocationQuery(e.target.value);
+              }}
+              className="all-events-filter-location-input"
+            />
             {allLocations &&
-              allLocations.current.map((oneLocation) => {
+              filterLocationList().map((oneLocation) => {
                 return (
                   <span key={oneLocation} className="checkbox-label-span">
                     <input
