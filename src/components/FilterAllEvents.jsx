@@ -14,6 +14,8 @@ function FilterAllEvents(props) {
   const [location, setLocation] = useState([]);
   const [category, setCategory] = useState([]);
   const [price, setPrice] = useState(0);
+  const [showAll, setShowAll] = useState(false);
+  const [isShowingAll, setIsShowingAll] = useState(true);
 
   const [locationClicked, setLocationClicked] = useState(false);
   const [categoryClicked, setCategoryClicked] = useState(false);
@@ -21,7 +23,6 @@ function FilterAllEvents(props) {
   const [dateClicked, setDateClicked] = useState(false);
 
   const [isFiltering, setIsFiltering] = useState(false);
-  const [showAll, setShowAll] = useState(true);
 
   const [locationQuery, setLocationQuery] = useState("");
   const allLocations = useRef(null);
@@ -37,6 +38,7 @@ function FilterAllEvents(props) {
       )
       .then((response) => {
         setEventsToShow(response.data);
+
         return response.data;
       })
       .then((response) => {
@@ -75,9 +77,6 @@ function FilterAllEvents(props) {
   // * FILTERING
   useEffect(() => {
     if (isFiltering) {
-      // no blue button
-      setShowAll(false);
-      // make new params
       let params = new URLSearchParams();
       // filter for date
       if (date) {
@@ -88,6 +87,7 @@ function FilterAllEvents(props) {
         const endDateSeconds = date[1].getTime();
         params.append("date_to_seconds_gte", startDateSeconds);
         params.append("date_to_seconds_lte", endDateSeconds);
+        setIsShowingAll(false);
       } else {
         // if no date selected, get only results from today onwards
         params.append("date_to_seconds_gte", todayDateMillis);
@@ -95,21 +95,39 @@ function FilterAllEvents(props) {
         params.append("_order", "asc");
       }
       // filter for location
-      if (location.length > 0)
-        location.forEach((oneLocation) => {
-          params.append("location", oneLocation);
-        });
+      if (location.length > 0) setIsShowingAll(false);
+      location.forEach((oneLocation) => {
+        params.append("location", oneLocation);
+      });
       // filter for category
-      if (category.length > 0)
-        category.forEach((oneCategory) => {
-          params.append("category", oneCategory);
-        });
+      if (category.length > 0) setIsShowingAll(false);
+      category.forEach((oneCategory) => {
+        params.append("category", oneCategory);
+      });
       // filter for price
       if (price !== null) {
+        setIsShowingAll(false);
         params.append("price_lte", price);
       }
+      // filter for all
+      if (showAll) {
+        // reset all filtering and only show upcoming
+        setIsShowingAll(true);
+        params = new URLSearchParams();
+        params.append("date_to_seconds_gte", todayDateMillis);
+        params.append("_sort", "date_to_seconds");
+        params.append("_order", "asc");
+      }
+      // if only the price has been reset to max, show all is on
+      if (
+        price === Math.max(...allPrices.current) &&
+        location.length === 0 &&
+        category.length === 0 &&
+        !date
+      ) {
+        setIsShowingAll(true);
+      }
 
-      //axios call for filtering
       axios
         .get(`http://localhost:5005/events?${params.toString()}`)
         .then((response) => {
@@ -123,24 +141,7 @@ function FilterAllEvents(props) {
           console.log(err);
         });
     }
-  }, [location, category, price, date]);
-
-  // handle show all filter
-  useEffect(() => {
-    if (showAll) {
-      axios
-        .get(
-          `http://localhost:5005/events?date_to_seconds_gte=${todayDateMillis}&_sort=date_to_seconds&_order=asc`
-        )
-        .then((response) => {
-          setEventsToShow(response.data);
-          resetAll();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, [showAll]);
+  }, [showAll, location, category, price, date]);
 
   // * RESET ALL
   const resetAll = () => {
@@ -152,6 +153,7 @@ function FilterAllEvents(props) {
     setLocationClicked(false);
     setCategoryClicked(false);
     setPriceClicked(false);
+    setShowAll(false);
   };
 
   // * CHECKBOX HANDELING
@@ -212,14 +214,14 @@ function FilterAllEvents(props) {
   // ************************* RETURN *************************** //
   return (
     <div className="filter-all-events-wrapper">
-      {/* SHOW ALL FILTER */}
       <span
         onClick={() => {
+          setIsFiltering(true);
           setShowAll(true);
         }}
         className={
           "filter-span-show-all" +
-          (showAll ? " filter-span-show-all-active" : "")
+          (isShowingAll ? " filter-span-show-all-active" : "")
         }
       >
         show all
