@@ -6,7 +6,6 @@ import "../styles/FilterAllEvents.css";
 
 // ** TO DO **
 // reset clicked when clicked on window
-// show all === reset all
 
 function FilterAllEvents(props) {
   const { eventsToShow, setEventsToShow, todayDateMillis } = props;
@@ -34,7 +33,7 @@ function FilterAllEvents(props) {
   // * listing all categories and locations
   useEffect(() => {
     axios
-      .get(`http://localhost:5005/events?date_to_seconds_gte=${todayDateMillis}`)
+      .get(`http://localhost:5005/events?date_to_seconds_gte=${todayDateMillis}&_sort=date_to_seconds&_order=asc`)
       .then((response) => {
         setEventsToShow(response.data);
 
@@ -86,6 +85,11 @@ function FilterAllEvents(props) {
         const endDateSeconds = date[1].getTime();
         params.append("date_to_seconds_gte", startDateSeconds);
         params.append("date_to_seconds_lte", endDateSeconds);
+      } else {
+        // if no date selected, get only results from today onwards
+        params.append("date_to_seconds_gte", todayDateMillis);
+        params.append("_sort", "date_to_seconds");
+        params.append("_order", "asc");
       }
       // filter for location
       if (location.length > 0)
