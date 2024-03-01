@@ -14,8 +14,6 @@ function FilterAllEvents(props) {
   const [location, setLocation] = useState([]);
   const [category, setCategory] = useState([]);
   const [price, setPrice] = useState(0);
-  const [showAll, setShowAll] = useState(false);
-  const [isShowingAll, setIsShowingAll] = useState(true);
 
   const [locationClicked, setLocationClicked] = useState(false);
   const [categoryClicked, setCategoryClicked] = useState(false);
@@ -23,6 +21,7 @@ function FilterAllEvents(props) {
   const [dateClicked, setDateClicked] = useState(false);
 
   const [isFiltering, setIsFiltering] = useState(false);
+  const [showAll, setShowAll] = useState(true);
 
   const [locationQuery, setLocationQuery] = useState("");
   const allLocations = useRef(null);
@@ -33,10 +32,11 @@ function FilterAllEvents(props) {
   // * listing all categories and locations
   useEffect(() => {
     axios
-      .get(`http://localhost:5005/events?date_to_seconds_gte=${todayDateMillis}&_sort=date_to_seconds&_order=asc`)
+      .get(
+        `http://localhost:5005/events?date_to_seconds_gte=${todayDateMillis}&_sort=date_to_seconds&_order=asc`
+      )
       .then((response) => {
         setEventsToShow(response.data);
-
         return response.data;
       })
       .then((response) => {
@@ -75,6 +75,9 @@ function FilterAllEvents(props) {
   // * FILTERING
   useEffect(() => {
     if (isFiltering) {
+      // no blue button
+      setShowAll(false);
+      // make new params
       let params = new URLSearchParams();
       // filter for date
       if (date) {
@@ -105,19 +108,8 @@ function FilterAllEvents(props) {
       if (price !== null) {
         params.append("price_lte", price);
       }
-      // filter for all
-      if (showAll) {
-        // reset all filtering and only show upcoming
-        params = new URLSearchParams();
-        params.append("date_to_seconds_gte", todayDateMillis);
-        setIsShowingAll(true);
-      } else {
-        if (params.toString() === "price_lte=45") {
-          setIsShowingAll(true);
-        } else {
-          setIsShowingAll(false);
-        }
-      }
+
+      //axios call for filtering
       axios
         .get(`http://localhost:5005/events?${params.toString()}`)
         .then((response) => {
@@ -131,7 +123,24 @@ function FilterAllEvents(props) {
           console.log(err);
         });
     }
-  }, [showAll, location, category, price, date]);
+  }, [location, category, price, date]);
+
+  // handle show all filter
+  useEffect(() => {
+    if (showAll) {
+      axios
+        .get(
+          `http://localhost:5005/events?date_to_seconds_gte=${todayDateMillis}&_sort=date_to_seconds&_order=asc`
+        )
+        .then((response) => {
+          setEventsToShow(response.data);
+          resetAll();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [showAll]);
 
   // * RESET ALL
   const resetAll = () => {
@@ -143,7 +152,6 @@ function FilterAllEvents(props) {
     setLocationClicked(false);
     setCategoryClicked(false);
     setPriceClicked(false);
-    setShowAll(false);
   };
 
   // * CHECKBOX HANDELING
@@ -204,14 +212,14 @@ function FilterAllEvents(props) {
   // ************************* RETURN *************************** //
   return (
     <div className="filter-all-events-wrapper">
+      {/* SHOW ALL FILTER */}
       <span
         onClick={() => {
-          setIsFiltering(true);
           setShowAll(true);
         }}
         className={
           "filter-span-show-all" +
-          (isShowingAll ? " filter-span-show-all-active" : "")
+          (showAll ? " filter-span-show-all-active" : "")
         }
       >
         show all
