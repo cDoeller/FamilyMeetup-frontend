@@ -6,7 +6,6 @@ import "../styles/FilterAllEvents.css";
 
 // ** TO DO **
 // reset clicked when clicked on window
-// show all === reset all
 
 function FilterAllEvents(props) {
   const { eventsToShow, setEventsToShow, todayDateMillis } = props;
@@ -34,7 +33,9 @@ function FilterAllEvents(props) {
   // * listing all categories and locations
   useEffect(() => {
     axios
-      .get(`http://localhost:5005/events?date_to_seconds_gte=${todayDateMillis}`)
+      .get(
+        `http://localhost:5005/events?date_to_seconds_gte=${todayDateMillis}&_sort=date_to_seconds&_order=asc`
+      )
       .then((response) => {
         setEventsToShow(response.data);
 
@@ -86,34 +87,47 @@ function FilterAllEvents(props) {
         const endDateSeconds = date[1].getTime();
         params.append("date_to_seconds_gte", startDateSeconds);
         params.append("date_to_seconds_lte", endDateSeconds);
+        setIsShowingAll(false);
+      } else {
+        // if no date selected, get only results from today onwards
+        params.append("date_to_seconds_gte", todayDateMillis);
+        params.append("_sort", "date_to_seconds");
+        params.append("_order", "asc");
       }
       // filter for location
-      if (location.length > 0)
-        location.forEach((oneLocation) => {
-          params.append("location", oneLocation);
-        });
+      if (location.length > 0) setIsShowingAll(false);
+      location.forEach((oneLocation) => {
+        params.append("location", oneLocation);
+      });
       // filter for category
-      if (category.length > 0)
-        category.forEach((oneCategory) => {
-          params.append("category", oneCategory);
-        });
+      if (category.length > 0) setIsShowingAll(false);
+      category.forEach((oneCategory) => {
+        params.append("category", oneCategory);
+      });
       // filter for price
       if (price !== null) {
+        setIsShowingAll(false);
         params.append("price_lte", price);
       }
       // filter for all
       if (showAll) {
         // reset all filtering and only show upcoming
+        setIsShowingAll(true);
         params = new URLSearchParams();
         params.append("date_to_seconds_gte", todayDateMillis);
-        setIsShowingAll(true);
-      } else {
-        if (params.toString() === "price_lte=45") {
-          setIsShowingAll(true);
-        } else {
-          setIsShowingAll(false);
-        }
+        params.append("_sort", "date_to_seconds");
+        params.append("_order", "asc");
       }
+      // if only the price has been reset to max, show all is on
+      if (
+        price === Math.max(...allPrices.current) &&
+        location.length === 0 &&
+        category.length === 0 &&
+        !date
+      ) {
+        setIsShowingAll(true);
+      }
+
       axios
         .get(`http://localhost:5005/events?${params.toString()}`)
         .then((response) => {
