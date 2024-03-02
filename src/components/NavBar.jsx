@@ -20,10 +20,10 @@ function NavBar(props) {
         </div>
       ) : (
         <div className="nav-user-wrapper">
-          <Link to="/admin">
+          <Link to="/admin" className="user-button-link">
             <button className="nav-user-button">register</button>
           </Link>
-          <Link to="/admin">
+          <Link to="/admin" className="user-button-link">
             <button className="nav-user-button">sign in</button>
           </Link>
         </div>
