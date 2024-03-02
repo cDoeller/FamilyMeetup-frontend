@@ -79,13 +79,14 @@ function CreateEvent() {
             value={short_description}
           />
           <label>DESCRIPTION</label>
-          <input
+          <textarea
             type="text"
             name="description"
             onChange={(e) => {
               setDescription(e.target.value);
             }}
             value={description}
+            className="create-event-textarea"
           />
           <label>DATE</label>
           <input

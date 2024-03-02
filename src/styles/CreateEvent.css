@@ -10,40 +10,52 @@
     flex-direction: column;
     justify-content: center;
     font-size: 19px;
-    width: 25%;
+    width: 50%;
     height: 100%;
     margin-top: 70px;
-    margin-bottom: 70px ;
-
+    /* margin-bottom: 70px; */
+    font-family: "Manrope";
 }
 
-.form input{
+.form input, textarea, select{
   padding: 10px 20px;
   margin: 18px 0px;
   border-radius: 10px;
-  border: solid black 3px;
+  /* border: solid black 1px; */
+  border: none;
+  background-color: var(--pink);
   font-size: 20px;
 }
 
 .submit{
-    background-color: lightgray;
-    border: solid black 2px;
+    background-color: var(--grey);
+    /* border: solid black 2px; */
+    border:none;
     border-radius: 10px;
     color:black;
     height: 90px;
-    margin-top: 18px;
+    margin: 3rem auto 0 auto;
     padding: 15px 32px;
-    text-align: center;
+    /* text-align: center; */
     text-decoration: none;
     display: inline-block;
     font-size: 26px;
     font-weight: 400;
+    width: fit-content;
 }
  
 .dropdown{
-  padding: 10px 20px;
+  /* padding: 10px 20px;
   margin: 18px 0px;
   border-radius: 10px;
   border: solid black 3px;
-  font-size: 20px;
+  font-size: 20px; */
+  outline: none;
+  font-family: "Manrope";
+}
+
+.create-event-textarea{
+resize: none;
+min-height: 10rem;
+font-family: "Manrope";
 }
