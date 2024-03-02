@@ -27,6 +27,10 @@ button {
   line-height: 2rem;
 }
 
+button {
+  cursor: pointer;
+}
+
 h2,
 h3,
 p,
