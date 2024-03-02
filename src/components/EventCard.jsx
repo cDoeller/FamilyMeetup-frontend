@@ -9,9 +9,14 @@ function EventCard(props) {
         <img src={event.image_url} alt="" className="event-card-image" />
       </div>
       <div className="event-card-info-wrapper">
-        <h3 className="event-card-title">{event.title}</h3>
-        <h3 className="event-card-datetime">{event.date + " " + event.time}</h3>
-        <p className="event-card-description">{event.short_description}</p>
+        <div>
+          <h2 className="event-card-title">{event.title}</h2>
+          <p className="event-card-description">{event.short_description}</p>
+        </div>
+        <h3 className="event-card-datetime">
+          calendar {event.date}{" "}
+          clock {event.time}
+        </h3>
       </div>
     </>
   );

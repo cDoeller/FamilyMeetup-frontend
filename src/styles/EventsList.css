@@ -21,5 +21,8 @@
     width: 150px;
     height: 150px;
     border-radius: 100%;
-    border-width: 1px;
+    /* border-width: 1px; */
+    border:none;
+    background-color: var(--green);
+    cursor: pointer;
   }

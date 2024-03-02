@@ -28,15 +28,17 @@
 }
 
 .random-filter-events-wrapper {
-  padding: 2rem 2rem 3rem 3rem;
+  width: 100%;
+  padding: 2rem 0 1.6rem 0;
   display: flex;
+  justify-content: center;
   gap: 0.8rem;
   align-items: baseline;
 }
 
 .random-filter-events-label {
   text-transform: uppercase;
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-family: "Manrope";
 }
 
@@ -44,10 +46,11 @@
   border: none;
   border-bottom: solid;
   border-width: 1px;
-  font-size: 1rem;
+  font-size: 1.2rem;
   background-color: transparent;
   width: 30%;
   text-transform: uppercase;
+  font-family: "Manrope";
 }
 
 .random-filter-events-input:focus {
