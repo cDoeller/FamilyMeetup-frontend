@@ -14,16 +14,18 @@ function NavBar(props) {
       </div>
 
       {isLoggedIn ? (
-        <div className="nav-user-user-name-wrapper">
-          Logged in as {" "}
-          <span className="nav-user-user-name-span">{userName}</span>
-        </div>
+        <Link to="/admin" className="user-button-link">
+          <div className="nav-user-user-name-wrapper">
+            Logged in as{" "}
+            <span className="nav-user-user-name-span">{userName}</span>
+          </div>
+        </Link>
       ) : (
         <div className="nav-user-wrapper">
-          <Link to="/admin">
+          <Link to="/admin" className="user-button-link">
             <button className="nav-user-button">register</button>
           </Link>
-          <Link to="/admin">
+          <Link to="/admin" className="user-button-link">
             <button className="nav-user-button">sign in</button>
           </Link>
         </div>

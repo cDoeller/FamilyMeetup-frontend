@@ -1,13 +1,31 @@
+/* .event-card-component{
+  background-color: var(--grey);
+  border-radius: 10px;
+} */
+
 .event-card {
     width: 48.5%;
     margin-bottom: 3%;
-    border: solid 1px;
+    /* border: solid 1px; */
+    background-color: var(--grey);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .event-card-title{
+    text-transform: uppercase;
+    font-weight: bolder;
+    margin-bottom: 0.2rem;
+    font-size: 1.4rem;
   }
   
   .event-card-info-wrapper {
     padding: 1rem;
     min-height: 180px;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
   
   .event-card-image-wrapper {
@@ -26,5 +44,5 @@
   }
   
   .event-card-description {
-    margin-top: 20px;
+    /* margin-top: 20px; */
   }

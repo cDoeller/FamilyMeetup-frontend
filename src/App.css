@@ -1,3 +1,50 @@
+:root {
+  --yellow: #fff599;
+  --green: #a6eeab;
+  --purple: #8f72be;
+  --lilac: #ddccec;
+  --red: #fe7373;
+  --blue: #cee1ec;
+  --orange: #f9d0b3;
+  --pink: #f5cadf;
+  --grey: #e6e6e6;
+  /* var(--blue) */
+}
+
+/* 
+--yellow: #fff272;
+--green: #8ae190;
+--purple: #8f72be;
+--lilac: #b698cd;
+--red: #fe7373;
+--blue: #72c4f5;
+--orange: #ffac72;
+--pink: #ff94c9; */
+
+h1,
+button {
+  font-family: "Dangrek";
+  line-height: 2rem;
+}
+
+button {
+  cursor: pointer;
+}
+
+h2,
+h3,
+p,
+ul,
+ol,
+input,
+label {
+  font-family: "Manrope";
+}
+
+button {
+  font-size: 1rem;
+}
+
 html,
 body,
 h1,
@@ -18,11 +65,13 @@ html {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-textarea:focus, input:focus{
+textarea:focus,
+input:focus {
   outline: none;
 }
 
 /* ALL PAGES */
 .page-wrapper {
   padding: 0 8%;
+  /* background-color: var(--lilac); */
 }

@@ -4,7 +4,6 @@ import "../styles/Footer.css";
 function Footer() {
   return (
     <div className="footer-wrapper">
-      <hr className="footer-hr" />
       <div className="footer-ironhack-container">
         <div className="footer-ironhack-logo-container">
           <a href="#">
@@ -23,7 +22,6 @@ function Footer() {
         </div>
       </div>
       <div className="footer-follow-container">
-        <h3 className="footer-follow-us">Follow us</h3>
         <div className="footer-social-media-logos">
           <div className="footer-social-media-logo-container">
             <a href="#">

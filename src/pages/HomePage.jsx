@@ -28,7 +28,9 @@ function HomePage() {
   useEffect(() => {
     axios
       .get(
-        `${import.meta.env.VITE_API_URL}/events?date_to_seconds_gte=${todayDateMillis}`
+        `${
+          import.meta.env.VITE_API_URL
+        }/events?date_to_seconds_gte=${todayDateMillis}`
       )
       .then((response) => {
         // console.log(response.data);
@@ -91,7 +93,7 @@ function HomePage() {
   }
 
   return (
-    <div className="page-wrapper">
+    <>
       <div className="homepage-header-wrapper">
         <HeaderAbout
           headlineAbout={headlineAbout}
@@ -106,43 +108,50 @@ function HomePage() {
           </Link>
         </div>
       </div>
-      <Link to="/events">
-        <button className="all-events-button">show all events</button>
-      </Link>
-      <div className="homepage-random-events-wrapper">
-        <div className="random-filter-events-wrapper">
-          <label htmlFor="random-input" className="random-filter-events-label">
-            random events in
-          </label>
-          <input
-            className="random-filter-events-input"
-            name="random-input"
-            type="text"
-            value={locationFilter}
-            onChange={(e) => {
-              setLocationFilter(e.target.value.toLowerCase());
-              handleIsFiltering(e.target.value);
-            }}
-          />
+      <div className="page-wrapper">
+        <div className="all-events-button-wrapper">
+          <Link to="/events">
+            <button className="all-events-button">show all events</button>
+          </Link>
         </div>
-        <div className="events-list-container-homepage">
-          {allUpcomingEvents &&
-            eventsToShow.map((event) => {
-              return (
-                <Link
-                  to={`/events/${event.id}`}
-                  key={event.id}
-                  className="event-card"
-                >
-                  <EventCard event={event} />
-                </Link>
-              );
-            })}
+        <div className="homepage-random-events-wrapper">
+          <div className="random-filter-events-wrapper">
+            <label
+              htmlFor="random-input"
+              className="random-filter-events-label"
+            >
+              random events in
+            </label>
+            <input
+              className="random-filter-events-input"
+              name="random-input"
+              type="text"
+              value={locationFilter}
+              onChange={(e) => {
+                setLocationFilter(e.target.value.toLowerCase());
+                handleIsFiltering(e.target.value);
+              }}
+            />
+          </div>
+          <div className="events-list-container-homepage">
+            {allUpcomingEvents &&
+              eventsToShow.map((event) => {
+                return (
+                  <Link
+                    to={`/events/${event.id}`}
+                    key={event.id}
+                    className="event-card"
+                  >
+                    <EventCard event={event} className="event-card-component"/>
+                  </Link>
+                );
+              })}
+          </div>
         </div>
+        <UpcomingEvents></UpcomingEvents>
+        <PopularEvents></PopularEvents>
       </div>
-      <UpcomingEvents></UpcomingEvents>
-      <PopularEvents></PopularEvents>
-    </div>
+    </>
   );
 }
 

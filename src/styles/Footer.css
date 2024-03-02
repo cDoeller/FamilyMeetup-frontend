@@ -1,14 +1,10 @@
 /* FOOTER */
 
 .footer-wrapper {
-  background-color: white;
+  background-color: var(--blue);
   text-align: center;
-  padding: 2rem 0 3rem 0;
-}
-
-.footer-hr {
-  border-width: 1px;
-  border-color: lightgray;
+  padding: 2.5rem 0 3rem 0;
+  margin-top: 5rem;
 }
 
 .footer-ironhack-container {
@@ -16,7 +12,6 @@
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  margin-top: 3rem;
 }
 .footer-ironhack-logo-container {
   width: 40px;
@@ -34,11 +29,7 @@
   flex-direction: column;
   gap: 0.2rem;
 }
-.footer-follow-us {
-  text-align: center;
-  text-transform: uppercase;
-  font-weight: lighter;
-}
+
 .footer-social-media-logos {
   display: flex;
   gap: 1.6rem;

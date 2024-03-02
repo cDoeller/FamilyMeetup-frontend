@@ -24,14 +24,14 @@ function UpcomingEvents() {
 
   return (
     <div className="sorted-events">
-      <h1>Upcoming events</h1>
+      <h1 className="popular-upcoming-headline">Upcoming events</h1>
       <div className="events-list-container-sorted">
         {events.map((event) => {
           return (
             <Link
               to={`/events/${event.id}`}
               key={event.id}
-              className="event-card"
+              className="event-card event-card-upcoming-popular"
             >
               <EventCard event={event} />
             </Link>

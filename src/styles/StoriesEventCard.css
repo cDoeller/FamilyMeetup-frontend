@@ -6,8 +6,11 @@
   }
   .past-event-card-wrapper {
     display: flex;
-    border: 1px solid;
+    /* border: 1px solid; */
     gap: 1rem;
+    background-color: var(--grey);
+    border-radius: 10px;
+    overflow: hidden;
   }
   .past-event-image-wrapper {
     width: 30%;
@@ -58,6 +61,7 @@
     display: flex;
     justify-content: right;
     align-items: center;
+    padding: 1rem;
   }
   .past-event-create-button {
     padding: 2rem;
@@ -65,6 +69,8 @@
     height: 120px;
     border-radius: 50%;
     border: 1px solid;
+    border-color: grey;
+    /* border: none; */
     margin-right: 2rem;
     text-transform: uppercase;
     font-weight: bold;
@@ -79,13 +85,15 @@
   }
   .past-event-story-content {
     flex-grow: 1;
-    padding: 1rem 0;
+    padding: 1rem;
     max-width: 70%;
     box-sizing: border-box;
-    padding-left: 1rem;
-    border: 1px solid;
+    /* border: 1px solid; */
+    background-color: var(--grey);
+    border-radius: 0 10px 10px 0px;
   }
   .past-event-story-username {
+    margin-bottom: 0.6rem;
   }
   .past-event-story-text {
   }

@@ -4,3 +4,9 @@
   gap: 1rem;
   position: relative;
 }
+
+.create-story-button{
+  background-color: yellow;
+  cursor:auto;
+  padding: 1rem;
+}

@@ -105,13 +105,14 @@ function EditEventsAdmin() {
             value={short_description}
           />
           <label>DESCRIPTION</label>
-          <input
+          <textarea
             type="text"
             name="description"
             onChange={(e) => {
-              setDescription(e.target.value.toLowerCase);
+              setDescription(e.target.value.toLowerCase());
             }}
             value={description}
+            className="create-event-textarea"
           />
           <label>DATE</label>
           <input
