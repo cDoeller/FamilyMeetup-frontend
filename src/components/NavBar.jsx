@@ -14,10 +14,12 @@ function NavBar(props) {
       </div>
 
       {isLoggedIn ? (
-        <div className="nav-user-user-name-wrapper">
-          Logged in as {" "}
-          <span className="nav-user-user-name-span">{userName}</span>
-        </div>
+        <Link to="/admin" className="user-button-link">
+          <div className="nav-user-user-name-wrapper">
+            Logged in as{" "}
+            <span className="nav-user-user-name-span">{userName}</span>
+          </div>
+        </Link>
       ) : (
         <div className="nav-user-wrapper">
           <Link to="/admin" className="user-button-link">

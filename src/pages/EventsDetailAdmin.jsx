@@ -85,11 +85,11 @@ function EventsDetailAdmin() {
                 <button className="event-back-button">Back</button>
               </Link>
               <Link to={`/admin/${eventId}/edit`}>
-                <button className="event-edit-button">Edit</button>
+                <button className="event-back-button">Edit</button>
               </Link>
               <button
                 
-                className="event-delete-button"
+                className="event-back-button"
                 onClick={DeleteEvent}
               >
                 Delete

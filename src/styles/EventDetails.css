@@ -44,11 +44,11 @@
 
 .event-category {
   text-transform: uppercase;
-  color: var(--purple);
+  color: black;
   padding: 0.6rem;
   border: solid 1px;
   border-radius: 10px;
-  border-color: var(--purple);
+  border-color: black;
   /* font-size: 1.6rem; */
 }
 
