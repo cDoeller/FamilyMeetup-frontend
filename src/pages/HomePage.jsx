@@ -28,7 +28,7 @@ function HomePage() {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:5005/events?date_to_seconds_gte=${todayDateMillis}`
+        `${import.meta.env.VITE_API_URL}/events?date_to_seconds_gte=${todayDateMillis}`
       )
       .then((response) => {
         // console.log(response.data);

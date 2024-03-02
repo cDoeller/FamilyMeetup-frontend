@@ -21,7 +21,7 @@ function EditEventsAdmin() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5005/events/${eventId}`)
+      .get(`${import.meta.env.VITE_API_URL}/events/${eventId}`)
       .then((response) => {
         console.log(response.data);
         const eventData = response.data;
@@ -61,7 +61,7 @@ function EditEventsAdmin() {
     };
 
     axios
-      .put(`http://localhost:5005/events/${eventId}`, editedEvent)
+      .put(`${import.meta.env.VITE_API_URL}/events/${eventId}`, editedEvent)
       .then((response) => {
         console.log(response.data);
         alert("The event has been updated successfully!");
@@ -81,7 +81,7 @@ function EditEventsAdmin() {
             type="text"
             name="name"
             onChange={(e) => {
-              setTitle((e.target.value).toLowerCase());
+              setTitle(e.target.value.toLowerCase());
             }}
             value={title}
           />
@@ -91,7 +91,7 @@ function EditEventsAdmin() {
             type="text"
             name="image_url"
             onChange={(e) => {
-              setImage((e.target.value).toLowerCase());
+              setImage(e.target.value.toLowerCase());
             }}
             value={image_url}
           />
@@ -100,7 +100,7 @@ function EditEventsAdmin() {
             type="text"
             name="short_description"
             onChange={(e) => {
-              setShort_description((e.target.value).toLowerCase());
+              setShort_description(e.target.value.toLowerCase());
             }}
             value={short_description}
           />
@@ -109,7 +109,7 @@ function EditEventsAdmin() {
             type="text"
             name="description"
             onChange={(e) => {
-              setDescription((e.target.value.toLowerCase));
+              setDescription(e.target.value.toLowerCase);
             }}
             value={description}
           />
@@ -118,6 +118,7 @@ function EditEventsAdmin() {
             placeholder="dd/mm/yyyy"
             type="date"
             name="date"
+            min={new Date().toJSON().slice(0, 10)}
             onChange={(e) => {
               setDate(e.target.value);
             }}
@@ -148,19 +149,31 @@ function EditEventsAdmin() {
             type="text"
             name="location"
             onChange={(e) => {
-              setLocation((e.target.value.toLowerCase()));
+              setLocation(e.target.value.toLowerCase());
             }}
             value={location}
           />
           <label>CATEGORY</label>
-          <input
-            type="text"
-            name="category"
-            onChange={(e) => {
-              setCategory((e.target.value).toLowerCase());
-            }}
+          <select
+            className="dropdown"
+            id="dropdown"
             value={category}
-          />
+            onChange={(e) => {
+              setCategory(e.target.value.toLowerCase());
+            }}
+          >
+            <option value="" disabled>
+              Select a category
+            </option>
+            <option value="adventure">Adventure</option>
+            <option value="art">Art</option>
+            <option value="cooking">Cooking</option>
+            <option value="nature">Nature</option>
+            <option value="learn">Learn</option>
+            <option value="relax">Relax</option>
+            <option value="sport">Sport</option>
+            <option value="travelling">Travelling</option>
+          </select>
           <button className="submit" type="submit">
             Update Event
           </button>

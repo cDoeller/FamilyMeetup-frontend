@@ -31,10 +31,11 @@ function FilterAllEvents(props) {
 
   // * INITIAL get request for all events
   // * listing all categories and locations
+
   useEffect(() => {
     axios
       .get(
-        `http://localhost:5005/events?date_to_seconds_gte=${todayDateMillis}&_sort=date_to_seconds&_order=asc`
+        `${import.meta.env.VITE_API_URL}/events?date_to_seconds_gte=${todayDateMillis}&_sort=date_to_seconds&_order=asc`
       )
       .then((response) => {
         setEventsToShow(response.data);
@@ -129,7 +130,7 @@ function FilterAllEvents(props) {
       }
 
       axios
-        .get(`http://localhost:5005/events?${params.toString()}`)
+        .get(`${import.meta.env.VITE_API_URL}/events?${params.toString()}`)
         .then((response) => {
           setEventsToShow(response.data);
         })

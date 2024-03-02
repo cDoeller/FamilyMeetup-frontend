@@ -36,7 +36,7 @@ function CreateEvent() {
     };
 
     axios
-      .post(`http://localhost:5005/events`, newEvent)
+      .post(`${import.meta.env.VITE_API_URL}/events`, newEvent)
       .then((response) => {
         console.log(response.data);
         alert("The event has been created succesfully!");
@@ -144,7 +144,7 @@ function CreateEvent() {
             <option value="adventure">Adventure</option>
             <option value="art">Art</option>
             <option value="cooking">Cooking</option>
-            <option value="cycling">Cycling</option>
+            <option value="nature">Nature</option>
             <option value="learn">Learn</option>
             <option value="relax">Relax</option>
             <option value="sport">Sport</option>

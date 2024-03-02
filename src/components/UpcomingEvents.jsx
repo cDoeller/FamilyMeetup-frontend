@@ -11,7 +11,7 @@ function UpcomingEvents() {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:5005/events?&date_to_seconds_gte=${todayDate}&_sort=date_to_seconds&_order=asc&_limit=6`
+        `${import.meta.env.VITE_API_URL}/events?&date_to_seconds_gte=${todayDate}&_sort=date_to_seconds&_order=asc&_limit=6`
       )
       .then((response) => {
         console.log(response.data)

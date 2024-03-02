@@ -9,7 +9,7 @@ function PopularEvents() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5005/events?_sort=participants&_order=desc&_limit=6")
+      .get(`${import.meta.env.VITE_API_URL}/events?_sort=participants&_order=desc&_limit=6`)
       .then((response) => {
         setEvents(response.data);
       })
