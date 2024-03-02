@@ -36,7 +36,7 @@ nav {
 
 .nav-user-user-name-wrapper{
   padding: 0.8rem 1.2rem;
-  background-color: pink;
+  background-color: var(--green);
   border-radius: 10px;
   height:fit-content;
 }

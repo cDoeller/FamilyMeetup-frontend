@@ -23,7 +23,9 @@ function PastEvents() {
   useEffect(() => {
     axios
       .get(
-        `${import.meta.env.VITE_API_URL}/events?date_to_seconds_lte=${currentDateSeconds}&_sort=date_to_seconds&_order=desc&_embed=stories`
+        `${
+          import.meta.env.VITE_API_URL
+        }/events?date_to_seconds_lte=${currentDateSeconds}&_sort=date_to_seconds&_order=desc&_embed=stories`
       )
       .then((response) => {
         setPastEvents(response.data);
@@ -35,43 +37,48 @@ function PastEvents() {
   }, []);
 
   return (
-    <div className="page-wrapper">
+    <>
       <div className="homepage-header-wrapper">
         <HeaderAbout
           headlineAbout={headlineAbout}
           subHeadlineAbout={subHeadlineAbout}
         />
+        <div className="homepage-stories-button-wrapper">
+          <button className="create-event-button create-story-button ">ICON</button>
+        </div>
       </div>
-      <div className="past-event-all-wrapper">
-        {makeNewStory && (
-          <NewStoryForm
-            setPastEvents={setPastEvents}
-            setMakeNewStory={setMakeNewStory}
-            idIsDisplayed={idIsDisplayed}
-            setIdIsDisplayed={setIdIsDisplayed}
-            newStoryId={newStoryId}
-            setNewStoryId={setNewStoryId}
-            newStoryEvent={newStoryEvent}
-            setNewStoryEvent={setNewStoryEvent}
-            currentDateSeconds={currentDateSeconds}
-          />
-        )}
-        {pastEvents &&
-          pastEvents.map((event) => {
-            return (
-              <StoriesEventCard
-                key={event.id}
-                event={event}
-                idIsDisplayed={idIsDisplayed}
-                setIdIsDisplayed={setIdIsDisplayed}
-                setMakeNewStory={setMakeNewStory}
-                setNewStoryId={setNewStoryId}
-                setNewStoryEvent={setNewStoryEvent}
-              />
-            );
-          })}
+      <div className="page-wrapper">
+        <div className="past-event-all-wrapper">
+          {makeNewStory && (
+            <NewStoryForm
+              setPastEvents={setPastEvents}
+              setMakeNewStory={setMakeNewStory}
+              idIsDisplayed={idIsDisplayed}
+              setIdIsDisplayed={setIdIsDisplayed}
+              newStoryId={newStoryId}
+              setNewStoryId={setNewStoryId}
+              newStoryEvent={newStoryEvent}
+              setNewStoryEvent={setNewStoryEvent}
+              currentDateSeconds={currentDateSeconds}
+            />
+          )}
+          {pastEvents &&
+            pastEvents.map((event) => {
+              return (
+                <StoriesEventCard
+                  key={event.id}
+                  event={event}
+                  idIsDisplayed={idIsDisplayed}
+                  setIdIsDisplayed={setIdIsDisplayed}
+                  setMakeNewStory={setMakeNewStory}
+                  setNewStoryId={setNewStoryId}
+                  setNewStoryEvent={setNewStoryEvent}
+                />
+              );
+            })}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
