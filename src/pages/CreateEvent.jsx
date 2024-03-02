@@ -3,7 +3,6 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../styles/CreateEvent.css";
-
 function CreateEvent() {
   const [title, setTitle] = useState("");
   const [image_url, setImage] = useState("");
@@ -14,13 +13,14 @@ function CreateEvent() {
   const [location, setLocation] = useState("");
   const [price, setPrice] = useState();
   const [category, setCategory] = useState("");
-  const [participants, setParticipants]= useState(0)
-  const [date_to_seconds, setDate_to_seconds]= useState()
+  const [participants, setParticipants] = useState(0);
+  const [date_to_seconds, setDate_to_seconds] = useState();
+
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const dateInSeconds = new Date(date).getTime()
+    const dateInSeconds = new Date(date).getTime();
     const newEvent = {
       title: title,
       image_url: image_url,
@@ -32,20 +32,20 @@ function CreateEvent() {
       price: price,
       category: category,
       participants: participants,
-      date_to_seconds: dateInSeconds
+      date_to_seconds: dateInSeconds,
     };
 
     axios
-    .post(`http://localhost:5005/events`, newEvent)
-    .then((response) => {
-      console.log(response.data);
-      alert("The event has been created succesfully!");
-      navigate(`/events`);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+      .post(`http://localhost:5005/events`, newEvent)
+      .then((response) => {
+        console.log(response.data);
+        alert("The event has been created succesfully!");
+        navigate(`/events`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <div>
       <div className="create">
@@ -55,7 +55,7 @@ function CreateEvent() {
             type="text"
             name="name"
             onChange={(e) => {
-              setTitle((e.target.value).toLowerCase());
+              setTitle(e.target.value.toLowerCase());
             }}
             value={title}
           />
@@ -65,7 +65,7 @@ function CreateEvent() {
             type="text"
             name="image_url"
             onChange={(e) => {
-              setImage((e.target.value));
+              setImage(e.target.value);
             }}
             value={image_url}
           />
@@ -74,7 +74,7 @@ function CreateEvent() {
             type="text"
             name="short_description"
             onChange={(e) => {
-              setShort_description((e.target.value).toLowerCase());
+              setShort_description(e.target.value);
             }}
             value={short_description}
           />
@@ -83,7 +83,7 @@ function CreateEvent() {
             type="text"
             name="description"
             onChange={(e) => {
-              setDescription((e.target.value).toLowerCase());
+              setDescription(e.target.value);
             }}
             value={description}
           />
@@ -92,6 +92,7 @@ function CreateEvent() {
             placeholder="dd/mm/yyyy"
             type="date"
             name="date"
+            min={new Date().toJSON().slice(0, 10)}
             onChange={(e) => {
               setDate(e.target.value);
             }}
@@ -123,19 +124,33 @@ function CreateEvent() {
             type="text"
             name="location"
             onChange={(e) => {
-              setLocation((e.target.value).toLowerCase());
+              setLocation(e.target.value.toLowerCase());
             }}
             value={location}
           />
           <label>CATEGORY</label>
-          <input
-            type="text"
-            name="category"
-            onChange={(e) => {
-              setCategory((e.target.value).toLowerCase());
-            }}
+          <select
+            className="dropdown"
+            id="dropdown"
             value={category}
-          />
+            onChange={(e) => {
+              setCategory(e.target.value.toLowerCase());
+          
+            }}
+          >
+            <option value="" disabled>
+              Select a category
+            </option>
+            <option value="adventure">Adventure</option>
+            <option value="art">Art</option>
+            <option value="cooking">Cooking</option>
+            <option value="cycling">Cycling</option>
+            <option value="learn">Learn</option>
+            <option value="relax">Relax</option>
+            <option value="sport">Sport</option>
+            <option value="travelling">Travelling</option>
+          </select>
+
           <button className="submit" type="submit">
             Create Event
           </button>
