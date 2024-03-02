@@ -23,7 +23,7 @@ function PastEvents() {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:5005/events?date_to_seconds_lte=${currentDateSeconds}&_sort=date_to_seconds&_order=desc&_embed=stories`
+        `${import.meta.env.VITE_API_URL}/events?date_to_seconds_lte=${currentDateSeconds}&_sort=date_to_seconds&_order=desc&_embed=stories`
       )
       .then((response) => {
         setPastEvents(response.data);

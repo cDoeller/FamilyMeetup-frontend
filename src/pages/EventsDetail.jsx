@@ -26,7 +26,7 @@ if(event){
         date_to_seconds: event.date_to_seconds
       }
       axios.
-      put(`http://localhost:5005/events/${eventId}`, updatedEvent)
+      put(`${import.meta.env.VITE_API_URL}/events/${eventId}`, updatedEvent)
       .then((response)=>{
        console.log(response.data)
       })
@@ -46,7 +46,7 @@ if(event){
   }
   useEffect(() => {
     axios
-      .get(`http://localhost:5005/events/${eventId}`)
+      .get(`${import.meta.env.VITE_API_URL}/events/${eventId}`)
       .then((response) => {
         setEvent(response.data);
       })

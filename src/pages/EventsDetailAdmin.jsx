@@ -13,7 +13,7 @@ function EventsDetailAdmin() {
 
   function DeleteEvent() {
     axios
-      .delete(`http://localhost:5005/events/${eventId}`)
+      .delete(`${import.meta.env.VITE_API_URL}/events/${eventId}`)
       .then(() => {
         alert("The event has been removed");
         navigate(`/admin`);
@@ -29,7 +29,7 @@ function EventsDetailAdmin() {
   }
   useEffect(() => {
     axios
-      .get(`http://localhost:5005/events/${eventId}`)
+      .get(`${import.meta.env.VITE_API_URL}/events/${eventId}`)
       .then((response) => {
         setEvent(response.data);
       })

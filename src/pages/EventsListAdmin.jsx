@@ -17,7 +17,7 @@ function EventsListAdmin(props) {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5005/events")
+      .get(`${import.meta.env.VITE_API_URL}/events`)
       .then((response) => {
         setAllEvents(response.data);
         // console.log(response.data);
@@ -54,7 +54,7 @@ function EventsListAdmin(props) {
     e.preventDefault();
     const backendLogin = {};
     axios
-      .get("http://localhost:5005/logins")
+      .get(`${import.meta.env.VITE_API_URL}/logins`)
       .then((response) => {
         // console.log(response.data)
         backendLogin.user = response.data[0].user;
