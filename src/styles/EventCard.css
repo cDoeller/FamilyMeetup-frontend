@@ -1,7 +1,15 @@
+/* .event-card-component{
+  background-color: var(--grey);
+  border-radius: 10px;
+} */
+
 .event-card {
     width: 48.5%;
     margin-bottom: 3%;
-    border: solid 1px;
+    /* border: solid 1px; */
+    background-color: var(--grey);
+    border-radius: 10px;
+    overflow: hidden;
   }
   
   .event-card-info-wrapper {

@@ -142,7 +142,7 @@ function HomePage() {
                     key={event.id}
                     className="event-card"
                   >
-                    <EventCard event={event} />
+                    <EventCard event={event} className="event-card-component"/>
                   </Link>
                 );
               })}

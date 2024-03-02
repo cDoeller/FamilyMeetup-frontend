@@ -2,11 +2,12 @@
 
 .all-events-button {
   text-transform: uppercase;
-  width: 60%;
+  width: 100%;
   padding: 2rem 0;
   font-size: 2rem;
   margin: 40px 0;
-  background-color: var(--pink);
+  background-color: var(--lilac);
+  /* background-color: transparent; */
   color:black;
   border-radius: 10px;
   /* border: 1px solid; */
@@ -21,8 +22,9 @@
 .homepage-random-events-wrapper {
   /* border: solid 1px; */
   border-radius: 10px;
-  background-color: var(--lilac);
-  padding: 5%;
+  /* background-color: var(--lilac); */
+  /* padding: 5%; */
+  margin-top: 1.5rem;
 }
 
 .random-filter-events-wrapper {
@@ -56,6 +58,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  margin-top:1.5rem;
 }
 
 .homepage-header-wrapper {
