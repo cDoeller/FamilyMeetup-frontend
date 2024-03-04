@@ -1,0 +1,61 @@
+/* FOOTER */
+
+.footer-wrapper {
+  background-color: var(--blue);
+  text-align: center;
+  padding: 2.5rem 0 3rem 0;
+  margin-top: 5rem;
+}
+
+.footer-ironhack-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.footer-ironhack-logo-container {
+  width: 40px;
+}
+.footer-ironhack-logo-image {
+  width: 100%;
+}
+.footer-project-by {
+  text-align: left;
+  font-weight: 300;
+}
+.footer-follow-container {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.footer-social-media-logos {
+  display: flex;
+  gap: 1.6rem;
+  justify-content: center;
+  margin-top: 0.6rem;
+}
+.footer-social-media-logo-container {
+  width: 30px;
+}
+.footer-social-media-logo-image {
+  width: 100%;
+}
+.footer-bottom {
+  margin-top: 3.5rem;
+  display: flex;
+  justify-content: center;
+}
+/* 
+.footer-copyright {
+  text-align: center;
+} */
+.footer-bottom > ul {
+  width:50%;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: underline;
+}

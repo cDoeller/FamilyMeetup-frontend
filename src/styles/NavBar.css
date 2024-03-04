@@ -1,0 +1,46 @@
+/* NAV */
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.2rem 2rem;
+  border-bottom: 1px solid;
+}
+
+.nav-logo-wrapper {
+  width: 240px;
+}
+.nav-logo-image {
+  width: 100%;
+}
+.nav-user-wrapper {
+  display: flex;
+  gap: 30px;
+}
+.nav-user-button {
+  text-transform: uppercase;
+  padding: 0.4rem 0.8rem;
+  background-color: var(--orange);
+  /* border: 1px solid; */
+  border:none;
+  border-radius: 10px;
+  height: fit-content;
+  cursor: pointer;
+  font-size: 1.2rem;
+  /* font-family: "Manrope"; */
+}
+
+.user-button-link{
+  height: fit-content;
+}
+
+.nav-user-user-name-wrapper{
+  padding: 0.8rem 1.2rem;
+  background-color: var(--green);
+  border-radius: 10px;
+  height:fit-content;
+}
+
+.nav-user-user-name-span {
+  text-decoration: underline;
+}

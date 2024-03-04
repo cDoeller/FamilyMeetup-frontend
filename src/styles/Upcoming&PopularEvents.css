@@ -1,0 +1,25 @@
+.sorted-events{
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+    margin-bottom: 0px;
+    gap: 20px;
+}
+
+.popular-upcoming-headline{
+    margin-bottom: 1rem;
+}
+
+.events-list-container-sorted{
+    width: 100%;
+    /* border:1px solid; */
+    display: inline-flex;
+    flex-wrap: nowrap;
+    gap: 20px;
+    overflow-x: scroll;
+}
+
+.event-card-upcoming-popular{
+    width: 30%;
+    flex-shrink: 0;
+}

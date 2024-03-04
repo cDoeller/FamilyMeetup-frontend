@@ -1,0 +1,40 @@
+.admin-eventlist-login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: 25%;
+  margin: auto;
+  margin-top: 40px;
+}
+
+.admin-eventlist-login-button {
+  text-transform: uppercase;
+  padding: 0.8rem 1.6rem;
+  margin-top: 2rem;
+  border-radius: 10px;
+  background-color: var(--grey);
+  border:none;
+  font-size: 1.2rem;
+}
+
+.admin-eventlist-login-button:hover {
+background-color: transparent;
+/* color: var(--grey); */
+border: 1px solid;
+border-color: var(--grey);
+}
+
+.admin-eventlist-label {
+  font-size: 1.2rem;
+}
+.admin-eventlist-input {
+  padding: 1rem;
+  text-align: center;
+  border-radius: 10px;
+  border: none;
+  background-color: var(--orange);
+  font-size: 1rem;
+  font-family: "Manrope";
+}

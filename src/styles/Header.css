@@ -1,0 +1,26 @@
+/* HEADER */
+
+.header-about-homepage-wrapper {
+  width: 60%;
+  border-radius: 10px;
+  margin: 50px 0 50px 0;
+}
+
+.homepage-header-wrapper{
+  /* background-color: var(--lilac); */
+  padding: 0 8%;
+}
+
+.header-about-title {
+  width: 70%;
+  font-size: 2.2rem;
+  line-height: 2.4rem;
+  font-weight: lighter;
+}
+
+.header-about-subtitle {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-top: 2rem;
+  line-height: 2.2rem;
+}

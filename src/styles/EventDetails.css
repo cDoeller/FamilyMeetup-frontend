@@ -1,0 +1,152 @@
+.one-event{
+  background-color: var(--grey);
+  border-radius: 10px;
+}
+
+.event-image {
+  height: 450px;
+  overflow: hidden;
+  position: relative;
+  margin-top: 4rem;
+  border-radius: 10px 10px 0 0 ;
+}
+
+.event-image > img {
+  width: 120%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.event-title-category-wrapper {
+  width: 75%;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.event-info{
+  padding: 2rem;
+
+}
+
+.event-title-short-description-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.event-title {
+  margin-top: 2rem;
+  text-transform: uppercase;
+}
+
+.event-category {
+  text-transform: uppercase;
+  color: black;
+  padding: 0.6rem;
+  border: solid 1px;
+  border-radius: 10px;
+  border-color: black;
+  /* font-size: 1.6rem; */
+}
+
+.event-short-description {
+}
+
+.event-description {
+  width: 50%;
+  margin: 2rem 0 4rem 0;
+  font-size: 1.2rem;
+}
+
+.event-date-time-price-wrapper {
+  width: 75%;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.event-date-time {
+  display: flex;
+  gap: 2rem;
+}
+.event-date {
+}
+.event-time {
+}
+.event-price {
+}
+
+.event-location {
+  margin-top: 2rem;
+  text-transform: uppercase;
+}
+
+.event-participants-wrapper {
+  /* width: 70%; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.event-families-going-join-wrapper {
+  display: flex;
+  margin-top: 4rem;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid;
+  border-color: var(--purple);
+}
+
+.event-families-going {
+  padding: 1rem;
+  background-color: transparent;
+  color: var(--purple);
+  text-transform: uppercase;
+  font-family: "Dangrek";
+  font-size: 1.1rem;
+}
+.event-join-button {
+  padding: 1rem 1.2rem;
+  border: none;
+  background-color:var(--purple);
+  color: white;
+  text-transform: uppercase;
+}
+.event-back-button-wrapper {
+  margin: 4rem 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+}
+.event-back-button {
+  padding: 0.4rem 1.2rem;
+  border: none;
+  text-transform: uppercase;
+  border-radius: 10px;
+  /* border: 1px solid; */
+  background-color: black;
+  color: var(--grey);
+  font-size: 1.1rem;
+}
+.event-edit-button-wrapper {
+  margin: 3rem 0;
+}
+.event-edit-button {
+  padding: 1rem 1.2rem;
+  border: none;
+  text-transform: uppercase;
+}
+
+.event-delete-button-wrapper {
+  margin: 3rem 0;
+}
+.event-delete-button {
+  padding: 1rem 1.2rem;
+  border: none;
+  text-transform: uppercase;
+}
