@@ -7,8 +7,8 @@ import { Link } from "react-router-dom";
 import FilterAllEvents from "../components/FilterAllEvents";
 
 function EventsList() {
+  //  passed to filter all component --> all fetching done there
   const [eventsToShow, setEventsToShow] = useState(null);
-  const [allEvents, setAllEvents] = useState(null);
 
   const todayDate = new Date();
   const todayDateMillis = todayDate.getTime();
@@ -16,23 +16,6 @@ function EventsList() {
   const headlineAbout = "Create, Browse and Filter Events in your area!";
   const subHeadlineAbout =
     "With familyMeetup you can find events in your area that are child and family friendly. The best thing is that you can be sure to be there with like minded people - connect and have fun!";
-
-  useEffect(() => {
-    axios
-      .get(
-        `${
-          import.meta.env.VITE_API_URL
-        }/events?date_to_seconds_gte=${todayDateMillis}`
-      )
-      .then((response) => {
-        // console.log(response.data);
-        setAllEvents(response.data);
-        setEventsToShow(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   return (
     <>
@@ -54,7 +37,7 @@ function EventsList() {
           todayDateMillis={todayDateMillis}
         />
         <div className="events-list-container-eventslistpage">
-          {allEvents &&
+          {eventsToShow &&
             eventsToShow.map((event) => {
               return (
                 <Link

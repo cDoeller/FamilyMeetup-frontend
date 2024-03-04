@@ -29,9 +29,6 @@ function FilterAllEvents(props) {
   const allCategories = useRef(null);
   const allPrices = useRef(null);
 
-  // * INITIAL get request for all events
-  // * listing all categories and locations
-
   useEffect(() => {
     axios
       .get(
@@ -39,7 +36,6 @@ function FilterAllEvents(props) {
       )
       .then((response) => {
         setEventsToShow(response.data);
-
         return response.data;
       })
       .then((response) => {
