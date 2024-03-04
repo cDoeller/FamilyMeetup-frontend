@@ -246,6 +246,7 @@ function FilterAllEvents(props) {
               value={date}
               selectRange={true}
               minDate={new Date()}
+              locale="en-GB"
             />
           </div>
         )}
