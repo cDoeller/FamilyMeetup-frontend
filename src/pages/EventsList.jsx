@@ -13,9 +13,18 @@ function EventsList() {
   const todayDate = new Date();
   const todayDateMillis = todayDate.getTime();
 
-  const headlineAbout = "Create, Browse and Filter Events in your area!";
-  const subHeadlineAbout =
-    "With familyMeetup you can find events in your area that are child and family friendly. The best thing is that you can be sure to be there with like minded people - connect and have fun!";
+  const headlineAbout = (
+    <h1 className="header-about-title">
+      Browse, Filter and Create family events in your area!
+    </h1>
+  );
+  const subHeadlineAbout = (
+    <h3 className="header-about-subtitle">
+      With this tool you can browse through all upcoming events and find the right one for you and your family. 
+      Use the filters and dropdown menus in the  <span className="text-focus-span">search bar</span>. 
+      Click on the  <span className="text-focus-span">button</span> on the right to create an event yourself and share it with others!
+    </h3>
+  );
 
   useEffect(() => {
     axios
