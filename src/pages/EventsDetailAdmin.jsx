@@ -64,8 +64,8 @@ function EventsDetailAdmin() {
             <p className="event-description">{event.description}</p>
             <div className="event-date-time-price-wrapper">
               <div className="event-date-time">
-                <h3 className="event-date">{event.date}</h3>
-                <h3 className="event-time">{event.time}</h3>
+                <h3 className="event-date">📅{event.date}</h3>
+                <h3 className="event-time">🕒{event.time}</h3>
               </div>
               <h3 className="event-price">{event.price}€</h3>
             </div>
@@ -76,7 +76,7 @@ function EventsDetailAdmin() {
               <p className="event-families-going">
                 {event.participants + count} families are going
               </p>
-              <button onClick={increaseCount} className="event-join-button">
+              <button onClick={increaseCount} className="event-join-button" disabled>
                 join event
               </button>
             </div>
