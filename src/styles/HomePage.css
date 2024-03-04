@@ -44,7 +44,8 @@
 
 .random-filter-events-input {
   border: none;
-  border-bottom: solid;
+  border-bottom: solid black;
+  caret-color: black;
   border-width: 1px;
   font-size: 1.2rem;
   background-color: transparent;

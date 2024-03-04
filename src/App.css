@@ -75,3 +75,7 @@ input:focus {
   padding: 0 8%;
   /* background-color: var(--lilac); */
 }
+
+.filter-not-found{
+  color: lightgray;
+}

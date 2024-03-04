@@ -35,7 +35,9 @@ function FilterAllEvents(props) {
   useEffect(() => {
     axios
       .get(
-        `${import.meta.env.VITE_API_URL}/events?date_to_seconds_gte=${todayDateMillis}&_sort=date_to_seconds&_order=asc`
+        `${
+          import.meta.env.VITE_API_URL
+        }/events?date_to_seconds_gte=${todayDateMillis}&_sort=date_to_seconds&_order=asc`
       )
       .then((response) => {
         setEventsToShow(response.data);
@@ -265,7 +267,12 @@ function FilterAllEvents(props) {
               onChange={(e) => {
                 setLocationQuery(e.target.value);
               }}
-              className="all-events-filter-location-input"
+              className={
+                "all-events-filter-location-input" +
+                (allLocations.current.length === filterLocationList().length
+                  ? " filter-not-found"
+                  : "")
+              }
             />
             {allLocations &&
               filterLocationList().map((oneLocation) => {
@@ -350,7 +357,10 @@ function FilterAllEvents(props) {
               }}
               value={price}
             />
-            <label htmlFor="price-slider" className="all-events-filter-slider-label">
+            <label
+              htmlFor="price-slider"
+              className="all-events-filter-slider-label"
+            >
               {price === 0 ? "free" : price + " €"}
             </label>
           </div>

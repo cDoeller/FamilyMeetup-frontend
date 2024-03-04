@@ -19,7 +19,7 @@
 }
 
 .all-events-filter-popup {
-  min-width: 100px;
+  min-width: 120px;
   position: absolute;
   border: 1px solid;
   border-radius: 0 10px 10px 10px;
@@ -51,7 +51,8 @@
   box-sizing: border-box;
   font-size: 1rem;
   border: none;
-  border-bottom: 1px solid;
+  border-bottom: 1px solid black;
+  caret-color: black;
   margin: 0.1rem 0 1rem 0;
 }
 
