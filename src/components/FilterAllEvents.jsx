@@ -278,6 +278,7 @@ function FilterAllEvents(props) {
                       value={oneLocation}
                       onChange={handleChechboxChange}
                       type="checkbox"
+                      className="all-events-filter-checkbox-input"
                     />
                     <label
                       className="all-events-filter-checkbox-label"
@@ -314,6 +315,7 @@ function FilterAllEvents(props) {
                       onChange={handleChechboxChange}
                       type="checkbox"
                       value={oneCategory}
+                      className="all-events-filter-checkbox-input"
                     />
                     <label
                       className="all-events-filter-checkbox-label"
@@ -339,7 +341,7 @@ function FilterAllEvents(props) {
             <input
               type="range"
               name="price-slider"
-              className="all-events-filter-input"
+              className="all-events-filter-input all-events-filter-slider"
               min="0"
               max={Math.max(...allPrices.current)}
               onChange={(e) => {
@@ -348,7 +350,7 @@ function FilterAllEvents(props) {
               }}
               value={price}
             />
-            <label htmlFor="price-slider">
+            <label htmlFor="price-slider" className="all-events-filter-slider-label">
               {price === 0 ? "free" : price + " €"}
             </label>
           </div>
