@@ -10,6 +10,8 @@ function EventsList() {
   const [eventsToShow, setEventsToShow] = useState(null);
   const [allEvents, setAllEvents] = useState(null);
 
+  const [clicked, setClicked] = useState (false);
+
   const todayDate = new Date();
   const todayDateMillis = todayDate.getTime();
 
@@ -36,36 +38,39 @@ function EventsList() {
 
   return (
     <>
-      <div className="homepage-header-wrapper">
-        <HeaderAbout
-          headlineAbout={headlineAbout}
-          subHeadlineAbout={subHeadlineAbout}
-        />
-        <div className="homepage-stories-button-wrapper">
-          <Link to="/events/create">
-            <button className="create-event-button">Create Event</button>
-          </Link>
+      <div onClick={()=>{setClicked(!clicked)}}>
+        <div className="homepage-header-wrapper">
+          <HeaderAbout
+            headlineAbout={headlineAbout}
+            subHeadlineAbout={subHeadlineAbout}
+          />
+          <div className="homepage-stories-button-wrapper">
+            <Link to="/events/create">
+              <button className="create-event-button">Create Event</button>
+            </Link>
+          </div>
         </div>
-      </div>
-      <div className="page-wrapper">
-        <FilterAllEvents
-          eventsToShow={eventsToShow}
-          setEventsToShow={setEventsToShow}
-          todayDateMillis={todayDateMillis}
-        />
-        <div className="events-list-container-eventslistpage">
-          {allEvents &&
-            eventsToShow.map((event) => {
-              return (
-                <Link
-                  to={`/events/${event.id}`}
-                  key={event.id}
-                  className="event-card"
-                >
-                  <EventCard event={event} />
-                </Link>
-              );
-            })}
+        <div className="page-wrapper">
+          <FilterAllEvents
+            eventsToShow={eventsToShow}
+            setEventsToShow={setEventsToShow}
+            todayDateMillis={todayDateMillis}
+            clicked = {clicked}
+          />
+          <div className="events-list-container-eventslistpage">
+            {allEvents &&
+              eventsToShow.map((event) => {
+                return (
+                  <Link
+                    to={`/events/${event.id}`}
+                    key={event.id}
+                    className="event-card"
+                  >
+                    <EventCard event={event} />
+                  </Link>
+                );
+              })}
+          </div>
         </div>
       </div>
     </>
