@@ -21,6 +21,13 @@
 --orange: #ffac72;
 --pink: #ff94c9; */
 
+#root{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+}
+
 h1,
 button {
   font-family: "Dangrek";
