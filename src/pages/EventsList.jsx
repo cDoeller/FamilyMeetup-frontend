@@ -38,7 +38,7 @@ function EventsList() {
     </h3>
   );
 
-  // all locations 
+  // all locations
   // all categories
   // max price
   // all pages for pagination
@@ -50,15 +50,13 @@ function EventsList() {
         }/events?date_to_seconds_gte=${todayDateMillis}&_sort=date_to_seconds&_order=asc`
       )
       .then((response) => {
-        // calculate amount of pages for pagination
-        setPagesAmount(calculatePagination(response.data.length, maxElementsPerPage));
-        return response.data;
-      })
-      .then((response) => {
         setPages(
-          Array.from({ length: pagesAmount }, (value, index) => index + 1)
+          Array.from(
+            { length: Math.ceil(response.data.length / maxElementsPerPage) },
+            (value, index) => index + 1
+          )
         );
-        return response;
+        return response.data;
       })
       .then((response) => {
         // make array all locations, all categories, prices -once- (useRef)
@@ -90,9 +88,9 @@ function EventsList() {
   }, []);
 
   // calculate number of pages
-  const calculatePagination = (numAllEvents, numPerPage) => {
-    const numOfPages = Math.ceil(numAllEvents / numPerPage);
-    return numOfPages;
+  const calculatePagination = (numAllEvents) => {
+    const numOfPages = Math.ceil(numAllEvents / maxElementsPerPage);
+    setPagesAmount(numOfPages);
   };
 
   return (
@@ -155,14 +153,13 @@ function EventsList() {
                       : "")
                   }
                   onClick={() => {
-                    if (currentPage!==page) setCurrentPage(page);
+                    if (currentPage !== page) setCurrentPage(page);
                   }}
                 >
                   {page}
                 </h3>
               );
-            })
-            }
+            })}
         </div>
       </div>
     </>

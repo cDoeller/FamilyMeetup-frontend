@@ -36,7 +36,6 @@ function FilterAllEvents(props) {
   const [locationQuery, setLocationQuery] = useState("");
 
   useEffect(() => {
-    console.log(currentPage);
     axios
     .get(
       `${
