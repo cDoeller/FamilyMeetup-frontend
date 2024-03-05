@@ -85,9 +85,9 @@ function HomePage() {
     if (isFiltering) {
       let foundLocation = false;
       eventsToShow = allUpcomingEvents.filter((event) => {
-        if (event.location.startsWith(locationFilter)) {
+        if (event.location.includes(locationFilter)) {
           foundLocation = true;
-          return event.location.startsWith(locationFilter);
+          return event.location.includes(locationFilter);
         }
       });
       if (!foundLocation) eventsToShow = initialRandomEvents;
@@ -133,7 +133,12 @@ function HomePage() {
               random events in
             </label>
             <input
-              className="random-filter-events-input"
+              className={
+                "random-filter-events-input" +
+                (eventsToShow === initialRandomEvents
+                  ? " filter-not-found"
+                  : "")
+              }
               name="random-input"
               type="text"
               value={locationFilter}

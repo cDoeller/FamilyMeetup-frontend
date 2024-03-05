@@ -44,7 +44,8 @@
 
 .random-filter-events-input {
   border: none;
-  border-bottom: solid;
+  border-bottom: solid black;
+  caret-color: black;
   border-width: 1px;
   font-size: 1.2rem;
   background-color: transparent;
@@ -62,6 +63,13 @@
   flex-wrap: wrap;
   justify-content: space-between;
   margin-top:1.5rem;
+}
+
+.events-list-container-homepage :nth-last-child(1){
+  margin-bottom: 0;
+}
+.events-list-container-homepage :nth-last-child(2){
+  margin-bottom: 0;
 }
 
 .homepage-header-wrapper {
@@ -96,4 +104,18 @@
   rotate: -10deg;
   color:black;
   /* text-shadow: 3px 3px rgb(255, 255, 255); */
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--grey);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--darkgrey);
+  border-radius: 10px;
 }

@@ -15,7 +15,7 @@
   margin-top: 2rem;
   border-radius: 10px;
   background-color: var(--grey);
-  border:none;
+  border: 1px solid transparent;
   font-size: 1.2rem;
 }
 

@@ -7,7 +7,8 @@
   --blue: #cee1ec;
   --orange: #f9d0b3;
   --pink: #f5cadf;
-  --grey: #e6e6e6;
+  --grey: #eaeaea;
+  --darkgrey: #d2d2d2;
   /* var(--blue) */
 }
 
@@ -20,6 +21,13 @@
 --blue: #72c4f5;
 --orange: #ffac72;
 --pink: #ff94c9; */
+
+#root{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+}
 
 h1,
 button {
@@ -74,6 +82,10 @@ input:focus {
 .page-wrapper {
   padding: 0 8%;
   /* background-color: var(--lilac); */
+}
+
+.filter-not-found{
+  color: lightgray;
 }
 
 .text-focus-span{
