@@ -50,7 +50,7 @@ function EventsList() {
             clicked = {clicked}
           />
           <div className="events-list-container-eventslistpage">
-            {allEvents &&
+            {eventsToShow &&
               eventsToShow.map((event) => {
                 return (
                   <Link
