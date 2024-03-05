@@ -75,3 +75,9 @@ input:focus {
   padding: 0 8%;
   /* background-color: var(--lilac); */
 }
+
+.text-focus-span{
+  text-decoration: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: var(--green);
+}
