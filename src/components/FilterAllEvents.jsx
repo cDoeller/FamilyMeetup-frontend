@@ -21,7 +21,7 @@ function FilterAllEvents(props) {
     nextClicked,
     setNextClicked,
     prevClicked,
-    setPrevClicked
+    setPrevClicked,
   } = props;
 
   const [date, setDate] = useState(null);
@@ -81,36 +81,34 @@ function FilterAllEvents(props) {
   }
 
   useEffect(() => {
-    if(prevClicked)
-    axios
-      .get(
-        `${linkHeaderObject.prev}`
-      )
-      .then((response) => {
-        setEventsToShow(response.data);
-        setLinkHeaderString(response.headers.link);
-        setPrevClicked(false);
-        return response.data;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (prevClicked)
+      axios
+        .get(`${linkHeaderObject.prev}`)
+        .then((response) => {
+          setEventsToShow(response.data);
+          setLinkHeaderString(response.headers.link);
+          setPrevClicked(false);
+          return response.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
   }, [prevClicked]);
 
   useEffect(() => {
-    if(nextClicked){
-      console.log(linkHeaderObject)
-    axios
-      .get(`${linkHeaderObject.next}`)
-      .then((response) => {
-        setEventsToShow(response.data);
-        setLinkHeaderString(response.headers.link);
-        setNextClicked(false);
-        return response.data;
-      })
-      .catch((err) => {
-        console.log(err);
-      });}
+    if (nextClicked) {
+      axios
+        .get(`${linkHeaderObject.next}`)
+        .then((response) => {
+          setEventsToShow(response.data);
+          setLinkHeaderString(response.headers.link);
+          setNextClicked(false);
+          return response.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, [nextClicked]);
 
   // set price initially to max price
@@ -171,11 +169,22 @@ function FilterAllEvents(props) {
       ) {
         setIsShowingAll(true);
       }
-
+      // Pagination
+      params.append("_page", "1");
+      params.append("_per_page", "10");
+      // final axios call
       axios
         .get(`${import.meta.env.VITE_API_URL}/events?${params.toString()}`)
         .then((response) => {
           setEventsToShow(response.data);
+          // if header is gotten back (only if more than 1 page)
+          if (response.headers.link) {
+            setLinkHeaderString(response.headers.link);
+          } else {
+            // else disable pagination
+            setNext(false);
+            setPrev(false);
+          }
         })
         .then(() => {
           setIsFiltering(false);
