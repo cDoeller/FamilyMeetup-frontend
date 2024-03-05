@@ -13,9 +13,6 @@ function FilterAllEvents(props) {
     setEventsToShow,
     todayDateMillis,
     clicked,
-    setCurrentPage,
-    currentPage,
-    setPages,
     maxElementsPerPage,
     allLocations,
     allCategories,
@@ -37,22 +34,43 @@ function FilterAllEvents(props) {
   const [isFiltering, setIsFiltering] = useState(false);
   const [locationQuery, setLocationQuery] = useState("");
 
+  const [linkHeaderString, setLinkHeaderString] = useState("");
+  const [linkHeaderObject, setLinkHeaderObject] = useState("");
+
+  // initially show all events with pagination
   useEffect(() => {
     axios
       .get(
         `${
           import.meta.env.VITE_API_URL
-        }/events?date_to_seconds_gte=${todayDateMillis}&_sort=date_to_seconds&_order=asc&_page=${currentPage}&_per_page=${maxElementsPerPage}`
+        }/events?date_to_seconds_gte=${todayDateMillis}&_sort=date_to_seconds&_order=asc&_page=${1}&_per_page=${maxElementsPerPage}`
       )
       .then((response) => {
         setEventsToShow(response.data);
-        console.log(response.headers.link);
+        setLinkHeaderString(response.headers.link);
         return response.data;
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [currentPage]);
+  }, []);
+
+  useEffect(() => {
+    if (linkHeaderString)
+      setLinkHeaderObject(parseLinkHeader(linkHeaderString));
+  }, [linkHeaderString]);
+
+  function parseLinkHeader(linkHeader) {
+    const linkHeadersArray = linkHeader
+      .split(", ")
+      .map((header) => header.split("; "));
+    const linkHeadersMap = linkHeadersArray.map((header) => {
+      const thisHeaderRel = header[1].replace("rel=", "").replace(/['"]+/g, "");
+      const thisHeaderUrl = header[0].slice(1, -1);
+      return [thisHeaderRel, thisHeaderUrl];
+    });
+    return Object.fromEntries(linkHeadersMap);
+  }
 
   // set price initially to max price
   useEffect(() => {
@@ -62,7 +80,6 @@ function FilterAllEvents(props) {
   // * FILTERING
   useEffect(() => {
     if (isFiltering) {
-      setCurrentPage(1);
       let params = new URLSearchParams();
       // filter for date
       if (date) {
@@ -187,7 +204,7 @@ function FilterAllEvents(props) {
   const handlePreventClick = (e) => {
     e.stopPropagation();
   };
-
+  // remove dropdowns when clicked somewhere in window
   useEffect(() => {
     if (locationClicked) setLocationClicked(!locationClicked);
     if (categoryClicked) setCategoryClicked(!categoryClicked);

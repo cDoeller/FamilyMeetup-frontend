@@ -11,10 +11,6 @@ function EventsList() {
   const [eventsToShow, setEventsToShow] = useState(null);
   const [clicked, setClicked] = useState(false);
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pages, setPages] = useState([]);
-  const maxElementsPerPage = 10;
-
   const allLocations = useRef(null);
   const allCategories = useRef(null);
   const allPrices = useRef(null);
@@ -49,33 +45,24 @@ function EventsList() {
         }/events?date_to_seconds_gte=${todayDateMillis}&_sort=date_to_seconds&_order=asc`
       )
       .then((response) => {
-        setPages(
-          Array.from(
-            { length: Math.ceil(response.data.length / maxElementsPerPage) },
-            (value, index) => index + 1
-          )
-        );
-        return response.data;
-      })
-      .then((response) => {
         // make array all locations, all categories, prices -once- (useRef)
         allCategories.current = Array.from(
           new Set(
-            response.map((event) => {
+            response.data.map((event) => {
               return event.category;
             })
           )
         ).sort();
         allLocations.current = Array.from(
           new Set(
-            response.map((event) => {
+            response.data.map((event) => {
               return event.location;
             })
           )
         ).sort();
         allPrices.current = Array.from(
           new Set(
-            response.map((event) => {
+            response.data.map((event) => {
               return event.price;
             })
           )
@@ -109,10 +96,6 @@ function EventsList() {
             eventsToShow={eventsToShow}
             setEventsToShow={setEventsToShow}
             todayDateMillis={todayDateMillis}
-            setCurrentPage={setCurrentPage}
-            currentPage={currentPage}
-            setPages={setPages}
-            maxElementsPerPage={maxElementsPerPage}
             clicked={clicked}
             allLocations={allLocations}
             allCategories={allCategories}
@@ -134,7 +117,7 @@ function EventsList() {
           </div>
         </div>
         <div className="events-list-pagination">
-          {pages &&
+          {/* {pages &&
             pages.map((page) => {
               return (
                 <h3
@@ -152,7 +135,7 @@ function EventsList() {
                   {page}
                 </h3>
               );
-            })}
+            })} */}
         </div>
       </div>
     </>
