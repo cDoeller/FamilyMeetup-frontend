@@ -13,10 +13,15 @@ function FilterAllEvents(props) {
     setEventsToShow,
     todayDateMillis,
     clicked,
-    maxElementsPerPage,
     allLocations,
     allCategories,
     allPrices,
+    setNext,
+    setPrev,
+    nextClicked,
+    setNextClicked,
+    prevClicked,
+    setPrevClicked
   } = props;
 
   const [date, setDate] = useState(null);
@@ -43,7 +48,7 @@ function FilterAllEvents(props) {
       .get(
         `${
           import.meta.env.VITE_API_URL
-        }/events?date_to_seconds_gte=${todayDateMillis}&_sort=date_to_seconds&_order=asc&_page=${1}&_per_page=${maxElementsPerPage}`
+        }/events?date_to_seconds_gte=${todayDateMillis}&_sort=date_to_seconds&_order=asc&_page=1&_per_page=10`
       )
       .then((response) => {
         setEventsToShow(response.data);
@@ -56,8 +61,11 @@ function FilterAllEvents(props) {
   }, []);
 
   useEffect(() => {
-    if (linkHeaderString)
+    if (linkHeaderString) {
+      linkHeaderString.includes("next") ? setNext(true) : setNext(false);
+      linkHeaderString.includes("prev") ? setPrev(true) : setPrev(false);
       setLinkHeaderObject(parseLinkHeader(linkHeaderString));
+    }
   }, [linkHeaderString]);
 
   function parseLinkHeader(linkHeader) {
@@ -66,11 +74,44 @@ function FilterAllEvents(props) {
       .map((header) => header.split("; "));
     const linkHeadersMap = linkHeadersArray.map((header) => {
       const thisHeaderRel = header[1].replace("rel=", "").replace(/['"]+/g, "");
-      const thisHeaderUrl = header[0].slice(1, -1);
+      const thisHeaderUrl = "https" + header[0].slice(5, -1);
       return [thisHeaderRel, thisHeaderUrl];
     });
     return Object.fromEntries(linkHeadersMap);
   }
+
+  useEffect(() => {
+    if(prevClicked)
+    axios
+      .get(
+        `${linkHeaderObject.prev}`
+      )
+      .then((response) => {
+        setEventsToShow(response.data);
+        setLinkHeaderString(response.headers.link);
+        setPrevClicked(false);
+        return response.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [prevClicked]);
+
+  useEffect(() => {
+    if(nextClicked){
+      console.log(linkHeaderObject)
+    axios
+      .get(`${linkHeaderObject.next}`)
+      .then((response) => {
+        setEventsToShow(response.data);
+        setLinkHeaderString(response.headers.link);
+        setNextClicked(false);
+        return response.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });}
+  }, [nextClicked]);
 
   // set price initially to max price
   useEffect(() => {

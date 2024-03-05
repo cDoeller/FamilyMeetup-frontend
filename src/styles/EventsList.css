@@ -27,22 +27,29 @@
   cursor: pointer;
 }
 
+/* PAGINATION */
 .events-list-pagination {
   width: 100%;
   display: flex;
   justify-content: center;
-  gap: 2rem;
+  gap: 3%;
   margin-top: 2rem;
 }
-
-.events-list-pagination-pagenumber {
+.events-list-pagination-link {
+  padding: 1rem 1.2rem;
+  border-radius: 10px;
+  background-color: var(--green);
   cursor: pointer;
+  font-family: "Dangrek";
+  font-size: 1.4rem;
 }
-
-.events-list-pagination-pagenumber:hover {
-  text-decoration: underline;
+.events-list-pagination-link:hover {
 }
-
-.events-list-pagination-pagenumber-current{
-  text-decoration: underline;
+.events-list-pagination-link-inactive {
+  cursor:default;
+  padding: 1rem 1.2rem;
+  border-radius: 10px;
+  background-color: var(--grey);
+  font-family: "Dangrek";
+  font-size: 1.4rem;
 }

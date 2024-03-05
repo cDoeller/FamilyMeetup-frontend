@@ -11,6 +11,11 @@ function EventsList() {
   const [eventsToShow, setEventsToShow] = useState(null);
   const [clicked, setClicked] = useState(false);
 
+  const [next, setNext] = useState(false);
+  const [prev, setPrev] = useState(false);
+  const [nextClicked, setNextClicked] = useState(false);
+  const [prevClicked, setPrevClicked] = useState(false);
+
   const allLocations = useRef(null);
   const allCategories = useRef(null);
   const allPrices = useRef(null);
@@ -100,6 +105,12 @@ function EventsList() {
             allLocations={allLocations}
             allCategories={allCategories}
             allPrices={allPrices}
+            setNext={setNext}
+            setPrev={setPrev}
+            nextClicked={nextClicked}
+            prevClicked={prevClicked}
+            setNextClicked={setNextClicked}
+            setPrevClicked={setPrevClicked}
           />
           <div className="events-list-container-eventslistpage">
             {eventsToShow &&
@@ -117,25 +128,30 @@ function EventsList() {
           </div>
         </div>
         <div className="events-list-pagination">
-          {/* {pages &&
-            pages.map((page) => {
-              return (
-                <h3
-                  key={page}
-                  className={
-                    "events-list-pagination-pagenumber" +
-                    (page === currentPage
-                      ? " events-list-pagination-pagenumber-current"
-                      : "")
-                  }
-                  onClick={() => {
-                    if (currentPage !== page) setCurrentPage(page);
-                  }}
-                >
-                  {page}
-                </h3>
-              );
-            })} */}
+          {prev ? (
+            <h3
+              onClick={() => {
+                setPrevClicked(true);
+              }}
+              className="events-list-pagination-link"
+            >
+              {"<"}
+            </h3>
+          ) : (
+            <h3 className="events-list-pagination-link-inactive">{"<"}</h3>
+          )}
+          {next ? (
+            <h3
+              onClick={() => {
+                setNextClicked(true);
+              }}
+              className="events-list-pagination-link"
+            >
+              {">"}
+            </h3>
+          ) : (
+            <h3 className="events-list-pagination-link-inactive">{">"}</h3>
+          )}
         </div>
       </div>
     </>
