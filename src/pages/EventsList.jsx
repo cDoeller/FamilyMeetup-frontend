@@ -14,7 +14,7 @@ function EventsList() {
   const [pagesAmount, setPagesAmount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [pages, setPages] = useState([]);
-  const maxPages = 10;
+  const maxElementsPerPage = 10;
 
   const allLocations = useRef(null);
   const allCategories = useRef(null);
@@ -38,7 +38,10 @@ function EventsList() {
     </h3>
   );
 
-  // get + set: -all- locations, all categories, max price, pages for pagination
+  // all locations 
+  // all categories
+  // max price
+  // all pages for pagination
   useEffect(() => {
     axios
       .get(
@@ -48,7 +51,7 @@ function EventsList() {
       )
       .then((response) => {
         // calculate amount of pages for pagination
-        setPagesAmount(calculatePagination(response.data.length, maxPages));
+        setPagesAmount(calculatePagination(response.data.length, maxElementsPerPage));
         return response.data;
       })
       .then((response) => {
@@ -58,7 +61,6 @@ function EventsList() {
         return response;
       })
       .then((response) => {
-        console.log(pages);
         // make array all locations, all categories, prices -once- (useRef)
         allCategories.current = Array.from(
           new Set(
@@ -112,18 +114,19 @@ function EventsList() {
           </div>
         </div>
         <div className="page-wrapper">
-          {/* <FilterAllEvents
+          <FilterAllEvents
             eventsToShow={eventsToShow}
             setEventsToShow={setEventsToShow}
             todayDateMillis={todayDateMillis}
             page={currentPage}
             setPage={setCurrentPage}
-            maxPages={maxPages}
+            currentPage={currentPage}
+            maxElementsPerPage={maxElementsPerPage}
             clicked={clicked}
             allLocations={allLocations}
             allCategories={allCategories}
             allPrices={allPrices}
-          /> */}
+          />
           <div className="events-list-container-eventslistpage">
             {eventsToShow &&
               eventsToShow.map((event) => {
@@ -158,7 +161,8 @@ function EventsList() {
                   {page}
                 </h3>
               );
-            })}
+            })
+            }
         </div>
       </div>
     </>

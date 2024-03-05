@@ -14,8 +14,7 @@ function FilterAllEvents(props) {
     todayDateMillis,
     clicked,
     currentPage,
-    setCurrentPage,
-    maxPages,
+    maxElementsPerPage,
     allLocations,
     allCategories,
     allPrices,
@@ -37,40 +36,25 @@ function FilterAllEvents(props) {
   const [locationQuery, setLocationQuery] = useState("");
 
   useEffect(() => {
+    console.log(currentPage);
     axios
-      .get(
-        `${
-          import.meta.env.VITE_API_URL
-        }/events?date_to_seconds_gte=${todayDateMillis}&_sort=date_to_seconds&_order=asc`
-      )
+    .get(
+      `${
+        import.meta.env.VITE_API_URL
+      }/events?date_to_seconds_gte=${todayDateMillis}&_sort=date_to_seconds&_order=asc&_page=${currentPage}&_per_page=${maxElementsPerPage}`
+    )
       .then((response) => {
-        // setEventsToShow(response.data);
+        setEventsToShow(response.data);
         return response.data;
       })
       .then(() => {
         // set price initially to max price
         setPrice(Math.max(...allPrices.current));
       })
-      .then(() => {
-        // ********** PAGINATION
-        axios
-          .get(
-            `${
-              import.meta.env.VITE_API_URL
-            }/events?date_to_seconds_gte=${todayDateMillis}&_sort=date_to_seconds&_order=asc&_page=${currentPage}&_per_page=${maxPages}`
-          )
-          .then((response) => {
-            setEventsToShow(response.data);
-            console.log(response.data);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [currentPage]);
 
   // * FILTERING
   useEffect(() => {
