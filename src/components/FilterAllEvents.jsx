@@ -46,6 +46,7 @@ function FilterAllEvents(props) {
       )
       .then((response) => {
         setEventsToShow(response.data);
+        console.log(response.headers.link);
         return response.data;
       })
       .catch((err) => {
