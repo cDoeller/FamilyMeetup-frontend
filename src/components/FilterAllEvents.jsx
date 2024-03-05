@@ -8,7 +8,18 @@ import "../styles/FilterAllEvents.css";
 // reset clicked when clicked on window
 
 function FilterAllEvents(props) {
-  const { eventsToShow, setEventsToShow, todayDateMillis, clicked } = props;
+  const {
+    eventsToShow,
+    setEventsToShow,
+    todayDateMillis,
+    clicked,
+    currentPage,
+    setCurrentPage,
+    maxPages,
+    allLocations,
+    allCategories,
+    allPrices,
+  } = props;
 
   const [date, setDate] = useState(null);
   const [location, setLocation] = useState([]);
@@ -23,11 +34,7 @@ function FilterAllEvents(props) {
   const [dateClicked, setDateClicked] = useState(false);
 
   const [isFiltering, setIsFiltering] = useState(false);
-
   const [locationQuery, setLocationQuery] = useState("");
-  const allLocations = useRef(null);
-  const allCategories = useRef(null);
-  const allPrices = useRef(null);
 
   useEffect(() => {
     axios
@@ -37,36 +44,28 @@ function FilterAllEvents(props) {
         }/events?date_to_seconds_gte=${todayDateMillis}&_sort=date_to_seconds&_order=asc`
       )
       .then((response) => {
-        setEventsToShow(response.data);
+        // setEventsToShow(response.data);
         return response.data;
-      })
-      .then((response) => {
-        // make array all locations, all categories, prices -once- (useRef)
-        allCategories.current = Array.from(
-          new Set(
-            response.map((event) => {
-              return event.category;
-            })
-          )
-        ).sort();
-        allLocations.current = Array.from(
-          new Set(
-            response.map((event) => {
-              return event.location;
-            })
-          )
-        ).sort();
-        allPrices.current = Array.from(
-          new Set(
-            response.map((event) => {
-              return event.price;
-            })
-          )
-        );
       })
       .then(() => {
         // set price initially to max price
         setPrice(Math.max(...allPrices.current));
+      })
+      .then(() => {
+        // ********** PAGINATION
+        axios
+          .get(
+            `${
+              import.meta.env.VITE_API_URL
+            }/events?date_to_seconds_gte=${todayDateMillis}&_sort=date_to_seconds&_order=asc&_page=${currentPage}&_per_page=${maxPages}`
+          )
+          .then((response) => {
+            setEventsToShow(response.data);
+            console.log(response.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       })
       .catch((err) => {
         console.log(err);

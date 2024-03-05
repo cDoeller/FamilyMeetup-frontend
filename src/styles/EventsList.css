@@ -1,28 +1,47 @@
 /* EVENTS LIST PAGE */
 
-.events-list-container-eventslistpage{
+.events-list-container-eventslistpage {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
 .events-list-header-wrapper {
-    display: flex;
-    align-items: center;
-  }
-  
-  .all-events-button-wrapper {
-    flex-grow: 1;
-    text-align: center;
-  }
-  
-  .create-event-button {
-    font-size: 1.6rem;
-    width: 150px;
-    height: 150px;
-    border-radius: 100%;
-    /* border-width: 1px; */
-    border:none;
-    background-color: var(--green);
-    cursor: pointer;
-  }
+  display: flex;
+  align-items: center;
+}
+
+.all-events-button-wrapper {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.create-event-button {
+  font-size: 1.6rem;
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+  /* border-width: 1px; */
+  border: none;
+  background-color: var(--green);
+  cursor: pointer;
+}
+
+.events-list-pagination {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.events-list-pagination-pagenumber {
+  cursor: pointer;
+}
+
+.events-list-pagination-pagenumber:hover {
+  text-decoration: underline;
+}
+
+.events-list-pagination-pagenumber-current{
+  text-decoration: underline;
+}
