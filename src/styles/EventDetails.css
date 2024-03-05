@@ -30,6 +30,9 @@
   padding: 2rem;
 
 }
+.event-time{
+  margin: 2rem 0;
+}
 
 .event-title-short-description-wrapper {
   display: flex;
@@ -52,9 +55,6 @@
   /* font-size: 1.6rem; */
 }
 
-.event-short-description {
-}
-
 .event-description {
   width: 50%;
   margin: 2rem 0 4rem 0;
@@ -68,16 +68,11 @@
   align-items: baseline;
 }
 
-.event-date-time {
+{/*}.event-date-time {
   display: flex;
   gap: 2rem;
 }
-.event-date {
-}
-.event-time {
-}
-.event-price {
-}
+*/}
 
 .event-location {
   margin-top: 2rem;

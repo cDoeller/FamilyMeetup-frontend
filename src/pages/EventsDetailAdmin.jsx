@@ -9,7 +9,7 @@ function EventsDetailAdmin() {
   const [event, setEvent] = useState(null);
   const { eventId } = useParams();
   const [count, setCount] = useState(0);
-  const [pageRefresh, setPageRefresh] = useState (false);
+  const [pageRefresh, setPageRefresh] = useState(false);
   const navigate = useNavigate();
 
   function DeleteStory(storyId) {
@@ -76,20 +76,24 @@ function EventsDetailAdmin() {
             </div>
             <p className="event-description">{event.description}</p>
             <div className="event-date-time-price-wrapper">
-              <div className="event-date-time">
-                <h3 className="event-date">📅{event.date}</h3>
-                <h3 className="event-time">🕒{event.time}</h3>
-              </div>
+              {/*className="event-date-time"*/}
+              <h3 className="event-date">📅{event.date}</h3>
               <h3 className="event-price">{event.price}€</h3>
             </div>
-            <h3 className="event-location">{event.location}</h3>
+            <div className="event-time-location-wrapper"></div>
+            <h3 className="event-time">🕒 {event.time}</h3>
+            <h3 className="event-location">📍{event.location}</h3>
           </div>
           <div className="event-participants-wrapper">
             <div className="event-families-going-join-wrapper">
               <p className="event-families-going">
                 {event.participants + count} families are going
               </p>
-              <button onClick={increaseCount} className="event-join-button" disabled>
+              <button
+                onClick={increaseCount}
+                className="event-join-button"
+                disabled
+              >
                 join event
               </button>
             </div>
@@ -119,7 +123,12 @@ function EventsDetailAdmin() {
                     </h3>
                   </div>
                   <div className="event-admin-story-delete">
-                    <button className="event-back-button" onClick={()=>{DeleteStory(story.id)}}>
+                    <button
+                      className="event-back-button"
+                      onClick={() => {
+                        DeleteStory(story.id);
+                      }}
+                    >
                       Delete
                     </button>
                   </div>
