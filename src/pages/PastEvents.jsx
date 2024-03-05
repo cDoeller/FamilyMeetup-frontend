@@ -52,7 +52,7 @@ function PastEvents() {
           subHeadlineAbout={subHeadlineAbout}
         />
         <div className="homepage-stories-button-wrapper">
-          <button className="create-event-button create-story-button ">ICON</button>
+          <img src="https://static.vecteezy.com/system/resources/previews/009/663/212/original/speech-bubble-talk-bubble-chat-bubble-icon-transparent-free-png.png" className="create-event-button create-story-button "/>
         </div>
       </div>
       <div className="page-wrapper">

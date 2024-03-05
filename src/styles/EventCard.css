@@ -7,6 +7,7 @@
   background-color: var(--grey);
   border-radius: 10px;
   overflow: hidden;
+  text-transform: capitalize;
 }
 
 .event-card-title {
@@ -40,5 +41,10 @@
   transform: translate(-50%, -50%);
 }
 
-.event-card-description {
+.event-card-datetime{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-right: 1.5rem ;
+  text-transform: capitalize;
 }

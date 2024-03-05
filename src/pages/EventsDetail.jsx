@@ -6,12 +6,12 @@ import axios from "axios";
 
 function EventsDetail() {
   const [event, setEvent] = useState(null);
-  const [hasJoined, setHasJoined] = useState(false)
+  const [hasJoined, setHasJoined] = useState(false);
   const { eventId } = useParams();
   const [count, setCount] = useState(0);
   const [participants, setParticipants] = useState();
-  useEffect(()=>{
-if(event){
+  useEffect(() => {
+    if (event) {
       const updatedEvent = {
         title: event.title,
         image_url: event.image_url,
@@ -22,27 +22,25 @@ if(event){
         location: event.location,
         price: event.price,
         category: event.category,
-        participants: event.participants+count,
-        date_to_seconds: event.date_to_seconds
-      }
-      axios.
-      put(`${import.meta.env.VITE_API_URL}/events/${eventId}`, updatedEvent)
-      .then((response)=>{
-       console.log(response.data)
-      })
-      .catch((err) => {
-       console.log(err);
-     });}
+        participants: event.participants + count,
+        date_to_seconds: event.date_to_seconds,
+      };
+      axios
+        .put(`${import.meta.env.VITE_API_URL}/events/${eventId}`, updatedEvent)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [count]);
 
-  },[count])
-  
- 
   function increaseCount() {
-    setHasJoined(true)
+    setHasJoined(true);
     setCount((prevCount) => {
       return prevCount + 1;
     });
-    
   }
   useEffect(() => {
     axios
@@ -55,7 +53,6 @@ if(event){
       });
   }, [eventId]);
 
-  
   if (!event)
     return (
       <div>
@@ -81,20 +78,24 @@ if(event){
             </div>
             <p className="event-description">{event.description}</p>
             <div className="event-date-time-price-wrapper">
-              <div className="event-date-time">
-                <h3 className="event-date">📅 {event.date}</h3>
-                <h3 className="event-time">🕒 {event.time}</h3>
-              </div>
+              {/*className="event-date-time"*/}
+              <h3 className="event-date">📅{event.date}</h3>
               <h3 className="event-price">{event.price}€</h3>
             </div>
-            <h3 className="event-location">locationPin {event.location}</h3>
+            <div className="event-time-location-wrapper"></div>
+            <h3 className="event-time">🕒 {event.time}</h3>
+            <h3 className="event-location">📍{event.location}</h3>
           </div>
           <div className="event-participants-wrapper">
             <div className="event-families-going-join-wrapper">
               <p className="event-families-going">
                 {event.participants + count} families are going
               </p>
-              <button onClick={increaseCount} disabled={hasJoined} className="event-join-button">
+              <button
+                onClick={increaseCount}
+                disabled={hasJoined}
+                className="event-join-button"
+              >
                 join event
               </button>
             </div>
@@ -110,4 +111,3 @@ if(event){
 }
 
 export default EventsDetail;
-

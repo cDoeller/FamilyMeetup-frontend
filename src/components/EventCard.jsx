@@ -13,10 +13,20 @@ function EventCard(props) {
           <h2 className="event-card-title">{event.title}</h2>
           <p className="event-card-description">{event.short_description}</p>
         </div>
-        <h3 className="event-card-datetime">
-        📅 {event.date}{" "}
+        <div className="event-card-datetime">
+        <h3 >
+        📅 {event.date}
+        </h3>
+        <h3>
         🕒 {event.time}
         </h3>
+        <h3>
+        📍 {event.location}
+        </h3>
+        
+        
+        </div>
+        
       </div>
     </>
   );
