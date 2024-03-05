@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import FilterAllEvents from "../components/FilterAllEvents";
 
 function EventsList() {
-  //  passed to filter all component --> all fetching done there
   const [eventsToShow, setEventsToShow] = useState(null);
   const [clicked, setClicked] = useState(false);
 
@@ -38,10 +37,7 @@ function EventsList() {
     </h3>
   );
 
-  // all locations
-  // all categories
-  // max price
-  // all pages for pagination
+  // useRef for: locations, categories, prices
   useEffect(() => {
     axios
       .get(

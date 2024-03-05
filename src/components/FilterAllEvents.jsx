@@ -4,9 +4,6 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "../styles/FilterAllEvents.css";
 
-// ** TO DO **
-// reset clicked when clicked on window
-
 function FilterAllEvents(props) {
   const {
     eventsToShow,
@@ -42,7 +39,7 @@ function FilterAllEvents(props) {
   const [linkHeaderString, setLinkHeaderString] = useState("");
   const [linkHeaderObject, setLinkHeaderObject] = useState("");
 
-  // initially show all events with pagination
+  // initially: show all events
   useEffect(() => {
     axios
       .get(
@@ -60,6 +57,7 @@ function FilterAllEvents(props) {
       });
   }, []);
 
+  // pagination: check if more than 1 page + make link object
   useEffect(() => {
     if (linkHeaderString) {
       linkHeaderString.includes("next") ? setNext(true) : setNext(false);
@@ -68,6 +66,7 @@ function FilterAllEvents(props) {
     }
   }, [linkHeaderString]);
 
+  // pagination: helper function to make an object from header string
   function parseLinkHeader(linkHeader) {
     const linkHeadersArray = linkHeader
       .split(", ")
@@ -80,6 +79,7 @@ function FilterAllEvents(props) {
     return Object.fromEntries(linkHeadersMap);
   }
 
+  // pagination: make axios call if prev clicked
   useEffect(() => {
     if (prevClicked)
       axios
@@ -95,6 +95,7 @@ function FilterAllEvents(props) {
         });
   }, [prevClicked]);
 
+  // pagination: make axios call if next clicked
   useEffect(() => {
     if (nextClicked) {
       axios
@@ -111,12 +112,7 @@ function FilterAllEvents(props) {
     }
   }, [nextClicked]);
 
-  // set price initially to max price
-  useEffect(() => {
-    if (allPrices.current) setPrice(Math.max(...allPrices.current));
-  }, [allPrices.current]);
-
-  // * FILTERING
+  // filtering: all filtering with pagination
   useEffect(() => {
     if (isFiltering) {
       let params = new URLSearchParams();
@@ -196,7 +192,7 @@ function FilterAllEvents(props) {
     }
   }, [showAll, location, category, price, date]);
 
-  // * RESET ALL
+  // filtering: reset all helper function
   const resetAll = () => {
     setDate(null);
     setLocation([]);
@@ -209,7 +205,7 @@ function FilterAllEvents(props) {
     setShowAll(false);
   };
 
-  // * CHECKBOX HANDELING
+  // filtering: checkbox handeling
   const handleChechboxChange = (e) => {
     setIsFiltering(true);
     if (e.target.checked) {
@@ -235,7 +231,21 @@ function FilterAllEvents(props) {
     }
   };
 
-  // ** handle dropdown behavior
+  // filtering: price initially set to max price to show all events
+  useEffect(() => {
+    if (allPrices.current) setPrice(Math.max(...allPrices.current));
+  }, [allPrices.current]);
+
+  //  filtering: filter the location list itself
+  const filterLocationList = () => {
+    let foundLocations = allLocations.current.filter((location) => {
+      return location.includes(locationQuery);
+    });
+    if (foundLocations.length === 0) foundLocations = allLocations.current;
+    return foundLocations;
+  };
+
+  // dropdown: handle click behavior (show and hide)
   const handleClick = (element) => {
     if (element === "location" || (element !== "location" && locationClicked)) {
       setLocationClicked(!locationClicked);
@@ -250,26 +260,19 @@ function FilterAllEvents(props) {
       setDateClicked(!dateClicked);
     }
   };
-  // prevent onclick from propagating
+
+  // dropdown: prevent onclick from propagating upwards
   const handlePreventClick = (e) => {
     e.stopPropagation();
   };
-  // remove dropdowns when clicked somewhere in window
+
+  // dropdown: hide dropdowns when clicked somewhere in the window
   useEffect(() => {
     if (locationClicked) setLocationClicked(!locationClicked);
     if (categoryClicked) setCategoryClicked(!categoryClicked);
     if (priceClicked) setPriceClicked(!priceClicked);
     if (dateClicked) setDateClicked(!dateClicked);
   }, [clicked]);
-
-  //  ** filter the location list
-  const filterLocationList = () => {
-    let foundLocations = allLocations.current.filter((location) => {
-      return location.includes(locationQuery);
-    });
-    if (foundLocations.length === 0) foundLocations = allLocations.current;
-    return foundLocations;
-  };
 
   // ************************* RETURN *************************** //
   return (
