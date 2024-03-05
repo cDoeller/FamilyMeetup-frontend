@@ -19,6 +19,7 @@
     background-color: white;
     border: 1px solid;
     position: relative;
+    border-radius: 10px;
   }
   
   .past-event-new-story-form {
@@ -46,8 +47,14 @@
   .past-event-new-story-form-label {
   }
   .past-event-new-story-form-input {
-    padding: 1rem;
+    padding: 10px 20px;
+    margin: 18px 0px;
+    border-radius: 10px;
+    /* border: solid black 1px; */
+    border: none;
+    background-color: var(--pink);
     font-size: 1rem;
+    font-family: "Manrope";
   }
   
   .past-event-new-story-form-textarea{
@@ -60,5 +67,7 @@
     text-transform: uppercase;
     width: fit-content;
     margin: 1rem auto 0 auto;
+    border: none;
+    border-radius: 10px;
   }
   
