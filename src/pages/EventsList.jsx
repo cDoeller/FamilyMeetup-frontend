@@ -11,7 +11,6 @@ function EventsList() {
   const [eventsToShow, setEventsToShow] = useState(null);
   const [clicked, setClicked] = useState(false);
 
-  const [pagesAmount, setPagesAmount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [pages, setPages] = useState([]);
   const maxElementsPerPage = 10;
@@ -87,12 +86,6 @@ function EventsList() {
       });
   }, []);
 
-  // calculate number of pages
-  const calculatePagination = (numAllEvents) => {
-    const numOfPages = Math.ceil(numAllEvents / maxElementsPerPage);
-    setPagesAmount(numOfPages);
-  };
-
   return (
     <>
       <div
@@ -116,9 +109,9 @@ function EventsList() {
             eventsToShow={eventsToShow}
             setEventsToShow={setEventsToShow}
             todayDateMillis={todayDateMillis}
-            page={currentPage}
-            setPage={setCurrentPage}
+            setCurrentPage={setCurrentPage}
             currentPage={currentPage}
+            setPages={setPages}
             maxElementsPerPage={maxElementsPerPage}
             clicked={clicked}
             allLocations={allLocations}

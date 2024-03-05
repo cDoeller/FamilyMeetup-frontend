@@ -13,7 +13,9 @@ function FilterAllEvents(props) {
     setEventsToShow,
     todayDateMillis,
     clicked,
+    setCurrentPage,
     currentPage,
+    setPages,
     maxElementsPerPage,
     allLocations,
     allCategories,
@@ -37,27 +39,29 @@ function FilterAllEvents(props) {
 
   useEffect(() => {
     axios
-    .get(
-      `${
-        import.meta.env.VITE_API_URL
-      }/events?date_to_seconds_gte=${todayDateMillis}&_sort=date_to_seconds&_order=asc&_page=${currentPage}&_per_page=${maxElementsPerPage}`
-    )
+      .get(
+        `${
+          import.meta.env.VITE_API_URL
+        }/events?date_to_seconds_gte=${todayDateMillis}&_sort=date_to_seconds&_order=asc&_page=${currentPage}&_per_page=${maxElementsPerPage}`
+      )
       .then((response) => {
         setEventsToShow(response.data);
         return response.data;
-      })
-      .then(() => {
-        // set price initially to max price
-        setPrice(Math.max(...allPrices.current));
       })
       .catch((err) => {
         console.log(err);
       });
   }, [currentPage]);
 
+  // set price initially to max price
+  useEffect(() => {
+    if (allPrices.current) setPrice(Math.max(...allPrices.current));
+  }, [allPrices.current]);
+
   // * FILTERING
   useEffect(() => {
     if (isFiltering) {
+      setCurrentPage(1);
       let params = new URLSearchParams();
       // filter for date
       if (date) {
