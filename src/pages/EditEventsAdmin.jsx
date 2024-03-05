@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import "../styles/CreateEvent.css";
+import"../styles/EditEventsAdmin.css"
+import { Link } from "react-router-dom";
 
 function EditEventsAdmin() {
   const [title, setTitle] = useState("");
@@ -175,9 +177,15 @@ function EditEventsAdmin() {
             <option value="sport">Sport</option>
             <option value="travelling">Travelling</option>
           </select>
-          <button className="submit" type="submit">
+          <div className="submit-back-button-container">
+          <button className="submit-back-button" type="submit">
             Update Event
           </button>
+          <Link to={`/admin/${eventId}`}>
+                <button className="submit-back-button">Back</button>
+          </Link>
+          </div>
+          
         </form>
       </div>
     </div>

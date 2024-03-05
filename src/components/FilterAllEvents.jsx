@@ -8,7 +8,7 @@ import "../styles/FilterAllEvents.css";
 // reset clicked when clicked on window
 
 function FilterAllEvents(props) {
-  const { eventsToShow, setEventsToShow, todayDateMillis } = props;
+  const { eventsToShow, setEventsToShow, todayDateMillis, clicked } = props;
 
   const [date, setDate] = useState(null);
   const [location, setLocation] = useState([]);
@@ -32,7 +32,9 @@ function FilterAllEvents(props) {
   useEffect(() => {
     axios
       .get(
-        `${import.meta.env.VITE_API_URL}/events?date_to_seconds_gte=${todayDateMillis}&_sort=date_to_seconds&_order=asc`
+        `${
+          import.meta.env.VITE_API_URL
+        }/events?date_to_seconds_gte=${todayDateMillis}&_sort=date_to_seconds&_order=asc`
       )
       .then((response) => {
         setEventsToShow(response.data);
@@ -179,7 +181,7 @@ function FilterAllEvents(props) {
     }
   };
 
-  // handle click show behavior
+  // ** handle dropdown behavior
   const handleClick = (element) => {
     if (element === "location" || (element !== "location" && locationClicked)) {
       setLocationClicked(!locationClicked);
@@ -199,7 +201,14 @@ function FilterAllEvents(props) {
     e.stopPropagation();
   };
 
-  // filter the location list
+  useEffect(() => {
+    if (locationClicked) setLocationClicked(!locationClicked);
+    if (categoryClicked) setCategoryClicked(!categoryClicked);
+    if (priceClicked) setPriceClicked(!priceClicked);
+    if (dateClicked) setDateClicked(!dateClicked);
+  }, [clicked]);
+
+  //  ** filter the location list
   const filterLocationList = () => {
     let foundLocations = allLocations.current.filter((location) => {
       return location.includes(locationQuery);
@@ -212,7 +221,7 @@ function FilterAllEvents(props) {
   return (
     <div className="filter-all-events-wrapper">
       <span
-        onClick={() => {
+        onClick={(e) => {
           setIsFiltering(true);
           setShowAll(true);
         }}
@@ -225,9 +234,10 @@ function FilterAllEvents(props) {
       </span>
       {/* DATE FILTER */}
       <span
-        onClick={() => {
+        onClick={(e) => {
           setIsFiltering(true);
           handleClick("date");
+          handlePreventClick(e);
         }}
       >
         date
@@ -240,14 +250,16 @@ function FilterAllEvents(props) {
               value={date}
               selectRange={true}
               minDate={new Date()}
+              locale="en-GB"
             />
           </div>
         )}
       </span>
       {/* LOCATION FILTER */}
       <span
-        onClick={() => {
+        onClick={(e) => {
           handleClick("location");
+          handlePreventClick(e);
         }}
       >
         location
@@ -261,7 +273,12 @@ function FilterAllEvents(props) {
               onChange={(e) => {
                 setLocationQuery(e.target.value);
               }}
-              className="all-events-filter-location-input"
+              className={
+                "all-events-filter-location-input" +
+                (allLocations.current.length === filterLocationList().length
+                  ? " filter-not-found"
+                  : "")
+              }
             />
             {allLocations &&
               filterLocationList().map((oneLocation) => {
@@ -274,6 +291,7 @@ function FilterAllEvents(props) {
                       value={oneLocation}
                       onChange={handleChechboxChange}
                       type="checkbox"
+                      className="all-events-filter-checkbox-input"
                     />
                     <label
                       className="all-events-filter-checkbox-label"
@@ -289,8 +307,9 @@ function FilterAllEvents(props) {
       </span>
       {/* CATEGORY FILTER */}
       <span
-        onClick={() => {
+        onClick={(e) => {
           handleClick("category");
+          handlePreventClick(e);
         }}
       >
         category
@@ -310,6 +329,7 @@ function FilterAllEvents(props) {
                       onChange={handleChechboxChange}
                       type="checkbox"
                       value={oneCategory}
+                      className="all-events-filter-checkbox-input"
                     />
                     <label
                       className="all-events-filter-checkbox-label"
@@ -325,8 +345,9 @@ function FilterAllEvents(props) {
       </span>
       {/* PRICE FILTER */}
       <span
-        onClick={() => {
+        onClick={(e) => {
           handleClick("price");
+          handlePreventClick(e);
         }}
       >
         max price
@@ -335,7 +356,7 @@ function FilterAllEvents(props) {
             <input
               type="range"
               name="price-slider"
-              className="all-events-filter-input"
+              className="all-events-filter-input all-events-filter-slider"
               min="0"
               max={Math.max(...allPrices.current)}
               onChange={(e) => {
@@ -344,7 +365,10 @@ function FilterAllEvents(props) {
               }}
               value={price}
             />
-            <label htmlFor="price-slider">
+            <label
+              htmlFor="price-slider"
+              className="all-events-filter-slider-label"
+            >
               {price === 0 ? "free" : price + " €"}
             </label>
           </div>

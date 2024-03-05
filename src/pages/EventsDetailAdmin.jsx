@@ -9,8 +9,21 @@ function EventsDetailAdmin() {
   const [event, setEvent] = useState(null);
   const { eventId } = useParams();
   const [count, setCount] = useState(0);
+  const [pageRefresh, setPageRefresh] = useState (false);
   const navigate = useNavigate();
 
+  function DeleteStory(storyId) {
+    axios
+      .delete(`${import.meta.env.VITE_API_URL}/stories/${storyId}`)
+      .then(() => {
+        alert("The story has been removed");
+        // force react to update data on screen
+        setPageRefresh(!pageRefresh);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
   function DeleteEvent() {
     axios
       .delete(`${import.meta.env.VITE_API_URL}/events/${eventId}`)
@@ -29,14 +42,14 @@ function EventsDetailAdmin() {
   }
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_API_URL}/events/${eventId}`)
+      .get(`${import.meta.env.VITE_API_URL}/events/${eventId}?_embed=stories`)
       .then((response) => {
         setEvent(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, [eventId]);
+  }, [eventId, pageRefresh]);
 
   if (!event)
     return (
@@ -64,8 +77,8 @@ function EventsDetailAdmin() {
             <p className="event-description">{event.description}</p>
             <div className="event-date-time-price-wrapper">
               <div className="event-date-time">
-                <h3 className="event-date">{event.date}</h3>
-                <h3 className="event-time">{event.time}</h3>
+                <h3 className="event-date">📅{event.date}</h3>
+                <h3 className="event-time">🕒{event.time}</h3>
               </div>
               <h3 className="event-price">{event.price}€</h3>
             </div>
@@ -76,7 +89,7 @@ function EventsDetailAdmin() {
               <p className="event-families-going">
                 {event.participants + count} families are going
               </p>
-              <button onClick={increaseCount} className="event-join-button">
+              <button onClick={increaseCount} className="event-join-button" disabled>
                 join event
               </button>
             </div>
@@ -87,15 +100,32 @@ function EventsDetailAdmin() {
               <Link to={`/admin/${eventId}/edit`}>
                 <button className="event-back-button">Edit</button>
               </Link>
-              <button
-                
-                className="event-back-button"
-                onClick={DeleteEvent}
-              >
+              <button className="event-back-button" onClick={DeleteEvent}>
                 Delete
               </button>
             </div>
           </div>
+          {/* STORIES */}
+          {event.stories.length >= 0 &&
+            event.stories.map((story) => {
+              return (
+                <div key={story.id} className="event-admin-stories-wrapper">
+                  <div className="event-admin-stories-info">
+                    <h3 className="event-admin-stories-user-name">
+                      {story.user_name}
+                    </h3>
+                    <h3 className="event-admin-stories-text">
+                      {story.story_text}
+                    </h3>
+                  </div>
+                  <div className="event-admin-story-delete">
+                    <button className="event-back-button" onClick={()=>{DeleteStory(story.id)}}>
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
         </div>
       </div>
     );

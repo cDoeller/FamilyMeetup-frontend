@@ -41,7 +41,7 @@ function EventsListAdmin(props) {
     // else, show all events
     if (isFiltering) {
       eventsToShow = allEvents.filter((event) => {
-        return event.title.toLowerCase().startsWith(titleFilter);
+        return event.title.toLowerCase().includes(titleFilter);
       });
     }
     // in case not filtering and no result found, show all
