@@ -14,8 +14,8 @@ function EventCard(props) {
           <p className="event-card-description">{event.short_description}</p>
         </div>
         <h3 className="event-card-datetime">
-          calendar {event.date}{" "}
-          clock {event.time}
+        📅 {event.date}{" "}
+        🕒 {event.time}
         </h3>
       </div>
     </>

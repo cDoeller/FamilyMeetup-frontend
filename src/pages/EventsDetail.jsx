@@ -82,8 +82,8 @@ if(event){
             <p className="event-description">{event.description}</p>
             <div className="event-date-time-price-wrapper">
               <div className="event-date-time">
-                <h3 className="event-date">calendar {event.date}</h3>
-                <h3 className="event-time">clock {event.time}</h3>
+                <h3 className="event-date">📅 {event.date}</h3>
+                <h3 className="event-time">🕒 {event.time}</h3>
               </div>
               <h3 className="event-price">{event.price}€</h3>
             </div>
