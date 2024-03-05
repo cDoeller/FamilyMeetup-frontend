@@ -16,9 +16,17 @@ function PastEvents() {
   const currentDate = new Date();
   const currentDateSeconds = currentDate.getTime();
 
-  const headlineAbout = "Create your personal stories!";
-  const subHeadlineAbout =
-    "Browse through events that have already happened, read about the experiences of others and add your very personal story!";
+  const headlineAbout = (
+    <h1 className="header-about-title">
+      Time to share your personal memories!
+    </h1>
+  );
+  const subHeadlineAbout = (
+    <h3 className="header-about-subtitle">
+      On this page you can find events that have already taken place – 
+      read about the experiences of others or <span className="text-focus-span">create your own</span> and share them with the world!
+    </h3>
+  );
 
   useEffect(() => {
     axios
@@ -44,7 +52,7 @@ function PastEvents() {
           subHeadlineAbout={subHeadlineAbout}
         />
         <div className="homepage-stories-button-wrapper">
-          <button className="create-event-button create-story-button ">ICON</button>
+          <img src="https://static.vecteezy.com/system/resources/previews/009/663/212/original/speech-bubble-talk-bubble-chat-bubble-icon-transparent-free-png.png" className="create-event-button create-story-button "/>
         </div>
       </div>
       <div className="page-wrapper">

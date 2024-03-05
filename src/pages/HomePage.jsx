@@ -17,10 +17,20 @@ function HomePage() {
   const [locationFilter, setLocationFilter] = useState("");
   const [isFiltering, setIsFiltering] = useState(false);
 
-  const headlineAbout =
-    "Ever wondered how to meet other people while being busy with a full-time job, household, ... your family?";
-  const subHeadlineAbout =
-    "With familyMeetup you can find events in your area that are child and family friendly. The best thing is that you can be sure to be there with like minded people - connect and have fun!";
+  const headlineAbout = (
+    <h1 className="header-about-title">
+      Have you ever wondered how you can make new friends despite your full-time
+      job and busy family life?
+    </h1>
+  );
+  const subHeadlineAbout = (
+    <h3 className="header-about-subtitle">
+      With <span className="text-focus-span">Family Events</span> you can find family friendly activities in your area.
+      Publish your personal stories, create your own events and invite people to
+      join in. The best part: your whole family can be sure to spend the day
+      with like-minded people!
+    </h3>
+  );
 
   const todayDate = new Date();
   const todayDateMillis = todayDate.getTime();
@@ -75,9 +85,9 @@ function HomePage() {
     if (isFiltering) {
       let foundLocation = false;
       eventsToShow = allUpcomingEvents.filter((event) => {
-        if (event.location.startsWith(locationFilter)) {
+        if (event.location.includes(locationFilter)) {
           foundLocation = true;
-          return event.location.startsWith(locationFilter);
+          return event.location.includes(locationFilter);
         }
       });
       if (!foundLocation) eventsToShow = initialRandomEvents;
@@ -123,7 +133,12 @@ function HomePage() {
               random events in
             </label>
             <input
-              className="random-filter-events-input"
+              className={
+                "random-filter-events-input" +
+                (eventsToShow === initialRandomEvents
+                  ? " filter-not-found"
+                  : "")
+              }
               name="random-input"
               type="text"
               value={locationFilter}
@@ -142,7 +157,7 @@ function HomePage() {
                     key={event.id}
                     className="event-card"
                   >
-                    <EventCard event={event} className="event-card-component"/>
+                    <EventCard event={event} className="event-card-component" />
                   </Link>
                 );
               })}
