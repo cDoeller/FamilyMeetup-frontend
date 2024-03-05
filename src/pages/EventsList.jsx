@@ -7,8 +7,8 @@ import { Link } from "react-router-dom";
 import FilterAllEvents from "../components/FilterAllEvents";
 
 function EventsList() {
+  //  passed to filter all component --> all fetching done there
   const [eventsToShow, setEventsToShow] = useState(null);
-  const [allEvents, setAllEvents] = useState(null);
 
   const [clicked, setClicked] = useState (false);
 
@@ -27,23 +27,6 @@ function EventsList() {
       Click on the  <span className="text-focus-span">button</span> on the right to create an event yourself and share it with others!
     </h3>
   );
-
-  useEffect(() => {
-    axios
-      .get(
-        `${
-          import.meta.env.VITE_API_URL
-        }/events?date_to_seconds_gte=${todayDateMillis}`
-      )
-      .then((response) => {
-        // console.log(response.data);
-        setAllEvents(response.data);
-        setEventsToShow(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   return (
     <>
