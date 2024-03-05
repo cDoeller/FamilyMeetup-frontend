@@ -8,7 +8,7 @@ import "../styles/FilterAllEvents.css";
 // reset clicked when clicked on window
 
 function FilterAllEvents(props) {
-  const { eventsToShow, setEventsToShow, todayDateMillis } = props;
+  const { eventsToShow, setEventsToShow, todayDateMillis, clicked } = props;
 
   const [date, setDate] = useState(null);
   const [location, setLocation] = useState([]);
@@ -185,7 +185,7 @@ function FilterAllEvents(props) {
     }
   };
 
-  // handle click show behavior
+  // ** handle dropdown behavior
   const handleClick = (element) => {
     if (element === "location" || (element !== "location" && locationClicked)) {
       setLocationClicked(!locationClicked);
@@ -205,7 +205,14 @@ function FilterAllEvents(props) {
     e.stopPropagation();
   };
 
-  // filter the location list
+  useEffect(() => {
+    if (locationClicked) setLocationClicked(!locationClicked);
+    if (categoryClicked) setCategoryClicked(!categoryClicked);
+    if (priceClicked) setPriceClicked(!priceClicked);
+    if (dateClicked) setDateClicked(!dateClicked);
+  }, [clicked]);
+
+  //  ** filter the location list
   const filterLocationList = () => {
     let foundLocations = allLocations.current.filter((location) => {
       return location.includes(locationQuery);
@@ -218,7 +225,7 @@ function FilterAllEvents(props) {
   return (
     <div className="filter-all-events-wrapper">
       <span
-        onClick={() => {
+        onClick={(e) => {
           setIsFiltering(true);
           setShowAll(true);
         }}
@@ -231,9 +238,10 @@ function FilterAllEvents(props) {
       </span>
       {/* DATE FILTER */}
       <span
-        onClick={() => {
+        onClick={(e) => {
           setIsFiltering(true);
           handleClick("date");
+          handlePreventClick(e);
         }}
       >
         date
@@ -253,8 +261,9 @@ function FilterAllEvents(props) {
       </span>
       {/* LOCATION FILTER */}
       <span
-        onClick={() => {
+        onClick={(e) => {
           handleClick("location");
+          handlePreventClick(e);
         }}
       >
         location
@@ -302,8 +311,9 @@ function FilterAllEvents(props) {
       </span>
       {/* CATEGORY FILTER */}
       <span
-        onClick={() => {
+        onClick={(e) => {
           handleClick("category");
+          handlePreventClick(e);
         }}
       >
         category
@@ -339,8 +349,9 @@ function FilterAllEvents(props) {
       </span>
       {/* PRICE FILTER */}
       <span
-        onClick={() => {
+        onClick={(e) => {
           handleClick("price");
+          handlePreventClick(e);
         }}
       >
         max price

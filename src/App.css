@@ -87,3 +87,9 @@ input:focus {
 .filter-not-found{
   color: lightgray;
 }
+
+.text-focus-span{
+  text-decoration: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: var(--green);
+}
