@@ -94,7 +94,7 @@ function EventsDetailAdmin() {
               </button>
             </div>
             <div className="event-back-button-wrapper">
-              <Link to={`/events`}>
+              <Link to={`/admin`}>
                 <button className="event-back-button">Back</button>
               </Link>
               <Link to={`/admin/${eventId}/edit`}>
