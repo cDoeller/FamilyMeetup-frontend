@@ -24,3 +24,26 @@
   margin-top: 2rem;
   line-height: 2.2rem;
 }
+
+/* MOBILE */
+
+@media only screen and (max-width: 650px) {
+
+  .header-about-homepage-wrapper{
+    width:100%;
+  }
+
+  .header-about-title {
+    width: 100%;
+    font-size: 1.8rem;
+    text-align: center;
+  }
+  
+  .header-about-subtitle {
+    text-align: center;
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+    margin-top: 2.6rem;
+  }
+
+}

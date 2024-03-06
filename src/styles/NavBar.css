@@ -44,3 +44,22 @@ nav {
 .nav-user-user-name-span {
   text-decoration: underline;
 }
+
+/* MOBILE */
+
+@media only screen and (max-width: 650px) {
+
+
+  nav {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .nav-user-wrapper {
+margin: 2.4rem 0 2rem 0;
+  }
+  .user-button-link{
+    margin: 2.4rem 0 2rem 0;
+  }
+
+}

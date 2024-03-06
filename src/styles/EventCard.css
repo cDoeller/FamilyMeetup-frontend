@@ -48,13 +48,18 @@
   margin-right: 1.5rem ;
   text-transform: capitalize;
 }
-
 .flame-popular-events{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-
 .flame{
   font-size: 30px ;
+}
+
+@media only screen and (max-width: 650px) {
+  .event-card {
+    width: 100%;
+    margin-bottom: 0;
+  }
 }
