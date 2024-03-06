@@ -1,28 +1,55 @@
 /* EVENTS LIST PAGE */
 
-.events-list-container-eventslistpage{
+.events-list-container-eventslistpage {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
 .events-list-header-wrapper {
-    display: flex;
-    align-items: center;
-  }
-  
-  .all-events-button-wrapper {
-    flex-grow: 1;
-    text-align: center;
-  }
-  
-  .create-event-button {
-    font-size: 1.6rem;
-    width: 150px;
-    height: 150px;
-    border-radius: 100%;
-    /* border-width: 1px; */
-    border:none;
-    background-color: var(--green);
-    cursor: pointer;
-  }
+  display: flex;
+  align-items: center;
+}
+
+.all-events-button-wrapper {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.create-event-button {
+  font-size: 1.6rem;
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+  /* border-width: 1px; */
+  border: none;
+  background-color: var(--green);
+  cursor: pointer;
+}
+
+/* PAGINATION */
+.events-list-pagination {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 3%;
+  margin-top: 2rem;
+}
+.events-list-pagination-link {
+  padding: 1rem 1.2rem;
+  border-radius: 10px;
+  background-color: var(--green);
+  cursor: pointer;
+  font-family: "Dangrek";
+  font-size: 1.4rem;
+}
+.events-list-pagination-link:hover {
+}
+.events-list-pagination-link-inactive {
+  cursor:default;
+  padding: 1rem 1.2rem;
+  border-radius: 10px;
+  background-color: var(--grey);
+  font-family: "Dangrek";
+  font-size: 1.4rem;
+}

@@ -4,11 +4,22 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "../styles/FilterAllEvents.css";
 
-// ** TO DO **
-// reset clicked when clicked on window
-
 function FilterAllEvents(props) {
-  const { eventsToShow, setEventsToShow, todayDateMillis, clicked } = props;
+  const {
+    eventsToShow,
+    setEventsToShow,
+    todayDateMillis,
+    clicked,
+    allLocations,
+    allCategories,
+    allPrices,
+    setNext,
+    setPrev,
+    nextClicked,
+    setNextClicked,
+    prevClicked,
+    setPrevClicked,
+  } = props;
 
   const [date, setDate] = useState(null);
   const [location, setLocation] = useState([]);
@@ -23,57 +34,85 @@ function FilterAllEvents(props) {
   const [dateClicked, setDateClicked] = useState(false);
 
   const [isFiltering, setIsFiltering] = useState(false);
-
   const [locationQuery, setLocationQuery] = useState("");
-  const allLocations = useRef(null);
-  const allCategories = useRef(null);
-  const allPrices = useRef(null);
 
+  const [linkHeaderString, setLinkHeaderString] = useState("");
+  const [linkHeaderObject, setLinkHeaderObject] = useState("");
+
+  // initially: show all events
   useEffect(() => {
     axios
       .get(
         `${
           import.meta.env.VITE_API_URL
-        }/events?date_to_seconds_gte=${todayDateMillis}&_sort=date_to_seconds&_order=asc`
+        }/events?date_to_seconds_gte=${todayDateMillis}&_sort=date_to_seconds&_order=asc&_page=1&_per_page=10`
       )
       .then((response) => {
         setEventsToShow(response.data);
+        setLinkHeaderString(response.headers.link);
         return response.data;
-      })
-      .then((response) => {
-        // make array all locations, all categories, prices -once- (useRef)
-        allCategories.current = Array.from(
-          new Set(
-            response.map((event) => {
-              return event.category;
-            })
-          )
-        ).sort();
-        allLocations.current = Array.from(
-          new Set(
-            response.map((event) => {
-              return event.location;
-            })
-          )
-        ).sort();
-        allPrices.current = Array.from(
-          new Set(
-            response.map((event) => {
-              return event.price;
-            })
-          )
-        );
-      })
-      .then(() => {
-        // set price initially to max price
-        setPrice(Math.max(...allPrices.current));
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
-  // * FILTERING
+  // pagination: check if more than 1 page + make link object
+  useEffect(() => {
+    if (linkHeaderString) {
+      linkHeaderString.includes("next") ? setNext(true) : setNext(false);
+      linkHeaderString.includes("prev") ? setPrev(true) : setPrev(false);
+      setLinkHeaderObject(parseLinkHeader(linkHeaderString));
+    }
+  }, [linkHeaderString]);
+
+  // pagination: helper function to make an object from header string
+  function parseLinkHeader(linkHeader) {
+    const linkHeadersArray = linkHeader
+      .split(", ")
+      .map((header) => header.split("; "));
+    const linkHeadersMap = linkHeadersArray.map((header) => {
+      const thisHeaderRel = header[1].replace("rel=", "").replace(/['"]+/g, "");
+      const thisHeaderUrl = "https" + header[0].slice(5, -1);
+      return [thisHeaderRel, thisHeaderUrl];
+    });
+    return Object.fromEntries(linkHeadersMap);
+  }
+
+  // pagination: make axios call if prev clicked
+  useEffect(() => {
+    if (prevClicked)
+      axios
+        .get(`${linkHeaderObject.prev}`)
+        .then((response) => {
+          setEventsToShow(response.data);
+          setLinkHeaderString(response.headers.link);
+          setPrevClicked(false);
+          return response.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  }, [prevClicked]);
+
+  // pagination: make axios call if next clicked
+  useEffect(() => {
+    if (nextClicked) {
+      axios
+        .get(`${linkHeaderObject.next}`)
+        .then((response) => {
+          setEventsToShow(response.data);
+          setLinkHeaderString(response.headers.link);
+          setNextClicked(false);
+          return response.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [nextClicked]);
+
+  // filtering: all filtering with pagination
   useEffect(() => {
     if (isFiltering) {
       let params = new URLSearchParams();
@@ -126,11 +165,22 @@ function FilterAllEvents(props) {
       ) {
         setIsShowingAll(true);
       }
-
+      // Pagination
+      params.append("_page", "1");
+      params.append("_per_page", "10");
+      // final axios call
       axios
         .get(`${import.meta.env.VITE_API_URL}/events?${params.toString()}`)
         .then((response) => {
           setEventsToShow(response.data);
+          // if header is gotten back (only if more than 1 page)
+          if (response.headers.link) {
+            setLinkHeaderString(response.headers.link);
+          } else {
+            // else disable pagination
+            setNext(false);
+            setPrev(false);
+          }
         })
         .then(() => {
           setIsFiltering(false);
@@ -142,7 +192,7 @@ function FilterAllEvents(props) {
     }
   }, [showAll, location, category, price, date]);
 
-  // * RESET ALL
+  // filtering: reset all helper function
   const resetAll = () => {
     setDate(null);
     setLocation([]);
@@ -155,7 +205,7 @@ function FilterAllEvents(props) {
     setShowAll(false);
   };
 
-  // * CHECKBOX HANDELING
+  // filtering: checkbox handeling
   const handleChechboxChange = (e) => {
     setIsFiltering(true);
     if (e.target.checked) {
@@ -181,7 +231,21 @@ function FilterAllEvents(props) {
     }
   };
 
-  // ** handle dropdown behavior
+  // filtering: price initially set to max price to show all events
+  useEffect(() => {
+    if (allPrices.current) setPrice(Math.max(...allPrices.current));
+  }, [allPrices.current]);
+
+  //  filtering: filter the location list itself
+  const filterLocationList = () => {
+    let foundLocations = allLocations.current.filter((location) => {
+      return location.includes(locationQuery);
+    });
+    if (foundLocations.length === 0) foundLocations = allLocations.current;
+    return foundLocations;
+  };
+
+  // dropdown: handle click behavior (show and hide)
   const handleClick = (element) => {
     if (element === "location" || (element !== "location" && locationClicked)) {
       setLocationClicked(!locationClicked);
@@ -196,26 +260,19 @@ function FilterAllEvents(props) {
       setDateClicked(!dateClicked);
     }
   };
-  // prevent onclick from propagating
+
+  // dropdown: prevent onclick from propagating upwards
   const handlePreventClick = (e) => {
     e.stopPropagation();
   };
 
+  // dropdown: hide dropdowns when clicked somewhere in the window
   useEffect(() => {
     if (locationClicked) setLocationClicked(!locationClicked);
     if (categoryClicked) setCategoryClicked(!categoryClicked);
     if (priceClicked) setPriceClicked(!priceClicked);
     if (dateClicked) setDateClicked(!dateClicked);
   }, [clicked]);
-
-  //  ** filter the location list
-  const filterLocationList = () => {
-    let foundLocations = allLocations.current.filter((location) => {
-      return location.includes(locationQuery);
-    });
-    if (foundLocations.length === 0) foundLocations = allLocations.current;
-    return foundLocations;
-  };
 
   // ************************* RETURN *************************** //
   return (
