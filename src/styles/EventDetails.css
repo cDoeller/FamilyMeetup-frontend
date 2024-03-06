@@ -1,4 +1,4 @@
-.one-event{
+.one-event {
   background-color: var(--grey);
   border-radius: 10px;
 }
@@ -8,7 +8,7 @@
   overflow: hidden;
   position: relative;
   margin-top: 4rem;
-  border-radius: 10px 10px 0 0 ;
+  border-radius: 10px 10px 0 0;
 }
 
 .event-image > img {
@@ -26,9 +26,8 @@
   align-items: baseline;
 }
 
-.event-info{
+.event-info {
   padding: 2rem;
-
 }
 .event-time{
   margin: 2rem 0;
@@ -107,7 +106,7 @@
 .event-join-button {
   padding: 1rem 1.2rem;
   border: none;
-  background-color:var(--purple);
+  background-color: var(--purple);
   color: white;
   text-transform: uppercase;
 }
@@ -147,23 +146,76 @@
 }
 
 /* Stories Admin Section */
-.event-admin-stories-wrapper{
+.event-admin-stories-wrapper {
   padding: 2rem;
   display: flex;
   justify-content: space-between;
   border-top: 1px solid black;
 }
-.event-admin-stories-info{
+.event-admin-stories-info {
   display: flex;
-  gap:2rem;
+  gap: 2rem;
   width: 90%;
 }
-.event-admin-stories-user-name{
+.event-admin-stories-user-name {
   min-width: 20%;
 }
-.event-admin-stories-text{
+.event-admin-stories-text {
   width: 60%;
 }
-.event-admin-story-delete{
-  margin:auto;
+.event-admin-story-delete {
+  margin: auto;
 }
+
+@media only screen and (max-width: 650px) {
+  .event-image {
+    height: 200px;
+  }
+
+  .event-title-category-wrapper {
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  .event-title-short-description-wrapper {
+    justify-content: center;
+    align-items: center;
+  }
+  .event-title {
+    text-align: center;
+  }
+  .event-description {
+    width: 100%;
+    text-align: center;
+  }
+  .event-date-time-price-wrapper {
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+  }
+  .event-location {
+    text-align: center;
+    margin-top: 3rem;
+  }
+  .event-families-going-join-wrapper {
+    margin-top: 3rem;
+  }
+  .event-admin-stories-wrapper {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .event-admin-stories-info {
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    width: 100%;
+  }
+  .event-admin-stories-text {
+    width: 100%;
+    text-align: center;
+  }
+

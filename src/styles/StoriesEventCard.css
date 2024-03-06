@@ -7,7 +7,6 @@
   }
   .past-event-card-wrapper {
     display: flex;
-    /* border: 1px solid; */
     gap: 1rem;
     background-color: var(--grey);
     border-radius: 10px;
@@ -50,7 +49,6 @@
     padding: 0 0 1rem 0; 
   }
   .past-event-info-storiecount-arrow{
-    /* background-color: green; */
     display: inline-block;
   }
   .rotate-90 {
@@ -71,7 +69,6 @@
     border-radius: 50%;
     border: 1px solid;
     border-color: grey;
-    /* border: none; */
     margin-right: 2rem;
     text-transform: uppercase;
     font-weight: bold;
@@ -89,7 +86,6 @@
     padding: 1rem;
     max-width: 70%;
     box-sizing: border-box;
-    /* border: 1px solid; */
     background-color: var(--grey);
     border-radius: 0 10px 10px 0px;
   }
@@ -97,4 +93,39 @@
     margin-bottom: 0.6rem;
   }
   .past-event-story-text {
+  }
+
+  @media only screen and (max-width: 650px) {
+    .past-event-all-wrapper{
+      margin-top: 4rem;
+    }
+    .past-event-card-wrapper{
+      flex-wrap: wrap;
+      align-items: center;
+      padding-bottom: 1rem;
+    }
+    .past-event-image-wrapper{
+     width: 100%;
+     height:250px;
+    }
+    .past-event-info-wrapper{
+      padding-left: 1rem;
+    }
+    .past-event-create-button-wrapper{
+      padding: 0 1rem 0 0;
+    }
+    .past-event-create-button {
+      width: 100px;
+      height: 100px;
+      margin:0;
+      padding: 0;
+      font-size: 0.8rem;
+    }
+    .past-event-story-placeholder {
+      display: none;
+    }
+    .past-event-story-content {
+      max-width: 100%;
+      border-radius: 10px 10px 10px 10px;
+    }
   }

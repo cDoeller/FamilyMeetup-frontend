@@ -46,10 +46,20 @@
 .events-list-pagination-link:hover {
 }
 .events-list-pagination-link-inactive {
-  cursor:default;
+  cursor: default;
   padding: 1rem 1.2rem;
   border-radius: 10px;
   background-color: var(--grey);
   font-family: "Dangrek";
   font-size: 1.4rem;
+}
+
+@media only screen and (max-width: 650px) {
+  .events-list-container-eventslistpage {
+    gap: 2rem;
+  }
+  .events-list-pagination {
+    gap: 8%;
+    margin-top: 4rem;
+  }
 }
