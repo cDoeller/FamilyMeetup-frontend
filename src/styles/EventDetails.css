@@ -218,4 +218,7 @@
     width: 100%;
     text-align: center;
   }
-
+  .event-time{
+    text-align: center;
+  }
+}
