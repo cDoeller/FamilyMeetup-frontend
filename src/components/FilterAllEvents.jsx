@@ -296,6 +296,7 @@ function FilterAllEvents(props) {
           handleClick("date");
           handlePreventClick(e);
         }}
+        className="all-events-filter-title"
       >
         date
         {dateClicked && (
@@ -318,6 +319,7 @@ function FilterAllEvents(props) {
           handleClick("location");
           handlePreventClick(e);
         }}
+        className="all-events-filter-title"
       >
         location
         {locationClicked && (
@@ -368,6 +370,7 @@ function FilterAllEvents(props) {
           handleClick("category");
           handlePreventClick(e);
         }}
+        className="all-events-filter-title"
       >
         category
         {categoryClicked && (
@@ -406,6 +409,7 @@ function FilterAllEvents(props) {
           handleClick("price");
           handlePreventClick(e);
         }}
+        className="all-events-filter-title"
       >
         max price
         {priceClicked && (

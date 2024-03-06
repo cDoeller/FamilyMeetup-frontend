@@ -58,4 +58,8 @@
   .events-list-container-eventslistpage {
     gap: 2rem;
   }
+  .events-list-pagination {
+    gap: 8%;
+    margin-top: 4rem;
+  }
 }
