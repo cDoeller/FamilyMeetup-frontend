@@ -202,11 +202,25 @@
     align-items: center;
     gap: 2rem;
   }
-  .event-location{
+  .event-location {
     text-align: center;
     margin-top: 3rem;
   }
-  .event-families-going-join-wrapper{
+  .event-families-going-join-wrapper {
     margin-top: 3rem;
+  }
+  .event-admin-stories-wrapper {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .event-admin-stories-info {
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    width: 100%;
+  }
+  .event-admin-stories-text {
+    width: 100%;
+    text-align: center;
   }
 }
