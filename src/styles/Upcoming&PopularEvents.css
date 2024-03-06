@@ -37,4 +37,7 @@
     .event-card-upcoming-popular{
         width: 100%;
     }
+    .popular-upcoming-headline{
+        text-align: center;
+    }
 }
