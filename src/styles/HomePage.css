@@ -7,23 +7,18 @@
   font-size: 2rem;
   margin: 40px 0;
   background-color: var(--lilac);
-  /* background-color: transparent; */
-  color:black;
+  color: black;
   border-radius: 10px;
-  /* border: 1px solid; */
-  border:none;
+  border: none;
   cursor: pointer;
 }
 
-.all-events-button-wrapper{
+.all-events-button-wrapper {
   width: 100%;
 }
 
 .homepage-random-events-wrapper {
-  /* border: solid 1px; */
   border-radius: 10px;
-  /* background-color: var(--lilac); */
-  /* padding: 5%; */
   margin-top: 1.5rem;
 }
 
@@ -62,13 +57,13 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin-top:1.5rem;
+  margin-top: 1.5rem;
 }
 
-.events-list-container-homepage :nth-last-child(1){
+.events-list-container-homepage :nth-last-child(1) {
   margin-bottom: 0;
 }
-.events-list-container-homepage :nth-last-child(2){
+.events-list-container-homepage :nth-last-child(2) {
   margin-bottom: 0;
 }
 
@@ -98,11 +93,11 @@
   align-items: center;
 }
 
-.homepage-stories-button-headline{
+.homepage-stories-button-headline {
   text-transform: uppercase;
   font-size: 1.6rem;
   rotate: -10deg;
-  color:black;
+  color: black;
   /* text-shadow: 3px 3px rgb(255, 255, 255); */
 }
 
@@ -118,4 +113,56 @@
 ::-webkit-scrollbar-thumb {
   background: var(--darkgrey);
   border-radius: 10px;
+}
+
+/* MOBILE */
+
+@media only screen and (max-width: 650px) {
+
+  .all-events-button-wrapper {
+    margin-top: 1.6rem;
+  }
+
+/* FILTER */
+
+.random-filter-events-wrapper {
+  width: 100%;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  margin-bottom: 4rem;
+}
+
+.random-filter-events-input {
+  width: 50%;
+  text-align: center;
+}
+  /* EVENTS */
+  .events-list-container-homepage {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  /* HEADER */
+
+  .homepage-header-wrapper {
+    flex-direction: column;
+    /* align-items: center;
+    justify-content: space-between; */
+  }
+
+  /* .homepage-stories-button-wrapper {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+  } */
+
+  .homepage-stories-button {
+    height: 100px;
+    width: 100px;
+  }
+
+  .homepage-stories-button-headline {
+    font-size: 1.2rem;
+  }
 }
