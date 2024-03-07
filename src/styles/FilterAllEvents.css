@@ -32,8 +32,8 @@
   overflow-x: hidden;
 }
 
-.all-events-filter-popup::-webkit-scrollbar {
-  /* display: none; */
+.all-events-filter-popup::-webkit-scrollbar-track {
+ margin: 0.2rem 0;
 }
 
 .all-events-filter-input {
@@ -164,6 +164,10 @@ input[type="range"]::-webkit-slider-runnable-track {
   cursor: pointer;
   background: var(--lilac);
   border-radius: 10px;
+}
+
+.filter-active{
+  text-decoration: underline;
 }
 
 @media only screen and (max-width: 650px) {

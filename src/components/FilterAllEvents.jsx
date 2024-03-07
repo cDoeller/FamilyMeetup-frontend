@@ -33,6 +33,11 @@ function FilterAllEvents(props) {
   const [priceClicked, setPriceClicked] = useState(false);
   const [dateClicked, setDateClicked] = useState(false);
 
+  const [locationActive, setLocationActive] = useState(false);
+  const [categoryActive, setCategoryActive] = useState(false);
+  const [priceActive, setPriceActive] = useState(false);
+  const [dateActive, setDateActive] = useState(false);
+
   const [isFiltering, setIsFiltering] = useState(false);
   const [locationQuery, setLocationQuery] = useState("");
 
@@ -112,12 +117,13 @@ function FilterAllEvents(props) {
     }
   }, [nextClicked]);
 
-  // filtering: all filtering with pagination
+  // filtering: filtering with pagination
   useEffect(() => {
     if (isFiltering) {
       let params = new URLSearchParams();
       // filter for date
       if (date) {
+        setDateActive(true);
         // fold in dropdown when range chosen
         setDateClicked(false);
         // filter events based on dates in milliseconds since 1970
@@ -127,25 +133,39 @@ function FilterAllEvents(props) {
         params.append("date_to_seconds_lte", endDateSeconds);
         setIsShowingAll(false);
       } else {
+        if (dateActive) setDateActive(false);
         // if no date selected, get only results from today onwards
         params.append("date_to_seconds_gte", todayDateMillis);
         params.append("_sort", "date_to_seconds");
         params.append("_order", "asc");
       }
       // filter for location
-      if (location.length > 0) setIsShowingAll(false);
+      if (location.length > 0) {
+        setIsShowingAll(false);
+        setLocationActive(true);
+      } else {
+        if (locationActive) setLocationActive(false);
+      }
       location.forEach((oneLocation) => {
         params.append("location", oneLocation);
       });
       // filter for category
-      if (category.length > 0) setIsShowingAll(false);
+      if (category.length > 0) {
+        setIsShowingAll(false);
+        setCategoryActive(true);
+      } else {
+        if (categoryActive) setCategoryActive(false);
+      }
       category.forEach((oneCategory) => {
         params.append("category", oneCategory);
       });
       // filter for price
       if (price !== null) {
         setIsShowingAll(false);
+        setPriceActive(true);
         params.append("price_lte", price);
+      } else {
+        if (priceActive) setPriceActive(false);
       }
       // filter for all
       if (showAll) {
@@ -203,6 +223,10 @@ function FilterAllEvents(props) {
     setCategoryClicked(false);
     setPriceClicked(false);
     setShowAll(false);
+    setLocationActive(false);
+    setCategoryActive(false);
+    setPriceActive(false);
+    setDateActive(false);
   };
 
   // filtering: checkbox handeling
@@ -296,7 +320,9 @@ function FilterAllEvents(props) {
           handleClick("date");
           handlePreventClick(e);
         }}
-        className="all-events-filter-title"
+        className={
+          "all-events-filter-title" + (dateActive ? " filter-active" : "")
+        }
       >
         date
         {dateClicked && (
@@ -319,7 +345,9 @@ function FilterAllEvents(props) {
           handleClick("location");
           handlePreventClick(e);
         }}
-        className="all-events-filter-title"
+        className={
+          "all-events-filter-title" + (locationActive ? " filter-active" : "")
+        }
       >
         location
         {locationClicked && (
@@ -370,7 +398,9 @@ function FilterAllEvents(props) {
           handleClick("category");
           handlePreventClick(e);
         }}
-        className="all-events-filter-title"
+        className={
+          "all-events-filter-title" + (categoryActive ? " filter-active" : "")
+        }
       >
         category
         {categoryClicked && (
@@ -409,7 +439,9 @@ function FilterAllEvents(props) {
           handleClick("price");
           handlePreventClick(e);
         }}
-        className="all-events-filter-title"
+        className={
+          "all-events-filter-title" + (priceActive ? " filter-active" : "")
+        }
       >
         max price
         {priceClicked && (
