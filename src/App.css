@@ -22,7 +22,7 @@
 --orange: #ffac72;
 --pink: #ff94c9; */
 
-#root{
+#root {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -84,12 +84,18 @@ input:focus {
   /* background-color: var(--lilac); */
 }
 
-.filter-not-found{
+.filter-not-found {
   color: lightgray;
 }
 
-.text-focus-span{
+.text-focus-span {
   text-decoration: underline;
   text-decoration-style: wavy;
   text-decoration-color: var(--green);
+}
+
+@media only screen and (max-width: 650px) {
+  body, button {
+    color: black;
+  }
 }

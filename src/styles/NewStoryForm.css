@@ -73,6 +73,7 @@
 @media only screen and (max-width: 650px) {
   .past-event-new-story-wrapper {
     padding: 20% 12%;
+    max-height: 100svh;
   }
   .past-event-new-story-form-x {
     position: inherit;
