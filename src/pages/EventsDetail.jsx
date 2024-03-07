@@ -79,12 +79,12 @@ function EventsDetail() {
             <p className="event-description">{event.description}</p>
             <div className="event-date-time-price-wrapper">
               {/*className="event-date-time"*/}
-              <h3 className="event-date">📅{event.date}</h3>
+              <h3 className="event-date">📅   {event.date}</h3>
               <h3 className="event-price">{event.price}€</h3>
             </div>
             <div className="event-time-location-wrapper"></div>
-            <h3 className="event-time">🕒 {event.time}</h3>
-            <h3 className="event-location">📍{event.location}</h3>
+            <h3 className="event-time">🕒   {event.time}</h3>
+            <h3 className="event-location">📍   {event.location}</h3>
           </div>
           <div className="event-participants-wrapper">
             <div className="event-families-going-join-wrapper">
