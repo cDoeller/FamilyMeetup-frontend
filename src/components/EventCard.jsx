@@ -25,9 +25,6 @@ function EventCard(props) {
       <h3>
       🕒 {event.time}
       </h3>
-      <h3>
-      📍 {event.location}
-      </h3>
       </div>
       
     </div>
@@ -46,13 +43,10 @@ function EventCard(props) {
         </div>
         <div className="event-card-datetime">
         <h3 >
-        📅 {event.date}
+        📅{" "} {event.date}
         </h3>
         <h3>
-        🕒 {event.time}
-        </h3>
-        <h3>
-        📍 {event.location}
+        🕒{" "} {event.time}
         </h3>
         </div>
         
