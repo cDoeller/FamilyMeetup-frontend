@@ -45,6 +45,24 @@ nav {
   text-decoration: underline;
 }
 
+.user-name-logout-wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.logout-button{
+  background-color: var(--red);
+  border-radius: 50%;
+  height: 45px;
+  width:45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
 /* MOBILE */
 
 @media only screen and (max-width: 650px) {
@@ -59,7 +77,9 @@ nav {
 margin: 2.4rem 0 2rem 0;
   }
   .user-button-link{
-    margin: 2.4rem 0 2rem 0;
+    margin: 2rem 0 2rem 0;
   }
-
+.user-name-logout-wrapper{
+  margin-top: 1rem;
+}
 }
