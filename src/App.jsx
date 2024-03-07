@@ -27,7 +27,7 @@ function App() {
 
   return (
     <>
-      <NavBar isLoggedIn={isLoggedIn} userName={userName} />
+      <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} userName={userName} />
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/events" element={<EventsList />}></Route>
