@@ -6,7 +6,6 @@ import "../styles/FilterAllEvents.css";
 
 function FilterAllEvents(props) {
   const {
-    eventsToShow,
     setEventsToShow,
     todayDateMillis,
     clicked,
@@ -143,22 +142,22 @@ function FilterAllEvents(props) {
       if (location.length > 0) {
         setIsShowingAll(false);
         setLocationActive(true);
+        location.forEach((oneLocation) => {
+          params.append("location", oneLocation);
+        });
       } else {
         if (locationActive) setLocationActive(false);
       }
-      location.forEach((oneLocation) => {
-        params.append("location", oneLocation);
-      });
       // filter for category
       if (category.length > 0) {
         setIsShowingAll(false);
         setCategoryActive(true);
+        category.forEach((oneCategory) => {
+          params.append("category", oneCategory);
+        });
       } else {
         if (categoryActive) setCategoryActive(false);
       }
-      category.forEach((oneCategory) => {
-        params.append("category", oneCategory);
-      });
       // filter for price
       if (price !== null) {
         setIsShowingAll(false);
@@ -302,7 +301,7 @@ function FilterAllEvents(props) {
   return (
     <div className="filter-all-events-wrapper">
       <span
-        onClick={(e) => {
+        onClick={() => {
           setIsFiltering(true);
           setShowAll(true);
         }}
@@ -372,7 +371,7 @@ function FilterAllEvents(props) {
                 return (
                   <span key={oneLocation} className="checkbox-label-span">
                     <input
-                      checked={location.includes(oneLocation)}
+                      checked={location.length > 0 && location.includes(oneLocation)}
                       onClick={handlePreventClick}
                       name="location"
                       value={oneLocation}
@@ -413,7 +412,7 @@ function FilterAllEvents(props) {
                 return (
                   <span key={oneCategory} className="checkbox-label-span">
                     <input
-                      checked={category.includes(oneCategory)}
+                      checked={category.length > 0 && category.includes(oneCategory)}
                       onClick={handlePreventClick}
                       name="category"
                       onChange={handleChechboxChange}
@@ -451,7 +450,7 @@ function FilterAllEvents(props) {
               name="price-slider"
               className="all-events-filter-input all-events-filter-slider"
               min="0"
-              max={Math.max(...allPrices.current)}
+              max={allPrices && Math.max(...allPrices.current)}
               onChange={(e) => {
                 setIsFiltering(true);
                 setPrice(Math.abs(e.target.value));
