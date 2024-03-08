@@ -361,12 +361,12 @@ function FilterAllEvents(props) {
               }}
               className={
                 "all-events-filter-location-input" +
-                (allLocations && allLocations.current.length === filterLocationList().length
+                (allLocations.current && allLocations.current.length === filterLocationList().length
                   ? " filter-not-found"
                   : "")
               }
             />
-            {allLocations &&
+            {allLocations.current &&
               filterLocationList().map((oneLocation) => {
                 return (
                   <span key={oneLocation} className="checkbox-label-span">
@@ -407,7 +407,7 @@ function FilterAllEvents(props) {
             onClick={handlePreventClick}
             className="all-events-filter-popup checkbox-filtering"
           >
-            {allCategories &&
+            {allCategories.current &&
               allCategories.current.map((oneCategory) => {
                 return (
                   <span key={oneCategory} className="checkbox-label-span">
@@ -450,7 +450,7 @@ function FilterAllEvents(props) {
               name="price-slider"
               className="all-events-filter-input all-events-filter-slider"
               min="0"
-              max={allPrices && Math.max(...allPrices.current)}
+              max={allPrices.current && Math.max(...allPrices.current)}
               onChange={(e) => {
                 setIsFiltering(true);
                 setPrice(Math.abs(e.target.value));
