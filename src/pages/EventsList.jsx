@@ -24,7 +24,7 @@ function EventsList() {
 
   const headlineAbout = (
     <h1 className="header-about-title">
-      Browse, Filter and Create family events in your area!
+      Browse, filter and create family events in your area!
     </h1>
   );
   const subHeadlineAbout = (
@@ -94,7 +94,6 @@ function EventsList() {
         </div>
         <div className="page-wrapper">
           <FilterAllEvents
-            eventsToShow={eventsToShow}
             setEventsToShow={setEventsToShow}
             todayDateMillis={todayDateMillis}
             clicked={clicked}
