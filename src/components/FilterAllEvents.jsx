@@ -361,7 +361,7 @@ function FilterAllEvents(props) {
               }}
               className={
                 "all-events-filter-location-input" +
-                (allLocations.current.length === filterLocationList().length
+                (allLocations && allLocations.current.length === filterLocationList().length
                   ? " filter-not-found"
                   : "")
               }
